@@ -2,25 +2,6 @@
 
 use strict;
 
-use LWP::UserAgent;
-use Data::Dumper;
-use JSON::XS;
-
-sub wdSparqlQuery(@args) {
-  my $agent = shift;
-  my $query = shift;
-  my $format = shift;
-  my $endpointURL = "https://query.wikidata.org/sparql";
-  my $queryURL = "${endpointURL}?query=${query}&format=${format}";
-  my $ua = LWP::UserAgent -> new;
-  $ua -> agent($agent);
-  my $req = HTTP::Request -> new(GET => $queryURL);
-  my $res = $ua -> request($req);
-  my $str = $res -> content;
-  return $str;
-}
-
-
 # Crypt::SSLeay muss installiert sein fuer SSL-Support
 # apt-get install libwww-mechanize-perl libio-socket-ssl-perl libnet-ssleay-perl
 use WWW::Mechanize;
@@ -49,9 +30,10 @@ sub URLEncode {
 
 
 
-# https://commons.wikimedia.org/wiki/Category:Streets_in_Hof_(Saale)
+# Category: Streets in Hamburg
 
-# https://petscan.wmflabs.org/?templates_no=&show_redirects=no&wikidata_item=without&categories=Streets%20and%20squares%20in%20Bad%20Kissingen&cb_labels_no_l=1&ns%5B0%5D=1&since_rev0=&sortby=title&language=commons&cb_labels_yes_l=1&edits%5Bbots%5D=both&negcats=Wikipedia:L%C3%B6schkandidat%0AWikipedia:Schnelll%C3%B6schen&ns%5B14%5D=1&interface_language=en&cb_labels_any_l=1&edits%5Bflagged%5D=both&ns%5B4%5D=1&edits%5Banons%5D=both&project=wikimedia&search_max_results=500&combination=union&ores_prob_from=&doit=&al_commands=P131%3AQ1741%0AP17%3AQ40%0AP31%3AQ79007
+# https://petscan.wmflabs.org/?ns%5B0%5D=1&edits%5Banons%5D=both&edits%5Bbots%5D=both&active_tab=tab_output&cb_labels_any_l=1&categories=Streets%20in%20Hamburg&cb_labels_yes_l=1&wikidata_item=without&edits%5Bflagged%5D=both&show_redirects=no&project=wikimedia&interface_language=en&search_max_results=500&depth=1&ns%5B14%5D=1&negcats=Wikipedia:L%C3%B6schkandidat%0AWikipedia:Schnelll%C3%B6schen&sortby=title&ns%5B4%5D=1&language=commons&cb_labels_no_l=1&since_rev0=&combination=union&search_query=&doit=&al_commands=P131%3AQ1741%0AP17%3AQ40%0AP31%3AQ79007
+
 
 
 my $INFILE = 'list.txt';
@@ -129,61 +111,22 @@ $east = $8;
     
     # print "KAT:$kat:LEMMA_MIT:$lemma_mit_klammerzusatz:LEMMA_OHNE:$lemma_ohne_klammerzusatz:\n";
     
-    
-    ##############
-my $query_agent = "WDQS-example "; # TODO adjust this; see https://w.wiki/CX6
-my $query = '
-SELECT DISTINCT ?item ?label ?itemDescription
-WHERE
-{
-  SERVICE wikibase:mwapi
-  {
-    bd:serviceParam wikibase:endpoint "www.wikidata.org";
-                    wikibase:api "Generator";
-                    mwapi:generator "search";
-                    mwapi:gsrsearch "inlabel:'.$lemma_ohne_zusatz.' hannover"@de;
-                    mwapi:gsrlimit "max".
-    ?item wikibase:apiOutputItem mwapi:title.
-  }
-  ?item rdfs:label ?label. FILTER( LANG(?label)="de" )
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
-  }
-';
-
-# $format = "json";
-# $data = JSON::XS::decode_json(wdSparqlQuery($agent, $query, $format));
-
-my $format = "csv";
-my $data = wdSparqlQuery($query_agent, $query, $format);
-
-# print Dumper($data);
- 
- my @qid_list = ($data =~ /wikidata.org\/entity\/Q([0-9]+)/g);
-# print Dumper(@list);
- my $result_count = @qid_list;
-# print "COUNT:$count:\n";
-   ############## 
-    #### FIXME - check deaktiviert
- my $result_count = 0;     my @qid_list = ();
-#### FIXME - check deaktiviert
-    
-if ($result_count eq 0) {    
     print "CREATE\n";
    print "LAST\tLde\t\"$lemma_ohne_zusatz\"\n"; # label de - bezeichnung
    print "LAST\tLen\t\"$lemma_ohne_zusatz\"\n"; # label de - bezeichnung
 
     my $alias = $lemma_ohne_zusatz;
-      print "LAST\tAde\t\"".$alias.", Bad Kissingen\"\n"; # alias de - alias
-      print "LAST\tAen\t\"".$alias.", Bad Kissingen\"\n"; # alias de - alias
-      print "LAST\tAde\t\"".$alias." (Bad Kissingen)\"\n"; # alias de - alias
-      print "LAST\tAen\t\"".$alias." (Bad Kissingen)\"\n"; # alias de - alias
+      print "LAST\tAde\t\"".$alias.", Hamburg\"\n"; # alias de - alias
+      print "LAST\tAen\t\"".$alias.", Hamburg\"\n"; # alias de - alias
+      print "LAST\tAde\t\"".$alias." (Hamburg)\"\n"; # alias de - alias
+      print "LAST\tAen\t\"".$alias." (Hamburg)\"\n"; # alias de - alias
   
-     my $beschreibung = "Straße in Bad Kissingen";
-     my $beschreibung_en = "street in Bad Kissingen";
+     my $beschreibung = "Straße in Hamburg";
+     my $beschreibung_en = "street in Hamburg";
      
      if ($lemma_ohne_zusatz =~ /platz/i) {
-       $beschreibung = "Platz in Bad Kissingen";
-       $beschreibung_en = "square in Bad Kissingen";
+       $beschreibung = "Platz in Hamburg";
+       $beschreibung_en = "square in Hamburg";
        print "LAST\tP31\tQ174782\n"; # ist eine: Platz (Q174782)
      } else {
        print "LAST\tP31\tQ79007\n"; # ist eine: Innerortsstraße
@@ -193,7 +136,7 @@ if ($result_count eq 0) {
      print "LAST\tDen\t\"$beschreibung_en\"\n"; # description en - beschreibung
      print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
     print "LAST\tP17\tQ183\n"; # Staat: Deutschland (Q183)
-    print "LAST\tP131\tQ488346\n"; # liegt in der Verwaltungseinheit: Bad Kissingen (Q488346)
+    print "LAST\tP131\tQ1055\n"; # liegt in der Verwaltungseinheit: Hamburg (Q1055)  
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
  
     
@@ -201,32 +144,7 @@ if ($result_count eq 0) {
   my $cord = '@'.$north.'/'.$east;
     print "LAST\tP625\t$cord\n";   # koordinaten 
  }
-} else {
-
-
-if ($result_count == 1) {
-
-my $qid = @qid_list[0];
-# print "===================";
-    print "Q".$qid."\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
-    print "Q".$qid."\tP373\t\"$kat\"\n";   # Commonscat-Property
-#print "===================";
-
-     
-}
-
-
-# FIXME
-# wenn anzahl == 1  dann automatisch verbinden
-
-# wenn anzahl meher als 1 dann manuell
-
-
-
-
-}
- 
- 
+   
 
 
 }

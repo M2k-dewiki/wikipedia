@@ -49,9 +49,9 @@ sub URLEncode {
 
 
 
-# https://commons.wikimedia.org/wiki/Category:Streets_in_Hof_(Saale)
+# https://commons.wikimedia.org/wiki/Category:Streets_in_Cologne
 
-# https://petscan.wmflabs.org/?templates_no=&show_redirects=no&wikidata_item=without&categories=Streets%20and%20squares%20in%20Bad%20Kissingen&cb_labels_no_l=1&ns%5B0%5D=1&since_rev0=&sortby=title&language=commons&cb_labels_yes_l=1&edits%5Bbots%5D=both&negcats=Wikipedia:L%C3%B6schkandidat%0AWikipedia:Schnelll%C3%B6schen&ns%5B14%5D=1&interface_language=en&cb_labels_any_l=1&edits%5Bflagged%5D=both&ns%5B4%5D=1&edits%5Banons%5D=both&project=wikimedia&search_max_results=500&combination=union&ores_prob_from=&doit=&al_commands=P131%3AQ1741%0AP17%3AQ40%0AP31%3AQ79007
+# https://petscan.wmflabs.org/?templates_no=&show_redirects=no&wikidata_item=without&categories=Streets%20in%20Cologne&cb_labels_no_l=1&ns%5B0%5D=1&since_rev0=&sortby=title&language=commons&cb_labels_yes_l=1&edits%5Bbots%5D=both&negcats=Wikipedia:L%C3%B6schkandidat%0AWikipedia:Schnelll%C3%B6schen&ns%5B14%5D=1&interface_language=en&cb_labels_any_l=1&edits%5Bflagged%5D=both&ns%5B4%5D=1&edits%5Banons%5D=both&project=wikimedia&search_max_results=500&combination=union&ores_prob_from=&doit=&al_commands=P131%3AQ1741%0AP17%3AQ40%0AP31%3AQ79007
 
 
 my $INFILE = 'list.txt';
@@ -141,7 +141,7 @@ WHERE
     bd:serviceParam wikibase:endpoint "www.wikidata.org";
                     wikibase:api "Generator";
                     mwapi:generator "search";
-                    mwapi:gsrsearch "inlabel:'.$lemma_ohne_zusatz.' hannover"@de;
+                    mwapi:gsrsearch "inlabel:'.$lemma_ohne_zusatz.' köln"@de;
                     mwapi:gsrlimit "max".
     ?item wikibase:apiOutputItem mwapi:title.
   }
@@ -173,17 +173,17 @@ if ($result_count eq 0) {
    print "LAST\tLen\t\"$lemma_ohne_zusatz\"\n"; # label de - bezeichnung
 
     my $alias = $lemma_ohne_zusatz;
-      print "LAST\tAde\t\"".$alias.", Bad Kissingen\"\n"; # alias de - alias
-      print "LAST\tAen\t\"".$alias.", Bad Kissingen\"\n"; # alias de - alias
-      print "LAST\tAde\t\"".$alias." (Bad Kissingen)\"\n"; # alias de - alias
-      print "LAST\tAen\t\"".$alias." (Bad Kissingen)\"\n"; # alias de - alias
+      print "LAST\tAde\t\"".$alias.", Köln\"\n"; # alias de - alias
+      print "LAST\tAen\t\"".$alias.", Köln\"\n"; # alias de - alias
+      print "LAST\tAde\t\"".$alias." (Köln)\"\n"; # alias de - alias
+      print "LAST\tAen\t\"".$alias." (Köln)\"\n"; # alias de - alias
   
-     my $beschreibung = "Straße in Bad Kissingen";
-     my $beschreibung_en = "street in Bad Kissingen";
+     my $beschreibung = "Straße in Köln";
+     my $beschreibung_en = "street in Köln";
      
      if ($lemma_ohne_zusatz =~ /platz/i) {
-       $beschreibung = "Platz in Bad Kissingen";
-       $beschreibung_en = "square in Bad Kissingen";
+       $beschreibung = "Platz in Köln";
+       $beschreibung_en = "square in Köln";
        print "LAST\tP31\tQ174782\n"; # ist eine: Platz (Q174782)
      } else {
        print "LAST\tP31\tQ79007\n"; # ist eine: Innerortsstraße
@@ -193,7 +193,7 @@ if ($result_count eq 0) {
      print "LAST\tDen\t\"$beschreibung_en\"\n"; # description en - beschreibung
      print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
     print "LAST\tP17\tQ183\n"; # Staat: Deutschland (Q183)
-    print "LAST\tP131\tQ488346\n"; # liegt in der Verwaltungseinheit: Bad Kissingen (Q488346)
+    print "LAST\tP131\tQ365\n"; # liegt in der Verwaltungseinheit: Köln (Q365)
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
  
     
