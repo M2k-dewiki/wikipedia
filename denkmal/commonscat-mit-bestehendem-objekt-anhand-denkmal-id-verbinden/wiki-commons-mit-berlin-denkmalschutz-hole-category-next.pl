@@ -29,24 +29,25 @@ my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
 # my $startURL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs';
 # my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Saxony_with_known_ID';
 
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Brandenburg_with_known_ID';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Berlin_with_known_ID';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Berlin_without_linked_Wikidata';
+
+
 # my $startURL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs&subcatfrom=++D-6-75-139-11+%0ABahnhofstra%C3%9Fe+16+%28Iphofen%29#mw-subcategories';
 # my $URL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs&subcatfrom=+D-1-61-000-642+%0AVermessungsamt+%28Ingolstadt%29#mw-subcategories';
 # my $startURL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs';
 # my $startURL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs&subcatfrom=+D-1-63-000-266+%0AKellerstra%C3%9Fe+12+%28Rosenheim%29#mw-subcategories';
 # my $startURL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs&subcatfrom=+D-1-72-114-99+%0ASpitalkirche+Sankt+Johannes+%28Bad+Reichenhall%29#mw-subcategories';
-
+    
 
 
 ###############################
-# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Bavaria_without_linked_Wikidata';
+my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Berlin_without_linked_Wikidata';
 ###############################
 
-# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Brandenburg_with_known_ID';
 
-my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Brandenburg_without_linked_Wikidata';
-   
-
-my $outfile = "out-brandenburg.txt";
+my $outfile = "out-berlin.txt";
 open ( OUT, "> $outfile") || die("cannot open $outfile: $! \n");
 
 my $newURL = followURL($startURL);
@@ -58,7 +59,7 @@ while ($newURL ne "") {
 
 close(OUT);
 
-exit;
+# exit;
 
 
 # FIXME: wie zwischen previous und next unterscheiden ?!?
@@ -129,13 +130,13 @@ for my $link ( @links ) {
   $agent->get( $check_url );
   my $result2 = $agent->content;
   # print "RESULT:$result2:\n";
-  if ($result2 =~ /Baudenkmal Brandenburg/i) {
+  if ($result2 =~ /Kulturdenkmal Berlin/i) {
       print "Lemma $check_url hat Baudenkmal-ID\n";
      if ($result2 =~ /xxxxxxxWikidata infobox/i) {
         print "Lemma $check_url hat Wikidata Infobox - do nothing\n";
      } else {
 	my $blfd_id = "";
-	       if ($result2 =~ /(\s*)\{\{Baudenkmal Brandenburg(\s*)\|(1=)?(\s*)([0-9]+)/i) {
+	       if ($result2 =~ /(\s*)\{\{Kulturdenkmal Berlin(\s*)\|(1=)?(\s*)([0-9]+)/i) {
             print "*** HIER: $1:$2:$3:$4:\n";
 #           $blfd_id = $4;
            $blfd_id = $5;
@@ -157,7 +158,7 @@ for my $link ( @links ) {
 	      
 	  # my $wd_url = 'https://query.wikidata.org/sparql?query=SELECT%20%3Fitem%20WHERE%20%7B%20%3Fitem%20wdt%3AP4244%20%22'.$blfd_id.'%22%20.%20%7D';
 	  # my $wd_url = 'https://query.wikidata.org/sparql?query=SELECT%20%3Fitem%20WHERE%20%7B%20%3Fitem%20wdt%3AP4244%20%22'.$blfd_id.'%22%20.%20%7D';
-	    my $wd_url = 'https://query.wikidata.org/sparql?query=SELECT%20%3Fitem%20%3Fcommonscat%20WHERE%20%7B%20%3Fitem%20wdt%3AP2081%20%22'.$blfd_id.'%22%20.%20%20OPTIONAL%7B%3Fitem%20wdt%3AP373%20%3Fcommonscat%20.%7D%20%20%20%7D';
+	    my $wd_url = 'https://query.wikidata.org/sparql?query=SELECT%20%3Fitem%20%3Fcommonscat%20WHERE%20%7B%20%3Fitem%20wdt%3AP2424%20%22'.$blfd_id.'%22%20.%20%20OPTIONAL%7B%3Fitem%20wdt%3AP373%20%3Fcommonscat%20.%7D%20%20%20%7D';
 
 	    # print "WD_URL:$wd_url:\n";
             #   "Accept: application/json"

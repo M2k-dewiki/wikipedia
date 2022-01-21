@@ -23,30 +23,10 @@ my $USER_AGENT='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like 
 # See the autocheck parameter, which turns all HTTP errors into fatal errors. When you turn autocheck off, you will need to do all error checking yourself.
 my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
 
+my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_South_Tyrol_without_linked_Wikidata';
+    
 
-# https://de.wikipedia.org/wiki/Spezial:Neue_Seiten
-
-# my $startURL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs';
-# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Saxony_with_known_ID';
-
-# my $startURL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs&subcatfrom=++D-6-75-139-11+%0ABahnhofstra%C3%9Fe+16+%28Iphofen%29#mw-subcategories';
-# my $URL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs&subcatfrom=+D-1-61-000-642+%0AVermessungsamt+%28Ingolstadt%29#mw-subcategories';
-# my $startURL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs';
-# my $startURL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs&subcatfrom=+D-1-63-000-266+%0AKellerstra%C3%9Fe+12+%28Rosenheim%29#mw-subcategories';
-# my $startURL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs&subcatfrom=+D-1-72-114-99+%0ASpitalkirche+Sankt+Johannes+%28Bad+Reichenhall%29#mw-subcategories';
-
-
-
-###############################
-# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Bavaria_without_linked_Wikidata';
-###############################
-
-# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Brandenburg_with_known_ID';
-
-my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Brandenburg_without_linked_Wikidata';
-   
-
-my $outfile = "out-brandenburg.txt";
+my $outfile = "out-suedtirol.txt";
 open ( OUT, "> $outfile") || die("cannot open $outfile: $! \n");
 
 my $newURL = followURL($startURL);
@@ -102,19 +82,11 @@ for my $link ( @links ) {
     my $url = $link->url_abs;
     # print "Title: ", $link->attrs->{title}."\n";    next;
     
- #    print "============================\n";
- # print "LINK:$url:\n";
+   #  print "============================\n";
+     print "LINK:$url:\n";
     $count++;
 
-     # https://commons.wikimedia.org/wiki/Category:M%C3%BCnchner_Torturm_(M%C3%BChldorf_am_Inn)?action=raw
-
-     #test
-     # $url = 'https://commons.wikimedia.org/wiki/Category:Mangfallpark_S%C3%BCd_(Rosenheim)';
-     # $url = 'https://commons.wikimedia.org/wiki/Category:F%C3%A4rberstra%C3%9Fe_19_(Rosenheim)';
-    # $url = 'https://commons.wikimedia.org/wiki/Category:Interior_of_St._Nikolaus_(M%C3%BChldorf_am_Inn)';
-    # $url = 'https://commons.wikimedia.org/wiki/Category:M%C3%BCnchener_Stra%C3%9Fe_3_(Abensberg)';
-    # $url = 'https://commons.wikimedia.org/wiki/Category:Kaiserstra%C3%9Fe_11_(Rosenheim)';
-    
+   
      my $lemma = "";
      my $lemma_decode = "";
      if ($url =~ /Category:(.*)$/) {
@@ -122,26 +94,30 @@ for my $link ( @links ) {
 	$lemma_decode = URLDecode($lemma);
 	$lemma_decode =~ s/_/ /og;
         }
-       print "LEMMA:$lemma:DECODE:$lemma_decode:\n";
+    #   print "LEMMA:$lemma:DECODE:$lemma_decode:\n";
      
        my $check_url = $url.'?action=raw';
   #     print "check URL:$url:\n";
   $agent->get( $check_url );
   my $result2 = $agent->content;
   # print "RESULT:$result2:\n";
-  if ($result2 =~ /Baudenkmal Brandenburg/i) {
-      print "Lemma $check_url hat Baudenkmal-ID\n";
-     if ($result2 =~ /xxxxxxxWikidata infobox/i) {
-        print "Lemma $check_url hat Wikidata Infobox - do nothing\n";
+  
+#  {{Denkmalgeschütztes Objekt Südtirol|50394}}
+  
+  if ($result2 =~ /Denkmalgesch.tztes Objekt S.dtirol/i) {
+     # print "Lemma $check_url hat Baudenkmal-ID\n";
+     if ($result2 =~ /xxxxxxxxxxWikidata infoboxxxxxx/i) {
+      #  print "Lemma $check_url hat Wikidata Infobox - do nothing\n";
      } else {
 	my $blfd_id = "";
-	       if ($result2 =~ /(\s*)\{\{Baudenkmal Brandenburg(\s*)\|(1=)?(\s*)([0-9]+)/i) {
-            print "*** HIER: $1:$2:$3:$4:\n";
-#           $blfd_id = $4;
+   if ($result2 =~ /(\s*)\{\{Denkmalgesch.tztes Objekt S.dtirol(\s*)\|(1=)?(\s*)([\-0-9]+)/i) {
+	# if ($result2 =~ /(\s*)\{\{Baudenkmal Bayern(\s*)\|(\s*)(D[\-0-9]+)/i) {
+           # print "*** HIER: $1:$2:$3:$4:$5:$6:$7:\n";
+           # $blfd_id = $4;
            $blfd_id = $5;
-     }
+        }
 	 print "Lemma $check_url hat Baudenkmal-ID $blfd_id:\n";
-        print "Lookup Q-ID for BLFD_ID:$blfd_id:\n";
+        # print "Lookup Q-ID for BLFD_ID:$blfd_id:\n";
 
 	# if ($count == 5) { exit ; }
 	
@@ -151,15 +127,12 @@ for my $link ( @links ) {
 
 # SELECT ?item WHERE { ?item, P373 wdt:P4244 "D-1-89-159-2" . }
 # SELECT ?item ?commonscat WHERE { ?item wdt:P4244 "D-1-63-000-18" .  OPTIONAL{?item wdt:P373 ?commonscat .}   }
-
-
-#	  Commons:Template:Baudenkmal Brandenburg / de:Vorlage:Denkmaldatenbank des Landes Brandenburg - BLDAM-Objekt-ID (Property:P2081)
-	      
+	    
 	  # my $wd_url = 'https://query.wikidata.org/sparql?query=SELECT%20%3Fitem%20WHERE%20%7B%20%3Fitem%20wdt%3AP4244%20%22'.$blfd_id.'%22%20.%20%7D';
 	  # my $wd_url = 'https://query.wikidata.org/sparql?query=SELECT%20%3Fitem%20WHERE%20%7B%20%3Fitem%20wdt%3AP4244%20%22'.$blfd_id.'%22%20.%20%7D';
-	    my $wd_url = 'https://query.wikidata.org/sparql?query=SELECT%20%3Fitem%20%3Fcommonscat%20WHERE%20%7B%20%3Fitem%20wdt%3AP2081%20%22'.$blfd_id.'%22%20.%20%20OPTIONAL%7B%3Fitem%20wdt%3AP373%20%3Fcommonscat%20.%7D%20%20%20%7D';
+	    my $wd_url = 'https://query.wikidata.org/sparql?query=SELECT%20%3Fitem%20%3Fcommonscat%20WHERE%20%7B%20%3Fitem%20wdt%3AP8543%20%22'.$blfd_id.'%22%20.%20%20OPTIONAL%7B%3Fitem%20wdt%3AP373%20%3Fcommonscat%20.%7D%20%20%20%7D';
 
-	    # print "WD_URL:$wd_url:\n";
+	  #   print "WD_URL:$wd_url:\n";
             #   "Accept: application/json"
 	    # "Accept: text/csv"
                # 'Accept' => 'application/json'
@@ -179,7 +152,7 @@ for my $link ( @links ) {
 	$wd_commonscat =~ s/\s//og;
 	  }
 	    if ($wd_commonscat ne "") {
-		 print "lemma $lemma hat bereits commonscat $wd_commonscat - do nothing\n";
+		# print "lemma $lemma hat bereits commonscat $wd_commonscat - do nothing\n";
 	    } else {
 	      
 	      if ($qid > 0 ) {
