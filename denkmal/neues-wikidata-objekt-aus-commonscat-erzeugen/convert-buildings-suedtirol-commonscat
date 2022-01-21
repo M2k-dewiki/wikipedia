@@ -1,0 +1,375 @@
+#!/usr/bin/perl
+
+use strict;
+
+# Crypt::SSLeay muss installiert sein fuer SSL-Support
+# apt-get install libwww-mechanize-perl libio-socket-ssl-perl libnet-ssleay-perl
+use WWW::Mechanize;
+use Data::Dumper;
+use HTML::FormatText;
+my $USER_AGENT='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36';
+# See the autocheck parameter, which turns all HTTP errors into fatal errors. When you turn autocheck off, you will need to do all error checking yourself.
+my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
+
+#http://glennf.com/writing/hexadecimal.url.encoding.html
+# This pattern takes the hex characters and decodes them back into real characters. The function hex() turns a hex number into decimal; 
+# there is no dec() that does the reverse in perl. The "e" at the end of the regexp means "evaluate the replacement pattern as an expression."
+sub URLDecode {
+    my $theURL = $_[0];
+    $theURL =~ tr/+/ /;
+    $theURL =~ s/%([a-fA-F0-9]{2,2})/chr(hex($1))/eg;
+    $theURL =~ s/<!--(.|\n)*-->//g;
+    return $theURL;
+}
+
+sub URLEncode {
+    my $theURL = $_[0];
+    $theURL =~ s/([\W])/"%" . uc(sprintf("%2.2x",ord($1)))/eg;
+    return $theURL;
+}
+
+#
+# - baudenkmaler in Sachsen/Meißen + id
+#
+# Cultural heritage monuments in Saxony without linked Wikidata
+# Dresden
+# 
+# https://petscan.wmflabs.org/?search_filter=&cb_labels_yes_l=1&interface_language=en&since_rev0=&categories=Cultural%20heritage%20monuments%20in%20South%20Tyrol%20without%20linked%20Wikidata%0AChurches%20in%20South%20Tyrol&cb_labels_any_l=1&ns%5B14%5D=1&cb_labels_no_l=1&show_redirects=no&project=wikimedia&wikidata_item=without&search_max_results=500&edits%5Banons%5D=both&depth=10&edits%5Bbots%5D=both&edits%5Bflagged%5D=both&language=commons&doit=
+
+
+# https://petscan.wmflabs.org/?larger=&cb_labels_any_l=1&project=wikimedia&language=commons&search_max_results=500&since_rev0=&interface_language=en&ns%5B14%5D=1&depth=10&wikidata_item=without&cb_labels_yes_l=1&edits%5Bbots%5D=both&categories=Cultural%20heritage%20monuments%20in%20South%20Tyrol%20with%20known%20IDs%0ACultural%20heritage%20monuments%20in%20Salorno&cb_labels_no_l=1&edits%5Bflagged%5D=both&show_redirects=no&edits%5Banons%5D=both&regexp_filter=&doit=
+
+
+# https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_South_Tyrol_by_municipality
+
+# https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_South_Tyrol_with_known_IDs
+
+# https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_South_Tyrol_without_linked_Wikidata
+# Cultural heritage monuments in South Tyrol without linked Wikidata
+# Churches in South Tyrol
+# Buildings in South Tyrol
+
+
+# SELECT ?item ?itemLabel ?value ?liegt_in_der_Verwaltungseinheit ?liegt_in_der_VerwaltungseinheitLabel ?Bild WHERE {
+#  ?item wdt:P1708 ?value.
+#  ?item wdt:P131 wdt:Q8738.
+#  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en". }
+#  OPTIONAL { ?item wdt:P131 ?liegt_in_der_Verwaltungseinheit. }
+#  OPTIONAL { ?item wdt:P18 ?Bild. }
+# } order by ?liegt_in_der_VerwaltungseinheitLabel
+
+# print "LAST\tP1435\tQ18946666\tP248\tQ97569340\n";   # : Schutzkategorie (P1435): Baudenkmal in Südtirol (Q18946666)
+# exit;
+
+
+# print "FIXME: Unterscheidung - Bauwerk / Kirchengebäude ?!?"; exit;
+
+
+
+my %lookup;
+####################
+my $INFILE = 'suedtirol-out-umschluesselung.txt';
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+my $count =0 ;
+while(<IN>)
+{
+    chop;
+    my ($LEMMA,$QID) = split("\t",$_);
+    # print "LEMMA:$LEMMA:QID:$QID:\n";
+    $lookup{$LEMMA} = $QID;
+}
+close (IN);
+
+$lookup{'Sarntal (Gemeinde)'} = 'Q256173';
+$lookup{'Ahrntal (Gemeinde)'} = 'Q402903';
+$lookup{'Marling (Suedtirol)'} = 'Q427354';
+$lookup{'Andrian (Suedtirol)'} = 'Q373802';
+$lookup{'Liste der Baudenkmaeler in Ahrntal (Gemeinde)'} = 'Q1830867';
+$lookup{'Liste der Baudenkmaeler in Andrian (Suedtirol)'} = 'Q1830940';
+
+# foreach my $lemma (sort keys %lookup) {
+#     print "LEMMA:$lemma:QID:".$lookup{$lemma}.":\n";
+# }
+# exit;
+####################
+
+
+
+my $INFILE = 'list.txt';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+my $count =0 ;
+while(<IN>)
+{
+    chop;
+    my $kat = $_;
+    $kat =~ s/^(\s)*//og; # trim
+    $kat =~ s/(\s)*$//og; # trim
+    $kat =~ s/_/ /og; # trim
+    
+    # print "KAT:$kat:\n";
+     if ($kat eq "") { next ; }
+    my $lemma_mit_klammerzusatz = $kat;  # ohne präfix "category:"
+    $lemma_mit_klammerzusatz =~ s/Category://iog;
+    #fixme
+
+    my $lemma_ohne_klammerzusatz = $lemma_mit_klammerzusatz;  # ohne präfix und klammerzusatz
+    $lemma_ohne_klammerzusatz =~ s/\(.+\)//og;
+    $lemma_ohne_klammerzusatz =~ s/^(\s)*//og; # trim
+    $lemma_ohne_klammerzusatz =~ s/(\s)*$//og; # trim
+
+    my $lemma_ohne_klammer_aber_mit_zusatz = $lemma_mit_klammerzusatz;  # ohne präfix 
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/^(\s)*//og; # trim
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/(\s)*$//og; # trim
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/\(//og;
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/\)//og;
+    
+    my $kat_mit_prefix = "Category:".$kat;
+
+    my $klammerzusatz = "";
+    if ($lemma_mit_klammerzusatz =~ /\((.+)\)/og) {
+      $klammerzusatz = $1;
+      # print "KLAMMERZUSATZ:$klammerzusatz:\n";
+    }
+    
+##############
+
+   #   my $url = 'https://commons.wikimedia.org/wiki/Category:Dorfkirche_(Herzsprung_in_der_Uckermark)';
+     my $url = 'https://commons.wikimedia.org/wiki/Category:'.URLEncode($kat);
+    
+#      my $lemma = "";
+#     my $lemma_decode = "";
+#     if ($url =~ /Category:(.*)$/) {
+#        $lemma = $1;
+#        $lemma_decode = URLDecode($lemma);
+#        $lemma_decode =~ s/_/ /og;
+#      }
+#       print "LEMMA:$lemma:DECODE:$lemma_decode:\n";
+     
+       my $check_url = $url.'?action=raw';
+       # print "check URL:$check_url:\n"; # exit;
+
+    $agent->get( $check_url );
+  my $result2 = $agent->content;
+  # print "RESULT:$result2:\n";
+  
+  #     if ($result2 =~ /Wikidata infobox/i) {
+  #      print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";
+  #      next;
+  #   } 
+
+  
+  my $blfd_id = "";
+    if ($result2 =~ /Denkmalgesch.tztes Objekt S.dtirol/i) {
+     # print "Lemma $check_url hat Baudenkmal-ID\n";
+ 
+   if ($result2 =~ /(\s*)\{\{Denkmalgesch.tztes Objekt S.dtirol(\s*)\|(1=)?(\s*)([\-0-9]+)/i) {
+         # print "*** HIER: $1:$2:$3:$4:\n";
+#           $blfd_id = $4;
+           $blfd_id = $5;
+     }
+      #   print "Lemma $check_url hat Baudenkmal-ID $blfd_id:\n";
+   } # Baudenkmal
+
+my $north = "";
+my $east = "";
+  if ($result2 =~ /Object location/i) {
+      # print "Lemma $check_url hat Object location\n";
+      if ($result2 =~ /(\s*)\{\{Object location( dec)?(\s*)\|(\s*)([0-9\.]+)(\s*)\|(\s*)([0-9\.]+)(\s*)\}/i) {
+       #  print "*** HIER: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8\n";
+$north = $5;
+$east = $8;
+     }
+        # print "Lemma $check_url hat location $north $east:\n";
+   } # Baudenkmal
+   
+##############
+
+
+my $lat = 0;
+my $lon = 0;
+my $image = "";
+my $gemeinde_id = "";
+my $check_url2 = "";
+my $list_id = "";
+# my $address = "";
+    
+ if ($blfd_id ne "") {
+ 
+ ################################
+my $denkmal_id = $blfd_id;
+# print "==============\n";
+# my $check_url = 'https://heritage.toolforge.org/api/api.php?format=xml&action=search&srcontinue=it-bz%7Cde%7Cwikipedia%7C'.$denkmal_id.'&srcountry=it-bz&srlang=de';
+# my $check_url = 'https://heritage.toolforge.org/api/api.php?format=csv&action=search&srcontinue=it-bz%7Cde%7Cwikipedia%7C'.$denkmal_id.'&srcountry=it-bz&srlang=de';
+$check_url2 = 'https://heritage.toolforge.org/api/api.php?action=search&format=xml&srcountry=it-bz&srlanguage=de&srid='.$denkmal_id;
+#print "CHECK:$check_url:\n";
+
+$agent->get( $check_url2 );
+  my $result2 = $agent->content;
+# print "RESULT:$result2:\n";
+my @result_arr = split("monument country",$result2);
+
+foreach my $line (@result_arr) {
+    
+    #print "LINE:$line:\n";
+      if ($line =~ /id=\"$denkmal_id\"/i) {
+#	print "LINE:$line:\n";
+
+   if ($line =~ /lat=\"([0-9.]+)\"/i) {
+#	  print "LAT:$1:\n";
+	  $lat = $1;
+      }
+   if ($line =~ /lon=\"([0-9.]+)\"/i) {
+#	  print "LAT:$1:\n";
+	  $lon = $1;
+      }
+
+   if ($line =~ /address=\"([^"]+)\"/i) {
+#	  print "LAT:$1:\n";
+#	  $address = $1;
+#    Adresse (P6375): "St.-Pankratius-Gasse 31 (Deutsch)"
+      }
+   
+      
+   if ($line =~ /image=\"([^"]+)\"/i) {
+#	  print "IMAGE:$1:\n";
+	  $image = $1;
+      }
+
+   if ($line =~ /municipality=\"([^"]+)/i) {
+#	print "GEMEINDE:$1:\n";
+	my $municipality = $1;
+	$municipality =~ s/ü/ue/og;
+	$municipality =~ s/ä/ae/og;
+	$municipality =~ s/ß/ss/og;
+	$municipality =~ s/ö/oe/og;
+#	$municipality =~ s/\u00fcd/oe/og;
+	if ($municipality =~ /(S.dtirol)/) { $municipality =~ s/$1/Suedtirol/; }
+	if ($municipality =~ /(Villn.+)/) { $municipality =~ s/$1/Villnoess/; }
+	if ($municipality =~ /(M.+hlbach)/) { $municipality =~ s/$1/Muehlbach/; }
+	if ($municipality =~ /(St. Ulrich in Gr.den)/) { $municipality =~ s/$1/St. Ulrich in Groeden/; }
+	if ($municipality =~ /(V.ls am Schlern)/) { $municipality =~ s/$1/Voels am Schlern/; }
+	if ($municipality =~ /(M.hlwald)/) { $municipality =~ s/$1/Muehlwald/; }
+	if ($municipality =~ /(Wolkenstein in Gr.den)/) { $municipality =~ s/$1/Wolkenstein in Groeden/; }
+	if ($municipality =~ /(M.lten)/) { $municipality =~ s/$1/Moelten/; }
+	if ($municipality =~ /(V.ran)/) { $municipality =~ s/$1/Voeran/; }
+	if ($municipality =~ /(Taufers im M.nstertal)/) { $municipality =~ s/$1/Taufers im Muenstertal/; }
+	if ($municipality =~ /(L.sen)/) { $municipality =~ s/$1/Luesen/; }
+	if ($municipality =~ /(St. Christina in Gr.den)/) { $municipality =~ s/$1/St. Christina in Groeden/; }
+
+
+
+	
+#	print "municipality:$municipality:\n";
+
+         $gemeinde_id = $lookup{$municipality};
+#print "GID:$gemeinde_id:\n";
+        my $list_lemma =  'Liste der Baudenkmaeler in '.$municipality;
+        $list_id = $lookup{$list_lemma};
+        if ($gemeinde_id eq "") {
+          print "**** WARNING: keine QID für Gemeinde:$municipality:gefunden\n";
+        }
+        if ($list_id eq "") {
+          print "**** WARNING: keine QID für:$list_lemma:gefunden\n";
+        }
+   }
+}
+}
+################################
+ 
+ 
+ }
+ 
+ 
+ 
+ 
+ if ($blfd_id eq "") {    
+    next;  # nur einträge mit denkmal-id
+    }
+    
+    
+    
+    # print "KAT:$kat:LEMMA_MIT:$lemma_mit_klammerzusatz:LEMMA_OHNE:$lemma_ohne_klammerzusatz:\n";
+    
+    print "CREATE\n";
+   print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
+#    print "LAST\tLde\t\"$lemma_ohne_klammer_aber_mit_zusatz\"\n"; # label de - bezeichnung
+
+
+    my $alias = $lemma_mit_klammerzusatz;
+    if ($lemma_mit_klammerzusatz ne $lemma_ohne_klammerzusatz) {
+      print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
+    }
+  
+     my $beschreibung = "Bauwerk";
+# my $beschreibung = "Bauwerk in Seiffen";
+     
+#     my $beschreibung = "Bauwerk in Plauen";
+#     my $beschreibung = "Bauwerk in Weißenberg";
+     
+     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+        print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
+    
+    print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
+#     print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
+     print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+#    print "LAST\tP17\tQ183\n"; # Staat: Deutschland
+
+    print "LAST\tP17\tQ38\n"; # Staat: Italien
+
+# print "LAST\tP131\tQ15124\n"; # liegt in der Verwaltungseinheit: Südtirol (Q15124)
+# print "LAST\tP131\tQ474441\n"; # liegt in der Verwaltungseinheit: Ritten
+
+    print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
+
+    if ($blfd_id ne "") {
+#      print "LAST\tP1435\tQ18946666\n";   # : Schutzkategorie (P1435): Baudenkmal in Südtirol (Q18946666)
+
+      print "LAST\tP1435\tQ18946666\tS248\tQ97569340\n";   # : Schutzkategorie (P1435): Baudenkmal in Südtirol (Q18946666)
+#   Fundstelle   nachgewiesen in: Monumentbrowser - S248:Q97569340
+
+      print "LAST\tP8543\t\"$blfd_id\"\n";   # Monumentbrowser ID (P8543)
+  }  
+    
+    if (($north ne "") && ($east ne "")) {
+      my $cord = '@'.$north.'/'.$east;
+     print "LAST\tP625\t$cord\n";   # koordinaten 
+    } else {
+       if (($lat ne "") && ($lon ne "")) {
+      my $cord = '@'.$lat.'/'.$lon;
+       print "LAST\tP625\t$cord\n";   # koordinaten 
+    }
+ }  
+   
+    if ($gemeinde_id ne "") {
+     # print "-LAST\tP131\tQ15124\n";   # Südtirol (Q15124) entfernen
+     print "LAST\tP131\t$gemeinde_id\n";   
+     if ($list_id ne "") {
+       print "LAST\tP2817\t$list_id\n";
+     }
+     }
+     
+          # erstellt: Bild (P18): Heiligkreuz in Kematen, Klobenstein, Ritten.jpg
+    if ($image ne "") {
+     print "LAST\tP18\t\"$image\"\n";   # bild
+     }
+    
+     print "LAST\tP973\t\"".$check_url2."\"\tP407\tQ188\n"; # wird beschrieben in URL (P973) - Sprache: Deutsch
+      
+#          print "LAST\tP1435\tQ18946666\tS248\tQ97569340\n";   # : Schutzkategorie (P1435): Baudenkmal in Südtirol (Q18946666)
+#   Fundstelle   nachgewiesen in: Monumentbrowser - S248:Q97569340
+     
+#     wird beschrieben in URL (P973)
+
+# ist in der Kulturdenkmal-Liste (P2817): Liste der denkmalgeschützten Objekte in ....
+     
+     
+     
+
+     
+     
+     
+
+}
+close(IN);

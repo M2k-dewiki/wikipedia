@@ -1,0 +1,233 @@
+﻿Sarntal (Gemeinde)	Q256173
+Liste der Baudenkmaeler in Sarntal (Gemeinde)	Q1319225
+Liste der Baudenkmaeler in Sarntal	Q1319225
+Liste der Baudenkmaeler in Abtei (Suedtirol)	Q1830847
+Abtei (Suedtirol)	Q333816
+Liste der Baudenkmaeler in Ahrntal	Q1830867
+Ahrntal	Q402903
+Liste der Baudenkmaeler in Aldein	Q1830883
+Aldein	Q373680
+Liste der Baudenkmaeler in Algund	Q1830895
+Algund	Q419942
+Liste der Baudenkmaeler in Altrei	Q1830926
+Altrei	Q374108
+Liste der Baudenkmaeler in Andrian	Q1830940
+Andrian	Q23690529
+Liste der Baudenkmaeler in Auer (Suedtirol)	Q1287369
+Auer (Suedtirol)	Q433413
+Liste der Baudenkmaeler in Barbian	Q1831090
+Barbian	Q375322
+Liste der Baudenkmaeler in Bozen	Q1831193
+Bozen	Q6526
+Liste der Baudenkmaeler in Branzoll	Q1481637
+Branzoll	Q376275
+Liste der Baudenkmaeler in Brenner (Gemeinde)	Q1694639
+Brenner (Gemeinde)	Q375769
+Liste der Baudenkmaeler in Brixen	Q1393078
+Brixen	Q185541
+Liste der Baudenkmaeler in Bruneck	Q1831212
+Bruneck	Q256765
+Liste der Baudenkmaeler in Burgstall (Suedtirol)	Q1831249
+Burgstall (Suedtirol)	Q474165
+Liste der Baudenkmaeler in Corvara	Q1831284
+Corvara	Q380043
+Liste der Baudenkmaeler in Deutschnofen	Q1831335
+Deutschnofen	Q433365
+Liste der Baudenkmaeler in Enneberg	Q1831538
+Enneberg	Q427253
+Liste der Baudenkmaeler in Eppan	Q1831545
+Eppan	Q252343
+Liste der Baudenkmaeler in Feldthurns	Q1831689
+Feldthurns	Q499695
+Liste der Baudenkmaeler in Franzensfeste	Q1758302
+Franzensfeste	Q381499
+Liste der Baudenkmaeler in Freienfeld	Q1459596
+Freienfeld	Q377057
+Liste der Baudenkmaeler in Gais (Suedtirol)	Q1604931
+Gais (Suedtirol)	Q419157
+Liste der Baudenkmaeler in Gargazon	Q973568
+Gargazon	Q419249
+Liste der Baudenkmaeler in Glurns	Q1831851
+Glurns	Q419357
+Liste der Baudenkmaeler in Graun im Vinschgau	Q1698176
+Graun im Vinschgau	Q380146
+Liste der Baudenkmaeler in Gsies	Q1831906
+Gsies	Q504650
+Liste der Baudenkmaeler in Hafling	Q1831926
+Hafling	Q374659
+Liste der Baudenkmaeler in Innichen	Q1832116
+Innichen	Q474782
+Liste der Baudenkmaeler in Jenesien	Q1665227
+Jenesien	Q474811
+Liste der Baudenkmaeler in Kaltern	Q1832162
+Kaltern	Q278942
+Liste der Baudenkmaeler in Karneid	Q1832176
+Karneid	Q377980
+Liste der Baudenkmaeler in Kastelbell-Tschars	Q1832182
+Kastelbell-Tschars	Q377177
+Liste der Baudenkmaeler in Kastelruth	Q1832184
+Kastelruth	Q377319
+Liste der Baudenkmaeler in Kiens	Q1832209
+Kiens	Q377751
+Liste der Baudenkmaeler in Klausen (Suedtirol)	Q1442046
+Klausen (Suedtirol)	Q378095
+Liste der Baudenkmaeler in Kuens	Q1832293
+Kuens	Q376618
+Liste der Baudenkmaeler in Kurtatsch	Q1318851
+Kurtatsch	Q264549
+Liste der Baudenkmaeler in Kurtinig	Q1767828
+Kurtinig	Q380020
+Liste der Baudenkmaeler in Laas (Suedtirol)	Q1832326
+Laas (Suedtirol)	Q420306
+Liste der Baudenkmaeler in Lajen	Q1832333
+Lajen	Q420006
+Liste der Baudenkmaeler in Lana	Q1800088
+Lana	Q420235
+Liste der Baudenkmaeler in Latsch	Q1832373
+Latsch	Q419816
+Liste der Baudenkmaeler in Laurein	Q1832383
+Laurein	Q420432
+Liste der Baudenkmaeler in Leifers	Q1295137
+Leifers	Q244607
+Liste der Baudenkmaeler in Luesen	Q1832449
+Luesen	Q420503
+Liste der Baudenkmaeler in Mals	Q1714129
+Mals	Q427187
+Liste der Baudenkmaeler in Margreid	Q1832472
+Margreid	Q420734
+Liste der Baudenkmaeler in Marling	Q1247295
+Marling	Q1902104
+Liste der Baudenkmaeler in Martell (Suedtirol)	Q1832509
+Martell (Suedtirol)	Q427850
+Liste der Baudenkmaeler in Meran	Q1832535
+Meran	Q131605
+Liste der Baudenkmaeler in Montan	Q1832578
+Montan	Q432997
+Liste der Baudenkmaeler in Moos in Passeier	Q1832581
+Moos in Passeier	Q433066
+Liste der Baudenkmaeler in Moelten	Q1441654
+Moelten	Q428018
+Liste der Baudenkmaeler in Muehlbach (Suedtirol)	Q1647018
+Muehlbach (Suedtirol)	Q474670
+Liste der Baudenkmaeler in Muehlwald	Q1832611
+Muehlwald	Q504310
+Liste der Baudenkmaeler in Nals	Q1757620
+Nals	Q433114
+Liste der Baudenkmaeler in Naturns	Q1305514
+Naturns	Q263900
+Liste der Baudenkmaeler in Natz-Schabs	Q998195
+Natz-Schabs	Q259455
+Liste der Baudenkmaeler in Neumarkt (Suedtirol)	Q1832671
+Neumarkt (Suedtirol)	Q380287
+Liste der Baudenkmaeler in Niederdorf (Suedtirol)	Q1832699
+Niederdorf (Suedtirol)	Q504724
+Liste der Baudenkmaeler in Olang	Q1832877
+Olang	Q493802
+Liste der Baudenkmaeler in Partschins	Q1655254
+Partschins	Q266982
+Liste der Baudenkmaeler in Percha	Q1524201
+Percha	Q427475
+Liste der Baudenkmaeler in Pfalzen	Q1832940
+Pfalzen	Q380334
+Liste der Baudenkmaeler in Pfatten	Q1740806
+Pfatten	Q499700
+Liste der Baudenkmaeler in Pfitsch	Q1395701
+Pfitsch	Q504607
+Liste der Baudenkmaeler in Plaus	Q1832962
+Plaus	Q474118
+Liste der Baudenkmaeler in Prad am Stilfserjoch	Q1832986
+Prad am Stilfserjoch	Q474174
+Liste der Baudenkmaeler in Prags	Q1832988
+Prags	Q375618
+Liste der Baudenkmaeler in Prettau	Q1698711
+Prettau	Q474195
+Liste der Baudenkmaeler in Proveis	Q1833001
+Proveis	Q474309
+Liste der Baudenkmaeler in Rasen-Antholz	Q1833037
+Rasen-Antholz	Q193711
+Liste der Baudenkmaeler in Ratschings	Q1833041
+Ratschings	Q474345
+Liste der Baudenkmaeler in Riffian	Q1833128
+Riffian	Q474654
+Liste der Baudenkmaeler in Ritten (Gemeinde)	Q1764122
+Ritten (Gemeinde)	Q474441
+Liste der Baudenkmaeler in Rodeneck	Q1622137
+Rodeneck	Q474724
+Liste der Baudenkmaeler in Salurn	Q1833224
+Salurn	Q258810
+Liste der Baudenkmaeler in Sand in Taufers	Q1833234
+Sand in Taufers	Q376944
+Liste der Baudenkmaeler in Schenna	Q1512542
+Schenna	Q504293
+Liste der Baudenkmaeler in Schlanders	Q1689971
+Schlanders	Q494313
+Liste der Baudenkmaeler in Schluderns	Q1764813
+Schluderns	Q493790
+Liste der Baudenkmaeler in Schnals	Q1833286
+Schnals	Q499688
+Liste der Baudenkmaeler in Sexten	Q1833383
+Sexten	Q256337
+Liste der Baudenkmaeler in St. Christina in Groeden	Q1833428
+St. Christina in Groeden	Q504253
+Liste der Baudenkmaeler in St. Leonhard in Passeier	Q1383640
+St. Leonhard in Passeier	Q504149
+Liste der Baudenkmaeler in St. Lorenzen (Suedtirol)	Q1833431
+St. Lorenzen (Suedtirol)	Q504178
+Liste der Baudenkmaeler in St. Martin in Passeier	Q1833432
+St. Martin in Passeier	Q504216
+Liste der Baudenkmaeler in St. Martin in Thurn	Q1833434
+St. Martin in Thurn	Q494793
+Liste der Baudenkmaeler in St. Pankraz (Suedtirol)	Q1833435
+St. Pankraz (Suedtirol)	Q504234
+Liste der Baudenkmaeler in St. Ulrich in Groeden	Q1833437
+St. Ulrich in Groeden	Q255568
+Liste der Baudenkmaeler in Sterzing	Q1833471
+Sterzing	Q263305
+Liste der Baudenkmaeler in Stilfs	Q1833474
+Stilfs	Q493831
+Liste der Baudenkmaeler in Taufers im Muenstertal	Q1498467
+Taufers im Muenstertal	Q504554
+Liste der Baudenkmaeler in Terenten	Q1833536
+Terenten	Q499667
+Liste der Baudenkmaeler in Terlan	Q1833534
+Terlan	Q494814
+Liste der Baudenkmaeler in Tiers	Q1833568
+Tiers	Q504491
+Liste der Baudenkmaeler in Tirol (Suedtirol)	Q1833570
+Tirol (Suedtirol)	Q504179
+Liste der Baudenkmaeler in Tisens	Q1795078
+Tisens	Q504459
+Liste der Baudenkmaeler in Toblach	Q1833576
+Toblach	Q380189
+Liste der Baudenkmaeler in Tramin	Q1833582
+Tramin	Q499114
+Liste der Baudenkmaeler in Truden	Q1833593
+Truden	Q504524
+Liste der Baudenkmaeler in Tscherms	Q1682701
+Tscherms	Q377608
+Liste der Baudenkmaeler in Ulten	Q1833612
+Ulten	Q494050
+Liste der Baudenkmaeler in Unsere Liebe Frau im Walde-St. Felix	Q1833617
+Unsere Liebe Frau im Walde-St. Felix	Q493810
+Liste der Baudenkmaeler in Vahrn	Q1833655
+Vahrn	Q504684
+Liste der Baudenkmaeler in Villanders	Q1795674
+Villanders	Q504736
+Liste der Baudenkmaeler in Villnoess	Q1833677
+Villnoess	Q261187
+Liste der Baudenkmaeler in Vintl	Q1833682
+Vintl	Q282382
+Liste der Baudenkmaeler in Voels am Schlern	Q1690304
+Voels am Schlern	Q381366
+Liste der Baudenkmaeler in Voeran	Q1833696
+Voeran	Q374771
+Liste der Baudenkmaeler in Waidbruck	Q1559470
+Waidbruck	Q474145
+Liste der Baudenkmaeler in Welsberg-Taisten	Q1833787
+Welsberg-Taisten	Q431389
+Liste der Baudenkmaeler in Welschnofen	Q1673693
+Welschnofen	Q433287
+Liste der Baudenkmaeler in Wengen (Suedtirol)	Q1833793
+Wengen (Suedtirol)	Q419733
+Liste der Baudenkmaeler in Wolkenstein in Groeden	Q1833879
+Wolkenstein in Groeden	Q499129
