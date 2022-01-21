@@ -3,21 +3,19 @@
 use strict;
 
 
-my $INFILE = 'landtag-oberoesterreich.csv';
+my $INFILE = 'landtag-wien-2020.csv';
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
 my @sprachliste = ("en","bar","br","ca","co","da","de","de-at","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
-
 
 my $count =0 ;
 while(<IN>)
 {
     chop;
 
-#    my ($name,$partei,$geschlecht) = split(/\t/,$_);
-    my ($name,$partei,$geschlecht) = split(/\,/,$_);
-#     print "NAME:$name:$partei:GENDER:$geschlecht:\n";
+    my ($name,$partei,$geschlecht) = split(/\t/,$_);
+    # print "NAME:$name:$partei:GENDER:$geschlecht:\n";
     
     # $kat =~ s/^(\s)*//og; # trim
     # $kat =~ s/(\s)*$//og; # trim
@@ -45,17 +43,17 @@ while(<IN>)
     
     if ($partei eq "GRÜNE") {
 	print "LAST\tP102\tQ193178\n"; # parteizugehörigkeit grüne
-#	print "LAST\tP102\tQ1213211\n"; # grüne wien
+	print "LAST\tP102\tQ1213211\n"; # grüne wien
     }
 
     if ($partei eq "ÖVP") {
 	print "LAST\tP102\tQ186867\n"; # parteizugehörigkeit
-#	print "LAST\tP102\tQ29561694\n"; # 
+	print "LAST\tP102\tQ29561694\n"; # 
     }
 
     if ($partei eq "SPÖ") {
 	print "LAST\tP102\tQ179111\n"; # parteizugehörigkeit
-#	print "LAST\tP102\tQ1298910\n"; # 
+	print "LAST\tP102\tQ1298910\n"; # 
     }
 
     if ($partei eq "FPÖ") {
@@ -64,9 +62,6 @@ while(<IN>)
 
     if ($partei eq "NEOS") {
 	print "LAST\tP102\tQ13564543\n"; # parteizugehörigkeit
-    }
-    if ($partei eq "MFG") {
-	print "LAST\tP102\tQ108538283\n"; # parteizugehörigkeit
     }
 
     print "LAST\tDde\t\"".$beschreibung."\"\n";
@@ -81,10 +76,8 @@ while(<IN>)
     print "LAST\tP1412\tQ188\n"; # deutsch
 
     # +1967-01-17T00:00:00Z/11
-#    print "LAST\tP39\tQ23711521\tP580\t+2020-11-24T00:00:00Z/11\n";  # mitglied des wiener gemeinderates seit 24.11.2020
-
-# Mitglied des Oberösterreichischen Landtages (Q88985775)
-    print "LAST\tP39\tQ88985775\tP580\t+2021-10-23T00:00:00Z/11\n";  # mitglied des oö landtages seit 23.10.2021
+    print "LAST\tP39\tQ23711521\tP580\t+2020-11-24T00:00:00Z/11\n";  # mitglied des wiener gemeinderates seit 24.11.2020
+    
 
 }
 close(IN);

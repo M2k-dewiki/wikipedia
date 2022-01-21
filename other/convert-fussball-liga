@@ -1,0 +1,60 @@
+#!/usr/bin/perl
+
+use strict;
+
+# CREATE		
+# LAST	P31	Q4167836
+# LAST	Sdewiki	Kategorie:Geographie (Bezirk Bruck-Mürzzuschlag)
+# LAST	Lde	Kategorie:Geographie (Bezirk Bruck-Mürzzuschlag)
+
+my $INFILE = 'list.txt';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+my $count =0 ;
+while(<IN>)
+{
+    chop;
+    my $kat = $_;
+    $kat =~ s/^(\s)*//og; # trim
+    $kat =~ s/(\s)*$//og; # trim
+    $kat =~ s/_/ /og; # trim
+    
+    # print "KAT:$kat:\n";
+
+    
+    print "CREATE\n";
+    print "LAST\tLde\t\"$kat\"\n"; # label de - bezeichnung
+
+#     print "LAST\tDde\t\"deutscher Fernsehfilm der Reihe Praxis mit Meerblick\"\n";
+	 
+    print "LAST\tP31\tQ27020041\n"; # ist eine: Spielsaison
+
+    print "LAST\tP17\tQ183\n"; # Staat: Deutschland
+#     print "LAST\tP17\tQ16957\n"; # Staat: DDR
+    
+    print "LAST\tP641\tQ2736\n"; # Sportart: Fußball
+    
+    # print "LAST\tP3450\tQ109935010\n"; # Liga: Fußball-Bezirksliga Rostock
+
+    
+
+ #print "LAST\tP3450\tQ27909673\n"; # Fußball-Bezirksliga Berlin (Q27909673)
+    
+# print "LAST\tP3450\tQ324698\n"; # Liga: Mittelrheinliga
+
+  #  Fußball-Mittelrheinliga 2011/12
+    
+    
+# AktuellVorherige  23:08, 3. Jan. 2022‎ M2k~dewiki Diskussion Beiträge‎  2.100 Bytes +433‎  ‎Aussage erstellt: Spielsaison der Liga oder des Wettbewerbs (P3450): Mittelrheinliga (Q324698) rückgängig machen Markierung: Wikidata User Interface
+#AktuellVorherige  23:08, 3. Jan. 2022‎ M2k~dewiki Diskussion Beiträge‎  1.667 Bytes +423‎  ‎Aussage erstellt: Staat (P17): Deutschland (Q183) rückgängig machen Markierung: Wikidata User Interface (zurücksetzen)
+#AktuellVorherige  23:08, 3. Jan. 2022‎ M2k~dewiki Diskussion Beiträge‎  1.244 Bytes +427‎  ‎Aussage erstellt: Sportart (P641): Fußball (Q2736) rückgängig machen Markierung: Wikidata User Interface (zurücksetzen)
+#AktuellVorherige  23:08, 3. Jan. 2022‎ M2k~dewiki Diskussion Beiträge‎  817 Bytes +433‎  ‎Aussage erstellt: ist ein(e) (P31): Spielsaison (Q27020041) 
+
+# ytes +440‎  ‎Aussage erstellt: Spielsaison der Liga oder des Wettbewerbs (P3450): Fußball-Bezirksliga Rostock (Q109935010) rückgängig machen Markierung: Wikidata User Interface
+#AktuellVorherige  21:44, 1. Jan. 2022‎ M2k~dewiki Diskussion Beiträge‎  2.098 Bytes +427‎  ‎Aussage erstellt: Staat (P17): Deutsche Demokratische Republik (Q16957) rückgängig machen Markierung: Wikidata User Interface (zurücksetzen)
+#AktuellVorherige  21:43, 1. Jan. 2022‎ M2k~dewiki Diskussion Beiträge‎  1.234 Bytes +427‎  ‎Aussage erstellt: Sportart (P641): Fußball (Q2736) rückgängig machen Markierung: Wikidata User Interface (zurücksetzen)
+#AktuellVorherige  21:43, 1. Jan. 2022‎ M2k~dewiki Diskussion Beiträge‎  807 Bytes +433‎  ‎Aussage erstellt: ist ein(e) (P31): Spielsaison (Q27020041) rückgängig machen Markierung: 
+
+}
+close(IN);

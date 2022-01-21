@@ -1,0 +1,46 @@
+#!/usr/bin/perl
+
+use strict;
+
+# CREATE		
+# LAST	P31	Q4167836
+# LAST	Sdewiki	Kategorie:Geographie (Bezirk Bruck-Mürzzuschlag)
+# LAST	Lde	Kategorie:Geographie (Bezirk Bruck-Mürzzuschlag)
+
+my $INFILE = 'query.csv';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+
+my $count =0 ;
+while(<IN>)
+{
+    chop;
+    my $line = $_;
+ #   print "LINE:$line:\n";
+
+# my $line ='http://www.wikidata.org/entity/Q65606980,Kategorie:Fußballtorhüter (MFK Dubnica),Kategorie:Fußballtorhüter';
+# my $line = 'http://www.wikidata.org/entity/Q65607044,"Kategorie:Hochschullehrer (Miami University, Oxford)",Kategorie:Hochschullehrer';
+ 
+ my ($WD,$lemma) = split(/\t/,$line);
+    
+    $lemma =~ s/\"//og; # trim
+    $lemma =~ s/^(\s)*//og; # trim
+    $lemma =~ s/(\s)*$//og; # trim
+
+#    $WD =~ s/http:\/\/www.wikidata.org\/entity\///og;
+
+#    print "WD:$WD:LEMMA:$lemma:\n";
+
+
+
+    my $beschreibung = "Wikimedia-Kategorie";
+    
+    print "$WD\tLde\t\"$lemma\"\n"; # label de - bezeichnung
+    print "$WD\tDde\t\"".$beschreibung."\"\n";
+
+    
+
+
+}
+close(IN);

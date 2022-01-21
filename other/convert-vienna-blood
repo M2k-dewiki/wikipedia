@@ -1,0 +1,57 @@
+#!/usr/bin/perl
+
+use strict;
+
+# CREATE		
+# LAST	P31	Q4167836
+# LAST	Sdewiki	Kategorie:Geographie (Bezirk Bruck-Mürzzuschlag)
+# LAST	Lde	Kategorie:Geographie (Bezirk Bruck-Mürzzuschlag)
+
+my $INFILE = 'list.txt';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+
+
+my $count =0 ;
+while(<IN>)
+{
+    chop;
+    my $lemma = $_;
+    $lemma =~ s/^(\s)*//og; # trim
+    $lemma =~ s/(\s)*$//og; # trim
+    $lemma =~ s/_/ /og; # trim
+    
+    print "CREATE\n";
+    print "LAST\tLde\t\"Vienna Blood – $lemma\"\n"; # label de - bezeichnung
+    print "LAST\tAde\t\"$lemma\"\n"; # alias de - alias
+	 
+     print "LAST\tDde\t\"britisch-österreichischer Fernsehfilm von Robert Dornhelm (2021)\"\n";
+     print "LAST\tDen\t\"2021 television film directed by Robert Dornhelm\"\n";
+     
+     print "LAST\tP31\tQ506240\n"; # ist ein fernsehfilm
+     print "LAST\tP179\tQ75625798\n"; # serie 
+
+     
+print "LAST\tP364\tQ1860\n"; # sprache englisch
+
+print "LAST\tP495\tQ145\n"; # land uk
+print "LAST\tP495\tQ40\n"; # land at
+
+print "LAST\tP136\tQ959790\n"; # genre kriminalfilm
+
+# Darsteller (P161): Juergen Maurer (Q18626702) rückgängig machen 
+# Darsteller (P161): Matthew Beard (Q511475)
+print "LAST\tP161\tQ511475\n";
+print "LAST\tP161\tQ18626702\n";
+
+# age erstellt: Farbe (P462): Farbe (Q22006653)
+print "LAST\tP462\tQ22006653\n";
+
+# regie robert dornhelm
+print "LAST\tP57\tQ79060\n";
+     
+
+
+}
+close(IN);

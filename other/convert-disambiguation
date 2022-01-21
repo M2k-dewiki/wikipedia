@@ -1,0 +1,46 @@
+#!/usr/bin/perl
+
+use strict;
+
+# CREATE		
+# LAST	P31	Q4167836
+# LAST	Sdewiki	Kategorie:Geographie (Bezirk Bruck-Mürzzuschlag)
+# LAST	Lde	Kategorie:Geographie (Bezirk Bruck-Mürzzuschlag)
+
+my $INFILE = 'list.txt';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+my @sprachliste = ("en","bar","br","ca","co","da","de","de-at","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
+
+my $count =0 ;
+while(<IN>)
+{
+    chop;
+    my $line = $_;
+    my ($lemma,$WD) = split(/\t/,$line);
+    
+    $lemma =~ s/\(.+\)//og;
+    $lemma =~ s/^(\s)*//og; # trim
+    $lemma =~ s/(\s)*$//og; # trim
+
+
+    print "$WD\tP31\tQ4167410\n"; # ist eine: wikimedia-begriffsklärungsseite
+
+    my $beschreibung ="Wikimedia-Begriffsklärungsseite";
+    my $beschreibung_es ="página de desambiguación de Wikimedia";
+    
+        print "$WD\tDde\t\"".$beschreibung."\"\n";
+    print "$WD\tDen\t\"Wikimedia disambiguation page\"\n";
+    print "$WD\tDes\t\"".$beschreibung_es."\"\n";
+    print "$WD\tDast\t\"páxina de dixebra de Wikimedia\"\n";
+    print "$WD\tDnl\t\"Wikimedia-doorverwijspagina\"\n";
+    
+    foreach my $sprache (@sprachliste) {
+      print "$WD\tL".$sprache."\t\"".$lemma."\"\n";
+    }
+    
+
+
+}
+close(IN);
