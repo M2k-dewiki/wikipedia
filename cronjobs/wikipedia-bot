@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# stelle sicher, dass im moment nicht noch eine instanz laueft
+( ps waux 2>&1 | grep 'wikipedia-bot.pl' | grep -v 'grep wikipedia-bot.pl' > /dev/null ) || ( /usr/local/bin/webdiff/wikipedia-bot.pl ) 
