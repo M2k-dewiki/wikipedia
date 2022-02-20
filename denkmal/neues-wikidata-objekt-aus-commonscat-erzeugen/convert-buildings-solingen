@@ -143,29 +143,30 @@ $east = $8;
       print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
     }
   
-    my $beschreibung = "Kirchengebäude";
+#    my $beschreibung = "Kirchengebäude";
 
-#    my $beschreibung = "Bauwerk in Solingen";
+    my $beschreibung = "Bauwerk in Solingen";
 
-    if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+#    if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         
     print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
 
-     print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
-    #print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+    # print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
+    print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
     
     print "LAST\tP17\tQ183\n"; # Staat: Deutschland
-    print "LAST\tP131\tQ1198\n"; # liegt in der Verwaltungseinheit: Nordrhein-Westfalen 
-#    print "LAST\tP131\tQ2942\n"; # liegt in der Verwaltungseinheit: Solingen (Q2942)
+#    print "LAST\tP131\tQ1198\n"; # liegt in der Verwaltungseinheit: Nordrhein-Westfalen 
+    print "LAST\tP131\tQ2942\n"; # liegt in der Verwaltungseinheit: Solingen (Q2942)
 
     
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
     
-#    print "LAST\tP1435\tQ15632117\n";   # Schutzkategorie: Baudenkmal  Baudenkmal in Nordrhein-Westfalen (Q15632117)
-#    print "LAST\tP1435\tQ105959039\n";   # Schutzkategorie: Baudenkmal 
+    print "LAST\tP1435\tQ15632117\n";   # Schutzkategorie: Baudenkmal  Baudenkmal in Nordrhein-Westfalen (Q15632117)
+    print "LAST\tP1435\tQ105959039\n";   # Schutzkategorie: Baudenkmal 
     
     # Schutzkategorie (P1435): Kulturdenkmal in Nordrhein-Westfalen (Q105959039)
+
     
     
 #    print "LAST\tP2081\t\"$blfd_id\"\n";   # BLDAM-Objekt-ID 
@@ -173,6 +174,8 @@ if (($north ne "") && ($east ne "")) {
   my $cord = '@'.$north.'/'.$east;
     print "LAST\tP625\t$cord\n";   # koordinaten 
  }
+
+
  
 
 
