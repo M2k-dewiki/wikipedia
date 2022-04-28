@@ -240,7 +240,11 @@ while(<IN>)
    
 
 #     my $url = URLEncode($sitelink);
+
+
      my $url = $sitelink;
+
+     #my $url = 'https://de.wikipedia.org/wiki/Torfjanoje_(Kaliningrad,_Osjorsk)';
 
      
 ###################     
@@ -248,7 +252,7 @@ while(<IN>)
       # print "URL $url bereits geprueft\n"; 
       print OUT "$url\n"; # bereits gepruefte URL, beim naechsten durchgang nicht nochmals pruefen
 #print "URL $url bereits geprüft - ignore\n";
-      next; 
+       next; 
     }
 ###################     
    
@@ -257,14 +261,14 @@ while(<IN>)
        
 #my $check_url = 'https://de.wikipedia.org/wiki/H%C3%BCbnersm%C3%BChle?action=raw';
        
-      #  print "check URL:$check_url:\n"; # exit;
-   print OUT "$url\n"; # bereits gepruefte URL, beim naechsten durchgang nicht nochmals pruefen
+     #   print "check URL:$check_url:\n"; # exit;
+#   print OUT "$url\n"; # bereits gepruefte URL, beim naechsten durchgang nicht nochmals pruefen
  
  
     $agent->get( $check_url );
   my $result2 = $agent->content;
-#   print "RESULT:$result2:\n";
-  
+#   print "RESULT:$result2:\n"; exit;
+
 #       if ($result2 =~ /Wikidata infobox/i) {
 #        print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";
 #        next;
@@ -360,7 +364,37 @@ $east = $8;
 #   } # Baudenkmal
    
    
-   
+#########################
+#########################
+#########################
+     if ($result2 =~ /(\s*)\|lat_deg(\s*)=(\s*)([0-9\.]+)(\s*)\|lat_min(\s*)=(\s*)([0-9\.]+)(\s*)\|lat_sec(\s*)=(\s*)([0-9\.]+)(\s*)/i) {
+#         print "*** HIER: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
+ $north = $4.'/'.$8.'/'.$12.'/N';
+ $north = dms2decimal($north);
+# print "NORTH:$north:NORTH_DEC:$north_dec:\n";
+
+}     
+
+     if ($result2 =~ /(\s*)\|lon_deg(\s*)=(\s*)([0-9\.]+)(\s*)\|lon_min(\s*)=(\s*)([0-9\.]+)(\s*)\|lon_sec(\s*)=(\s*)([0-9\.]+)(\s*)/i) {
+#         print "*** HIER: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
+ $east = $4.'/'.$8.'/'.$12.'/E';
+ $east = dms2decimal($east);
+# print "NORTH:$north:NORTH_DEC:$north_dec:\n";
+
+}     
+
+#   |lat_deg =54 |lat_min =20 |lat_sec =58
+# |lon_deg =22 |lon_min =13 |lon_sec =31
+
+   #########################
+#########################
+# my $east = '13/51/01/E';
+# my $east_dec = dms2decimal($east);
+# print "EAST:$east:EAST_DEC:$east_dec:\n";
+#########################
+#########################
+#########################
+
    ##############
 
  
@@ -384,8 +418,6 @@ if ($cord !~ /[A-Z]/iog) {
  }
 
 
-  
-    
     
 # {{Object location|52.975743| 13.988022}}  {{Baudenkmal Brandenburg|09130507}}
 # https://www.wikidata.org/wiki/Q101573281
