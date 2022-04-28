@@ -28,10 +28,21 @@ sub URLEncode {
     return $theURL;
 }
 
+
+
+# Cultural heritage monuments in Hesse with known ID
+
+# https://petscan.wmflabs.org/?search_filter=&edits%5Bflagged%5D=both&language=commons&interface_language=en&edits%5Banons%5D=both&cb_labels_no_l=1&ns%5B14%5D=1&since_rev0=&show_redirects=no&search_max_results=500&cb_labels_yes_l=1&wikidata_item=without&edits%5Bbots%5D=both&categories=Cultural%20heritage%20monuments%20in%20Hesse%20with%20known%20ID&project=wikimedia&cb_labels_any_l=1&&doit=
+
+
+# Weilburg
+# https://petscan.wmflabs.org/?templates_no=&edits%5Bbots%5D=both&cb_labels_any_l=1&ns%5B14%5D=1&language=commons&search_max_results=500&edits%5Banons%5D=both&cb_labels_no_l=1&cb_labels_yes_l=1&since_rev0=&edits%5Bflagged%5D=both&wikidata_item=without&show_redirects=no&interface_language=en&categories=Cultural%20heritage%20monuments%20in%20Hesse%20with%20known%20ID%0ACultural%20heritage%20monuments%20in%20Seligenstadt&project=wikimedia&sparql=&doit=
+
+
 #
 # - baudenkmaler in Sachsen/Meißen + id
 #
-# Cultural heritage monuments in Saxony without linked Wikidata
+# Cultural heritage monuments in Hesse without linked Wikidata
 # Dresden
 # 
 # https://petscan.wmflabs.org/?&search_max_results=500&cb_labels_yes_l=1&language=commons&edits%5Bbots%5D=both&edits%5Bflagged%5D=both&interface_language=en&edits%5Banons%5D=both&wikidata_item=without&project=wikimedia&depth=10&show_redirects=no&cb_labels_no_l=1&ns%5B14%5D=1&categories=Cultural%20heritage%20monuments%20in%20Saxony%20without%20linked%20Wikidata%0ADresden%0A&cb_labels_any_l=1&&doit=
@@ -176,38 +187,52 @@ $east = $8;
 # my $beschreibung = "Bauwerk in Kiedrich, Rheingau-Taunus-Kreis, Hessen";
 
 #my $beschreibung = "Wasserturm in Hessen";
-my $beschreibung = "Wasserturm";
+#my $beschreibung = "Wasserturm";
 
 # my $beschreibung = "Bauwerk in Hofgeismar, Landkreis Kassel, Hessen";
 # my $beschreibung = "Kirchengebäude";
+# my $beschreibung = "Bauwerk in Königstein im Taunus, Hochtaunuskreis, Hessen";
 
-     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+
+ my $beschreibung = "Bauwerk in Seligenstadt, Landkreis Offenbach, Hessen";
+
+# my $beschreibung = "Bauwerk";  if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
 #     print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
 #    P31:Q41176 # gebäude
 
-#print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
 #print "LAST\tP31\tQ41176\n"; # ist eine: Gebäude
-
-print "LAST\tP31\tQ274153\n"; # ist eine: Wasserturm
-
+#print "LAST\tP31\tQ274153\n"; # ist eine: Wasserturm
 
     print "LAST\tP17\tQ183\n"; # Staat: Deutschland
 
-            print "LAST\tP131\tQ1199\n"; # liegt in der Verwaltungseinheit: Hessen (Q1199)
-
-#            print "LAST\tP131\tQ569634\n"; # liegt in der Verwaltungseinheit:             Kronberg im Taunus (Q569634)
-
-#            print "LAST\tP131\tQ382481\n"; # liegt in der Verwaltungseinheit:             Büdingen (Q382481)
-
-#            print "LAST\tP131\tQ627351\n"; # liegt in der Verwaltungseinheit:                         Kiedrich (Q627351)
-
-
+#            print "LAST\tP131\tQ1199\n"; # liegt in der Verwaltungseinheit: Hessen (Q1199)
+#            print "LAST\tP131\tQ569661\n"; # liegt in der Verwaltungseinheit: Königstein im Taunus
+            print "LAST\tP131\tQ516529\n"; # liegt in der Verwaltungseinheit: Seligenstadt (Q516529)
             
+#            print "LAST\tP131\tQ569634\n"; # liegt in der Verwaltungseinheit:             Kronberg im Taunus (Q569634)
+#            print "LAST\tP131\tQ382481\n"; # liegt in der Verwaltungseinheit:             Büdingen (Q382481)
+#            print "LAST\tP131\tQ627351\n"; # liegt in der Verwaltungseinheit:                         Kiedrich (Q627351)
  #       print "LAST\tP131\tQ490449\n"; # liegt in der Verwaltungseinheit: Hofgeismar (Q490449)
-#        print "LAST\tP1435\tQ85171284\n"; # kulturdenkmal in hessen
+#            print "LAST\tP131\tQ573599\n"; # liegt in der Verwaltungseinheit: Weilburg (Q573599)
+
+# print "LAST\tP131\tQ3042\n"; # liegt in der Verwaltungseinheit: Offenbach am Main (Q3042)
+#                        print "LAST\tP131\tQ7044\n"; # liegt in der Verwaltungseinheit: Oberursel (Q7044)
+#                        print "LAST\tP131\tQ16105\n"; # liegt in der Verwaltungseinheit: Bad Nauheim (Q16105)
+#                        print "LAST\tP131\tQ4165\n"; # liegt in der Verwaltungseinheit: Bad Homburg vor der Höhe (Q4165)
+#                        print "LAST\tP131\tQ1794\n"; # liegt in der Verwaltungseinheit: Frankfurt am Main (Q1794)
+#                        print "LAST\tP131\tQ16082\n"; # liegt in der Verwaltungseinheit: Bad Vilbel (Q16082)
+#                        print "LAST\tP131\tQ570892\n"; # liegt in der Verwaltungseinheit: Münzenberg (Q570892)
+#                        print "LAST\tP131\tQ14872\n"; # liegt in der Verwaltungseinheit: Bensheim (Q14872)
+#                        print "LAST\tP131\tQ633608\n"; # liegt in der Verwaltungseinheit: Ober-Mörlen (Q633608)
+#                        print "LAST\tP131\tQ617180\n"; # liegt in der Verwaltungseinheit: Rockenberg (Q617180)
+
+
+             
+        print "LAST\tP1435\tQ85171284\n"; # kulturdenkmal in hessen
 
  # tellt: Schutzkategorie (P1435): Kulturdenkmal in Hessen (Q85171284)
  
