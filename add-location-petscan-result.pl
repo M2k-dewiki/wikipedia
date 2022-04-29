@@ -262,7 +262,7 @@ while(<IN>)
 #my $check_url = 'https://de.wikipedia.org/wiki/H%C3%BCbnersm%C3%BChle?action=raw';
        
      #   print "check URL:$check_url:\n"; # exit;
-#   print OUT "$url\n"; # bereits gepruefte URL, beim naechsten durchgang nicht nochmals pruefen
+   print OUT "$url\n"; # bereits gepruefte URL, beim naechsten durchgang nicht nochmals pruefen
  
  
     $agent->get( $check_url );
