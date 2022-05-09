@@ -37,6 +37,9 @@ sub URLEncode {
 # https://petscan.wmflabs.org/?&search_max_results=500&cb_labels_yes_l=1&language=commons&edits%5Bbots%5D=both&edits%5Bflagged%5D=both&interface_language=en&edits%5Banons%5D=both&wikidata_item=without&project=wikimedia&depth=10&show_redirects=no&cb_labels_no_l=1&ns%5B14%5D=1&categories=Cultural%20heritage%20monuments%20in%20Saxony-Anhalt%20without%20linked%20Wikidata%0ACultural%20heritage%20monuments%20in%20Zilly%0A&cb_labels_any_l=1&&doit=
 
 
+# Stapelburg
+# https://petscan.wmflabs.org/?links_to_no=&interface_language=en&show_redirects=no&ns%5B14%5D=1&cb_labels_any_l=1&wikidata_item=without&edits%5Banons%5D=both&since_rev0=&cb_labels_no_l=1&depth=10&edits%5Bflagged%5D=both&cb_labels_yes_l=1&search_max_results=500&project=wikimedia&categories=Cultural%20heritage%20monuments%20in%20Saxony-Anhalt%20without%20linked%20Wikidata%0ACultural%20heritage%20monuments%20in%20Stapelburg%0A&language=commons&edits%5Bbots%5D=both&templates_any=&doit=
+
 # Halberstadt
 # https://petscan.wmflabs.org/?&interface_language=en&cb_labels_no_l=1&search_max_results=500&since_rev0=&edits%5Bbots%5D=both&wikidata_item=without&project=wikimedia&show_redirects=no&categories=Cultural%20heritage%20monuments%20in%20Saxony-Anhalt%20without%20linked%20Wikidata%0ACultural%20heritage%20monuments%20in%20Halberstadt%0A&cb_labels_any_l=1&language=commons&edits%5Bflagged%5D=both&cb_labels_yes_l=1&depth=10&edits%5Banons%5D=both&ns%5B14%5D=1&pagepile=&doit=
 
@@ -194,14 +197,16 @@ $east = $8;
 # my $beschreibung = 'Bauwerk in Heudeber, Nordharz, Sachsen-Anhalt';
      
 
-     #my $beschreibung = 'Bauwerk in Halberstadt, Sachsen-Anhalt';
+     my $beschreibung = 'Bauwerk in Stapelburg, Nordharz, Sachsen-Anhalt';
+#     my $beschreibung = 'Bauwerk in Ströbeck, Halberstadt, Sachsen-Anhalt';
+#     my $beschreibung = 'Bauwerk in Halberstadt, Sachsen-Anhalt';
 #     my $beschreibung = 'Bauwerk in Ilsenburg (Harz), Sachsen-Anhalt';
 #     my $beschreibung = 'Bauwerk in Elbingerode (Harz), Sachsen-Anhalt';
 #     my $beschreibung = 'Bauwerk in Tanne (Harz), Sachsen-Anhalt';
 #     my $beschreibung = 'Bauwerk in Wegeleben, Sachsen-Anhalt';
      
 #     my $beschreibung = 'Bauwerk in Magdeburg, Sachsen-Anhalt';
-     my $beschreibung = 'Bauwerk in Sachsen-Anhalt';
+#     my $beschreibung = 'Bauwerk in Sachsen-Anhalt';
 
      
 #     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
@@ -238,7 +243,8 @@ $east = $8;
  
 # print "LAST\tP131\tQ1733\n"; # liegt in der Verwaltungseinheit:     Magdeburg (Q1733)
 
- print "LAST\tP131\tQ1206\n"; # liegt in der Verwaltungseinheit:     Sachsen-Anhalt (Q1206)
+
+# print "LAST\tP131\tQ1206\n"; # liegt in der Verwaltungseinheit:     Sachsen-Anhalt (Q1206)
 
 
     
@@ -271,6 +277,15 @@ $east = $8;
 # print "LAST\tP131\tQ505191\n"; # liegt in der Verwaltungseinheit: Leuna (Q505191)
 
 # print "LAST\tP131\tQ7072\n"; # liegt in der Verwaltungseinheit: Halberstadt (Q7072)
+# print "LAST\tP276\tQ697010\n"; # Ort: Ströbeck
+
+
+print "LAST\tP131\tQ701320\n"; # liegt in der Verwaltungseinheit: Nordharz (Q701320)
+print "LAST\tP276\tQ700505\n"; # Stapelburg (Q700505)
+
+
+
+
 
 # print "LAST\tP131\tQ690571\n"; # liegt in der Verwaltungseinheit: Schkopau (Q526388)
 # Selke-Aue (Q690571)
