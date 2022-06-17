@@ -113,7 +113,7 @@ for my $link ( @links ) {
  	   if ($result2 =~ /is not registered/) {
               #ignore
 	   } else {
-             if ($result2 =~ /There is currently no text in this page/) {
+             if ($result2 =~ /There is currently no text in this page|Start a discussion with/) {
 	       # print "$url - $check_url - {{welcome|~~~~}}\n";
 		 # 25.9.2019 my $print_url = 'https://www.wikidata.org/w/index.php?title=User_talk:'.$user.'&action=edit&redlink=1';
 		 # my $print_url = 'https://www.wikidata.org/w/index.php?title=User_talk:'.$user.'&action=edit&redlink=1&summary={{welcome|~~~~}}';
