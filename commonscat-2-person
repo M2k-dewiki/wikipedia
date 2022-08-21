@@ -1,0 +1,88 @@
+#!/usr/bin/perl
+
+use strict;
+
+# Crypt::SSLeay muss installiert sein fuer SSL-Support
+# apt-get install libwww-mechanize-perl libio-socket-ssl-perl libnet-ssleay-perl
+use WWW::Mechanize;
+use Data::Dumper;
+use HTML::FormatText;
+my $USER_AGENT='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36';
+# See the autocheck parameter, which turns all HTTP errors into fatal errors. When you turn autocheck off, you will need to do all error checking yourself.
+my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
+
+#http://glennf.com/writing/hexadecimal.url.encoding.html
+# This pattern takes the hex characters and decodes them back into real characters. The function hex() turns a hex number into decimal; 
+# there is no dec() that does the reverse in perl. The "e" at the end of the regexp means "evaluate the replacement pattern as an expression."
+sub URLDecode {
+    my $theURL = $_[0];
+    $theURL =~ tr/+/ /;
+    $theURL =~ s/%([a-fA-F0-9]{2,2})/chr(hex($1))/eg;
+    $theURL =~ s/<!--(.|\n)*-->//g;
+    return $theURL;
+}
+
+sub URLEncode {
+    my $theURL = $_[0];
+    $theURL =~ s/([\W])/"%" . uc(sprintf("%2.2x",ord($1)))/eg;
+    return $theURL;
+}
+
+
+
+# https://petscan.wmflabs.org/?links_to_all=&since_rev0=&negcats=Wikipedia:L%C3%B6schkandidat%0AWikipedia:Schnelll%C3%B6schen&cb_labels_no_l=1&ns%5B4%5D=1&cb_labels_any_l=1&interface_language=en&ns%5B14%5D=1&wikidata_item=without&depth=20&edits%5Bflagged%5D=both&active_tab=tab_output&edits%5Bbots%5D=both&language=commons&project=wikimedia&ns%5B0%5D=1&sortby=title&categories=Table%20tennis%20players%20by%20country&show_redirects=no&search_max_results=500&edits%5Banons%5D=both&cb_labels_yes_l=1&combination=union&doit=&al_commands=P31%3AQ5%0AP106%3AQ13382519%0AP641%3AQ3930
+
+
+
+my $INFILE = 'list.txt';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+my $count =0 ;
+while(<IN>)
+{
+    chop;
+    my $kat = $_;
+    $kat =~ s/^(\s)*//og; # trim
+    $kat =~ s/(\s)*$//og; # trim
+    $kat =~ s/_/ /og; # trim
+    
+	if (!(/en:Category/)) {
+		 next; 
+	}
+	
+    # print "KAT:$kat:\n";
+    
+    my $lemma_mit_klammerzusatz = $kat;  # ohne präfix "category:"
+    $lemma_mit_klammerzusatz =~ s/en:Category://iog;
+    #fixme
+
+    my $lemma_ohne_zusatz = $lemma_mit_klammerzusatz;  # ohne präfix und klammerzusatz
+    $lemma_ohne_zusatz =~ s/\(.+//og;
+    $lemma_ohne_zusatz =~ s/^(\s)*//og; # trim
+    $lemma_ohne_zusatz =~ s/(\s)*$//og; # trim
+
+    
+    my $kat_mit_prefix = "Category:".$kat;
+
+    
+    
+    # print "KAT:$kat:LEMMA_MIT:$lemma_mit_klammerzusatz:LEMMA_OHNE:$lemma_ohne_klammerzusatz:\n";
+    
+    print "CREATE\n";
+   # print "LAST\tLde\t\"$lemma_ohne_zusatz\"\n"; # label de - bezeichnung
+   print "LAST\tLen\t\"$lemma_ohne_zusatz\"\n"; # label de - bezeichnung
+
+    print "LAST\tScommonswiki\t\"Category:$lemma_ohne_zusatz\"\n"; # sitelink
+
+
+    print "LAST\tP31\tQ5\n"; # ist ein: Mensch
+    print "LAST\tP106\tQ13382519\n"; # tätigkeit: tischtennisspieler
+    print "LAST\tP641\tQ3930\n"; # sportart: tischtennis
+    print "LAST\tP373\t\"$lemma_ohne_zusatz\"\n";   # Commonscat-Property
+
+    
+
+
+}
+close(IN);
