@@ -36,7 +36,8 @@ sub URLEncode {
 
 
 # my $INFILE = 'Download';
-my $INFILE = '/home/m2k/Downloads/Download.csv';
+# my $INFILE = '/home/m2k/Downloads/Download.csv';
+ my $INFILE = 'Download.csv';
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
@@ -75,11 +76,23 @@ $line =~ s/\"//og;
  my $IAAF = "";
 
 
+
+##################
+# * {{World Athletics|14524845}}
       if ($result2 =~ /(\s*)\{\{World Athletics(\s*)\|([0-9\.]+)(\s*)\}\}/i) {
          # print "*** IAAF: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
  $IAAF = $3;
 }
+##################
 
+
+##################
+# * {{World Athletics|ID=14524845}}
+      if ($result2 =~ /(\s*)\{\{World Athletics(\s*)\|(\s*)ID(\s*)\=(\s*)([0-9\.]+)(\s*)\}\}/i) {
+      #   print "*** IAAF: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
+ $IAAF = $6;
+}
+##################
  
 
 if ($IAAF ne "") {
