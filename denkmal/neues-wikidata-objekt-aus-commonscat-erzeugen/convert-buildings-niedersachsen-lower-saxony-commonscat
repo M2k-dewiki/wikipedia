@@ -155,9 +155,12 @@ $east = $8;
 
 # my $beschreibung = "Bauwerk in Hofgeismar, Landkreis Kassel, Hessen";
 # my $beschreibung = "Kirchengebäude";
- my $beschreibung = "Bauwerk";
+# my $beschreibung = "Bauwerk";
+# my $beschreibung = "Bauwerk in Drage";#
+ my $beschreibung = "Bauwerk in Göttingen";#
+ 
 
-     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+#     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
@@ -172,25 +175,32 @@ print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
 
     print "LAST\tP17\tQ183\n"; # Staat: Deutschland
 
+
+
+            print "LAST\tP131\tQ3033\n"; # liegt in der Verwaltungseinheit: Göttingen (Q3033)
+
+#            print "LAST\tP131\tQ15984\n"; # liegt in der Verwaltungseinheit: Leer (Q15984)
+
+#            print "LAST\tP131\tQ665062\n"; # liegt in der Verwaltungseinheit: Drage (Q665062)
+
+#            print "LAST\tP131\tQ3014\n"; # liegt in der Verwaltungseinheit: Wolfsburg (Q3014)
+#            print "LAST\tP131\tQ23968\n"; # liegt in der Verwaltungseinheit: Norderney
 #            print "LAST\tP131\tQ1199\n"; # liegt in der Verwaltungseinheit: Hessen (Q1199)
-
 #            print "LAST\tP131\tQ569634\n"; # liegt in der Verwaltungseinheit:             Kronberg im Taunus (Q569634)
-
 #            print "LAST\tP131\tQ382481\n"; # liegt in der Verwaltungseinheit:             Büdingen (Q382481)
-
-            print "LAST\tP131\tQ658681\n"; # liegt in der Verwaltungseinheit:                         Handorf (Q658681)
-
-
-            
+#            print "LAST\tP131\tQ658681\n"; # liegt in der Verwaltungseinheit:                         Handorf (Q658681)
  #       print "LAST\tP131\tQ490449\n"; # liegt in der Verwaltungseinheit: Hofgeismar (Q490449)
-        print "LAST\tP1435\tQ85171485\n"; # kulturdenkmal in Niedersachsen
+
 
  # tellt: Schutzkategorie (P1435): Kulturdenkmal in Niedersachsen (Q85171485)
  
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
    
    if ($blfd_id ne "") {
+	  if ( $blfd_id > 1) {
       print "LAST\tP7900\t\"$blfd_id\"\n";   # LSFID
+	          print "LAST\tP1435\tQ85171485\n"; # kulturdenkmal in Niedersachsen
+	 }
   }
   
   

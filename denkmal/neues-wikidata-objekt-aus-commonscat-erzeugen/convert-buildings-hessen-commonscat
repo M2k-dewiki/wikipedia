@@ -190,28 +190,29 @@ $east = $8;
 #my $beschreibung = "Wasserturm";
 
 # my $beschreibung = "Bauwerk in Hofgeismar, Landkreis Kassel, Hessen";
-# my $beschreibung = "Kirchengebäude";
+ my $beschreibung = "Kirchengebäude";
 # my $beschreibung = "Bauwerk in Königstein im Taunus, Hochtaunuskreis, Hessen";
 
 
- my $beschreibung = "Bauwerk in Seligenstadt, Landkreis Offenbach, Hessen";
+# my $beschreibung = "Bauwerk in Seligenstadt, Landkreis Offenbach, Hessen";
 
-# my $beschreibung = "Bauwerk";  if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+# my $beschreibung = "Bauwerk";  
+if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
-#     print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
+     print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
 #    P31:Q41176 # gebäude
 
-print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+# print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
 #print "LAST\tP31\tQ41176\n"; # ist eine: Gebäude
 #print "LAST\tP31\tQ274153\n"; # ist eine: Wasserturm
 
     print "LAST\tP17\tQ183\n"; # Staat: Deutschland
 
-#            print "LAST\tP131\tQ1199\n"; # liegt in der Verwaltungseinheit: Hessen (Q1199)
+            print "LAST\tP131\tQ1199\n"; # liegt in der Verwaltungseinheit: Hessen (Q1199)
 #            print "LAST\tP131\tQ569661\n"; # liegt in der Verwaltungseinheit: Königstein im Taunus
-            print "LAST\tP131\tQ516529\n"; # liegt in der Verwaltungseinheit: Seligenstadt (Q516529)
+#            print "LAST\tP131\tQ516529\n"; # liegt in der Verwaltungseinheit: Seligenstadt (Q516529)
             
 #            print "LAST\tP131\tQ569634\n"; # liegt in der Verwaltungseinheit:             Kronberg im Taunus (Q569634)
 #            print "LAST\tP131\tQ382481\n"; # liegt in der Verwaltungseinheit:             Büdingen (Q382481)
@@ -232,14 +233,16 @@ print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
 
 
              
-        print "LAST\tP1435\tQ85171284\n"; # kulturdenkmal in hessen
-
- # tellt: Schutzkategorie (P1435): Kulturdenkmal in Hessen (Q85171284)
  
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
    
    if ($blfd_id ne "") {
       print "LAST\tP1769\t\"$blfd_id\"\n";   # LSFID
+	  
+	         print "LAST\tP1435\tQ85171284\n"; # kulturdenkmal in hessen
+
+ # tellt: Schutzkategorie (P1435): Kulturdenkmal in Hessen (Q85171284)
+ 
   }
   
   
