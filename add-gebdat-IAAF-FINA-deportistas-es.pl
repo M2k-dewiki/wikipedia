@@ -244,6 +244,26 @@ $FINA = $1;
 #######################################
 
 
+#######################################
+# FDR
+#######################################
+#https://es.wikipedia.org/wiki/Ralf_Rienks
+my $FDR = "";
+# {{fdr|id=46957}}
+ if ($result2 =~ /\{\{fdr\|id\=([0-9]+)\}\}/i) {
+$FDR = $1;
+# print "*************\n";
+# print "FDR:$1:\n";
+# print "*************\n";
+#FISA-ID (numerisches Format) (P2091)
+   print "$QID\tP2091\t\"$FDR\"\tS143\tQ8449\n";
+    # S ... Fundstelle
+#    importiert aus Wikimedia-Projekt (P143)   
+# spanischsprachige Wikipedia (Q8449)
+}	 
+#######################################
+
+
 
 # exit;
 
