@@ -49,6 +49,9 @@ sub URLEncode {
 # https://petscan.wmflabs.org/?cb_labels_yes_l=1&categories=Churches%20in%20Stuttgart%0A&edits%5Bbots%5D=both&edits%5Banons%5D=both&interface_language=en&active_tab=tab_pageprops&depth=20&negcats=Interiors%20of%20churches%20in%20Brandenburg&cb_labels_any_l=1&language=commons&search_max_results=500&wikidata_item=without&ns%5B14%5D=1&project=wikimedia&cb_labels_no_l=1&edits%5Bflagged%5D=both&show_redirects=no&wikidata_source_sites=&doit=
 ######################
 
+# Besigheim
+# https://petscan.wmflabs.org/?namespace_conversion=keep&cb_labels_yes_l=1&wpiu=any&search_max_results=500&source_combination=&regexp_filter=&common_wiki=auto&templates_yes=&interface_language=en&sortby=title&search_wiki=&minlinks=&common_wiki_other=&links_to_any=&categories=Cultural+heritage+monuments+in+Besigheim&language=commons&pagepile=&since_rev0=&cb_labels_no_l=1&edits%5Bbots%5D=both&links_to_no=&outlinks_any=&output_limit=&sortorder=ascending&sitelinks_any=&depth=10&show_redirects=no&outlinks_no=&min_sitelink_count=&maxlinks=&referrer_url=&ns%5B14%5D=1&page_image=any&edits%5Banons%5D=both&cb_labels_any_l=1&wikidata_prop_item_use=&langs_labels_no=&sitelinks_yes=&project=wikimedia&langs_labels_any=&before=&wikidata_item=without&doit=
+
 
 # exclude:
 #Altars in Baden-Württemberg
@@ -165,16 +168,18 @@ $east = $8;
       print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
     }
   
+
+
     my $beschreibung = "Bauwerk";
 #    my $beschreibung = "Kirchengebäude";
     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; } # else { $beschreibung = $beschreibung." in Baden-Württemberg"; } 
         
     print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
-#    print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
-    print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+    print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
+#    print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
 print "LAST\tP17\tQ183\n"; # Staat: Deutschland
-    print "LAST\tP131\tQ4037\n"; # liegt in der Verwaltungseinheit: Schwäbisch Gmünd (Q985)
+#    print "LAST\tP131\tQ4037\n"; # liegt in der Verwaltungseinheit: Schwäbisch Gmünd (Q985)
 
 #    print "LAST\tP131\tQ985\n"; # liegt in der Verwaltungseinheit: Baden-Württemberg (Q985)
 
@@ -187,11 +192,18 @@ print "LAST\tP17\tQ183\n"; # Staat: Deutschland
 #    print "LAST\tP131\tQ2833\n"; # liegt in der Verwaltungseinheit:     Freiburg im Breisgau (Q2833)
 #    print "LAST\tP131\tQ2966\n"; # liegt in der Verwaltungseinheit:     Heidelberg (Q2966)
 #    print "LAST\tP131\tQ3012\n"; # liegt in der Verwaltungseinheit:     Ulm (Q3012)
-    
+#    print "LAST\tP131\tQ146373\n"; # liegt in der Verwaltungseinheit:     Rosenfeld (Q146373)
+	
+    print "LAST\tP131\tQ61825\n"; # liegt in der Verwaltungseinheit:     Besigheim (Q61825)
+
+
+
+
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
-   # print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
-    print "LAST\tP1435\tQ50378766\n";   # Schutzkategorie: Kulturdenkmal in Baden-Württemberg (Q50378766)
+#    print "LAST\tP1435\tQ50378766\n";   # Schutzkategorie: Kulturdenkmal in Baden-Württemberg (Q50378766)
+#    print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
 #    print "LAST\tP2081\t\"$blfd_id\"\n";   # BLDAM-Objekt-ID 
+
 if (($north ne "") && ($east ne "")) {
   my $cord = '@'.$north.'/'.$east;
     print "LAST\tP625\t$cord\n";   # koordinaten 
