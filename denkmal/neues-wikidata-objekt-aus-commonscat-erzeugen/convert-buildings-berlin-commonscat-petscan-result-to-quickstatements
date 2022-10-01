@@ -148,6 +148,7 @@ $east = $8;
       print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
     }
   
+#     my $beschreibung = "Kirchengebäude in Berlin";
      my $beschreibung = "Bauwerk in Berlin";
 #     my $beschreibung = "Bauwerk in Schönheide";
 #     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
@@ -168,11 +169,12 @@ $east = $8;
     
     
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
-    print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
-    print "LAST\tP1435\tQ85171142\n";   # Schutzkategorie: Kulturdenkmal in Berlin
-    
-    print "LAST\tP2424\t\"$blfd_id\"\n";   # Denkmal-ID
-    
+	
+	if ($blfd_id ne "") {
+      print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
+      print "LAST\tP1435\tQ85171142\n";   # Schutzkategorie: Kulturdenkmal in Berlin
+       print "LAST\tP2424\t\"$blfd_id\"\n";   # Denkmal-ID
+	} 
     
     if (($north ne "") && ($east ne "")) {
   my $cord = '@'.$north.'/'.$east;
