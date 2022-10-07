@@ -28,12 +28,13 @@ my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
 
 
     my @userlist = (
-#    'Flussar',
     'Edelmauswaldgeist',
-# #       'I.+Berger',
-# #     'Georg Karl Ell',
+	'Plozessor',
        );
-   my $limit = 100;
+   my $limit = 5000;
+#    'Flussar',
+#      'I.+Berger',
+#     'Georg Karl Ell',
 
 
 # my $newOnly = 1; # nur neue kategorien
