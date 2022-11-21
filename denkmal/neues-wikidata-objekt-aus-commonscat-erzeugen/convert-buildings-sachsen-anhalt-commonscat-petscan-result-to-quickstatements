@@ -71,6 +71,16 @@ sub URLEncode {
 # Cultural heritage monuments in Wegeleben (Rodersdorf)
 # # https://petscan.wmflabs.org/?langs_labels_yes=&language=commons&depth=10&edits%5Banons%5D=both&since_rev0=&ns%5B14%5D=1&cb_labels_yes_l=1&interface_language=en&project=wikimedia&categories=Cultural%20heritage%20monuments%20in%20Saxony-Anhalt%20without%20linked%20Wikidata%0ACultural%20heritage%20monuments%20in%20Rodersdorf&search_max_results=500&cb_labels_any_l=1&show_redirects=no&cb_labels_no_l=1&edits%5Bbots%5D=both&wikidata_item=without&edits%5Bflagged%5D=both&templates_no=&doit=https://petscan.wmflabs.org/?langs_labels_yes=&language=commons&depth=10&edits%5Banons%5D=both&since_rev0=&ns%5B14%5D=1&cb_labels_yes_l=1&interface_language=en&project=wikimedia&categories=Cultural%20heritage%20monuments%20in%20Saxony-Anhalt%20without%20linked%20Wikidata%0ACultural%20heritage%20monuments%20in%20Rodersdorf&search_max_results=500&cb_labels_any_l=1&show_redirects=no&cb_labels_no_l=1&edits%5Bbots%5D=both&wikidata_item=without&edits%5Bflagged%5D=both&templates_no=&doit=
 
+# Schwanebeck
+# https://petscan.wmflabs.org/?templates_no=&depth=10&project=wikimedia&interface_language=en&show_redirects=no&search_max_results=500&ns%5B14%5D=1&edits%5Bflagged%5D=both&categories=Cultural%20heritage%20monuments%20in%20Saxony-Anhalt%20without%20linked%20Wikidata%0ACultural%20heritage%20monuments%20in%20Schwanebeck&since_rev0=&cb_labels_any_l=1&wikidata_item=without&edits%5Banons%5D=both&edits%5Bbots%5D=both&cb_labels_yes_l=1&language=commons&cb_labels_no_l=1&doit=
+
+
+# Quedlinburg
+# https://petscan.wmflabs.org/?labels_yes=&referrer_name=&edits%5Bflagged%5D=both&edits%5Banons%5D=both&langs_labels_yes=&pagepile=&cb_labels_any_l=1&ns%5B14%5D=1&wikidata_label_language=&templates_no=&langs_labels_any=&cb_labels_yes_l=1&project=wikimedia&labels_any=&common_wiki=auto&depth=10&output_compatability=catscan&outlinks_any=&output_limit=&after=&max_sitelink_count=&sitelinks_no=&interface_language=en&wikidata_item=without&cb_labels_no_l=1&categories=Cultural+heritage+monuments+in+Saxony-Anhalt+without+linked+Wikidata%0D%0ACultural+heritage+monuments+in+Quedlinburg&manual_list=&common_wiki_other=&regexp_filter=&since_rev0=&language=commons&ores_type=any&format=html&smaller=&show_redirects=no&search_max_results=500&namespace_conversion=keep&show_disambiguation_pages=both&source_combination=&sitelinks_any=&referrer_url=&min_redlink_count=1&doit=
+
+# Abbenrode
+# https://petscan.wmflabs.org/?langs_labels_no=&edits%5Bflagged%5D=both&templates_no=&referrer_name=&output_compatability=catscan&depth=10&outlinks_any=&edits%5Banons%5D=both&language=commons&output_limit=&wikidata_prop_item_use=&minlinks=&since_rev0=&max_age=&ns%5B14%5D=1&maxlinks=&ores_prediction=any&format=html&sitelinks_any=&show_redirects=no&cb_labels_any_l=1&manual_list_wiki=&cb_labels_yes_l=1&regexp_filter=&cb_labels_no_l=1&combination=subset&sitelinks_no=&wikidata_item=without&interface_language=en&categories=Cultural+heritage+monuments+in+Saxony-Anhalt+without+linked+Wikidata%0D%0ACultural+heritage+monuments+in+Abbenrode&wpiu=any&larger=&project=wikimedia&common_wiki_other=&sparql=&links_to_all=&wikidata_label_language=&before=&ores_type=any&langs_labels_any=&search_max_results=500&search_filter=&doit=
+
 
 # SELECT ?item ?itemLabel ?value ?liegt_in_der_Verwaltungseinheit ?liegt_in_der_VerwaltungseinheitLabel ?Bild WHERE {
 #  ?item wdt:P1708 ?value.
@@ -216,9 +226,15 @@ $east = $8;
 #my $beschreibung = 'Bauwerk in Merseburg, Sachsen-Anhalt';
 #my $beschreibung = 'Bauwerk';
 
+# my $beschreibung = 'Bauwerk in Naumburg (Saale)';
+
+#my $beschreibung = 'Bauwerk in Quedlinburg, Sachsen-Anhalt';
+my $beschreibung = 'Bauwerk in Abbenrode, Nordharz, Sachsen-Anhalt';
+
+
 ##my $beschreibung = 'Bauwerk in Derenburg, Blankenburg, Landkreis Harz, Sachsen-Anhalt';
 
-#my $beschreibung = 'Bauwerk in Osterwieck, Landkreis Harz, Sachsen-Anhalt';
+# my $beschreibung = 'Bauwerk in Osterwieck, Landkreis Harz, Sachsen-Anhalt';
 #my $beschreibung = 'Bauwerk in Wasserleben, Nordharz, Sachsen-Anhalt';
 #my $beschreibung = 'Bauwerk in Veckenstedt, Nordharz, Sachsen-Anhalt';
 #     my $beschreibung = 'Bauwerk in Stapelburg, Nordharz, Sachsen-Anhalt';
@@ -229,7 +245,12 @@ $east = $8;
 #     my $beschreibung = 'Bauwerk in Tanne (Harz), Sachsen-Anhalt';
      
 #     my $beschreibung = 'Bauwerk in Magdeburg, Sachsen-Anhalt';
-     my $beschreibung = 'Bauwerk in Sachsen-Anhalt';
+#     my $beschreibung = 'Bauwerk in Sachsen-Anhalt';
+#     my $beschreibung = 'Bauwerk in Schwanebeck, Sachsen-Anhalt';
+
+#     my $beschreibung = 'Bauwerk in Eilenstedt, Huy, Sachsen-Anhalt';
+#     my $beschreibung = 'Bauwerk in Gröningen, Sachsen-Anhalt';
+
 
 
 #     my $beschreibung = 'Bauwerk in Bitterfeld-Wolfen, Sachsen-Anhalt';
@@ -245,7 +266,7 @@ $east = $8;
 
 
 
-     #     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+#          if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
@@ -272,7 +293,13 @@ $east = $8;
 # print "LAST\tP131\tQ50854\n"; # liegt in der Verwaltungseinheit:       Wegeleben (Q50854)
 
 
+# print "LAST\tP131\tQ15986\n"; # liegt in der Verwaltungseinheit:     Naumburg (Saale) (Q15986)
 
+# print "LAST\tP131\tQ40623\n"; # liegt in der Verwaltungseinheit:     Quedlinburg (Q40623)
+
+
+ print "LAST\tP131\tQ701320\n"; # liegt in der Verwaltungseinheit:     Nordharz (Q701320)
+print "LAST\tP276\tQ306221\n"; # Ort: Abbenrode (Q306221)
 
 
 # print "LAST\tP131\tQ1733\n"; # liegt in der Verwaltungseinheit:     Magdeburg (Q1733)
@@ -280,8 +307,12 @@ $east = $8;
 # print "LAST\tP131\tQ1733\n"; # liegt in der Verwaltungseinheit:     Magdeburg (Q1733)
 
 
- print "LAST\tP131\tQ1206\n"; # liegt in der Verwaltungseinheit:     Sachsen-Anhalt (Q1206)
+# print "LAST\tP131\tQ1206\n"; # liegt in der Verwaltungseinheit:     Sachsen-Anhalt (Q1206)
 # print "LAST\tP131\tQ442875\n"; # liegt in der Verwaltungseinheit:     Altmärkische Höhe (Q442875)
+
+
+# print "LAST\tP131\tQ50862\n"; # liegt in der Verwaltungseinheit:     Schwanebeck (Q50862)
+
 
 
 # print "LAST\tP131\tQ7007\n"; # liegt in der Verwaltungseinheit:     Bitterfeld-Wolfen (Q7007)
@@ -295,12 +326,8 @@ $east = $8;
 # print "LAST\tP276\tQ700388\n"; # Ort: Benneckenstein (Q700388)
 
 
-
-
-
+#print "LAST\tP131\tQ547619\n"; # liegt in der Verwaltungseinheit: Osterwieck (Q547619)
     
-#print "LAST\tP131\tQ547619\n"; # liegt in der Verwaltungseinheit: Schkopau (Q526388)
-#    Osterwieck (Q547619)
 #print "LAST\tP276\tQ203231\n"; # Ort: Zilly
 # Ort (P276): 
 # Zilly (Q203231)
@@ -329,6 +356,16 @@ $east = $8;
 
 # print "LAST\tP131\tQ7072\n"; # liegt in der Verwaltungseinheit: Halberstadt (Q7072)
 # print "LAST\tP276\tQ697010\n"; # Ort: Ströbeck
+
+
+# print "LAST\tP131\tQ21170\n"; # liegt in der Verwaltungseinheit:     Huy (Q21170)
+# print "LAST\tP276\tQ1304039\n"; # Ort: Eilenstedt (Q1304039)
+
+
+# print "LAST\tP131\tQ571925\n"; # liegt in der Verwaltungseinheit:     Gröningen (Q571925)
+# print "LAST\tP276\tQ1231913\n"; # Ort: Benediktinerkloster Gröningen (Q1231913)
+
+
 
 # print "LAST\tP131\tQ701320\n"; # liegt in der Verwaltungseinheit: Nordharz (Q701320)
 # print "LAST\tP276\tQ700505\n"; # Stapelburg (Q700505)
@@ -376,6 +413,7 @@ $east = $8;
     print "LAST\tP1435\tQ85102127\n";   # Schutzkategorie (P1435): Kulturdenkmal in Sachsen-Anhalt (Q85102127)
 
   }  
+
     
     if (($north ne "") && ($east ne "")) {
   my $cord = '@'.$north.'/'.$east;
