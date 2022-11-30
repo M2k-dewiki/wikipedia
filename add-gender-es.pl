@@ -77,6 +77,7 @@ my $count =0 ;
 while(<IN>)
 {
   chop;
+#  my ($QID, §dummy,$sitelink) = split (/\,/,$_); 
   my ($QID, $sitelink) = split (/\,/,$_); 
   $sitelink =~ s/\"//og;
   $QID =~ s/\"//og;
@@ -125,12 +126,12 @@ my $gender = "";
 # (es|fue) un  
 # https://es.wikipedia.org/wiki/Brayden_McCarthy 
 
-    if ($result2 =~ / (es|fue) una deportista /i) {
+    if ($result2 =~ / (es|fue) una (deportista|futbolista) /i) {
 	  $gender = "Q6581072"; # female
 	  # $gender = "female / Q6581072"; # female
 	}
 
-    if ($result2 =~ / (es|fue) un deportista /i) {
+    if ($result2 =~ / (es|fue) un (deportista|futbolista) /i) {
   	   $gender = "Q6581097";  # male 
   	#   $gender = "male / Q6581097";  # male 
 	}
