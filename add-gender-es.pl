@@ -126,12 +126,15 @@ my $gender = "";
 # (es|fue) un  
 # https://es.wikipedia.org/wiki/Brayden_McCarthy 
 
-    if ($result2 =~ / (es|fue) una (deportista|futbolista) /i) {
+$result2 =~ s/\[//og;
+$result2 =~ s/\]//og;
+
+    if ($result2 =~ / (es|fue) una (deportista|futbolista|jinete) /i) {
 	  $gender = "Q6581072"; # female
 	  # $gender = "female / Q6581072"; # female
 	}
 
-    if ($result2 =~ / (es|fue) un (deportista|futbolista) /i) {
+if ($result2 =~ / (es|fue) un (deportista|futbolista|jinete) /i) {
   	   $gender = "Q6581097";  # male 
   	#   $gender = "male / Q6581097";  # male 
 	}
