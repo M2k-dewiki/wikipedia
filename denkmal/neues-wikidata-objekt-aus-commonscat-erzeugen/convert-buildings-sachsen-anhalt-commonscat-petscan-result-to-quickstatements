@@ -81,6 +81,28 @@ sub URLEncode {
 # Abbenrode
 # https://petscan.wmflabs.org/?langs_labels_no=&edits%5Bflagged%5D=both&templates_no=&referrer_name=&output_compatability=catscan&depth=10&outlinks_any=&edits%5Banons%5D=both&language=commons&output_limit=&wikidata_prop_item_use=&minlinks=&since_rev0=&max_age=&ns%5B14%5D=1&maxlinks=&ores_prediction=any&format=html&sitelinks_any=&show_redirects=no&cb_labels_any_l=1&manual_list_wiki=&cb_labels_yes_l=1&regexp_filter=&cb_labels_no_l=1&combination=subset&sitelinks_no=&wikidata_item=without&interface_language=en&categories=Cultural+heritage+monuments+in+Saxony-Anhalt+without+linked+Wikidata%0D%0ACultural+heritage+monuments+in+Abbenrode&wpiu=any&larger=&project=wikimedia&common_wiki_other=&sparql=&links_to_all=&wikidata_label_language=&before=&ores_type=any&langs_labels_any=&search_max_results=500&search_filter=&doit=
 
+#Aspenstedt
+# https://petscan.wmflabs.org/?show_redirects=no&before=&wikidata_item=without&langs_labels_yes=&common_wiki_other=&links_to_any=&min_sitelink_count=&cb_labels_any_l=1&interface_language=en&regexp_filter=&edits%5Banons%5D=both&sparql=&referrer_name=&smaller=&after=&labels_any=&search_wiki=&templates_no=&source_combination=&namespace_conversion=keep&project=wikimedia&show_soft_redirects=both&search_query=&subpage_filter=either&wpiu=any&max_age=&ns%5B14%5D=1&search_filter=&output_compatability=catscan&since_rev0=&sortorder=ascending&langs_labels_any=&cb_labels_no_l=1&links_to_all=&categories=Cultural+heritage+monuments+in+Saxony-Anhalt+without+linked+Wikidata%0D%0ACultural+heritage+monuments+in+Aspenstedt&depth=10&sitelinks_any=&referrer_url=&manual_list_wiki=&language=commons&search_max_results=500&pagepile=&cb_labels_yes_l=1&doit=
+
+# Athenstedt
+# https://petscan.wmflabs.org/?wikidata_item=without&language=commons&langs_labels_yes=&outlinks_any=&max_age=&referrer_name=&links_to_no=&edits%5Bbots%5D=both&langs_labels_no=&labels_no=&langs_labels_any=&negcats=&manual_list_wiki=&show_soft_redirects=both&active_tab=tab_categories&search_max_results=500&show_disambiguation_pages=both&page_image=any&regexp_filter=&search_filter=&links_to_all=&wikidata_prop_item_use=&cb_labels_yes_l=1&ores_prob_to=&cb_labels_any_l=1&categories=Cultural+heritage+monuments+in+Saxony-Anhalt+without+linked+Wikidata%0D%0ACultural+heritage+monuments+in+Athenstedt&project=wikimedia&ns%5B14%5D=1&edits%5Banons%5D=both&sparql=&manual_list=&show_redirects=no&larger=&depth=10&search_query=&wikidata_source_sites=&smaller=&cb_labels_no_l=1&interface_language=en&combination=subset&sortby=none&links_to_any=&sitelinks_yes=&doit=
+
+# Dardesheim
+# https://petscan.wmflabs.org/?since_rev0=&templates_no=&edits%5Banons%5D=both&langs_labels_yes=&active_tab=tab_categories&outlinks_any=&sparql=&labels_any=&after=&wpiu=any&cb_labels_yes_l=1&ores_prob_to=&sitelinks_yes=&cb_labels_no_l=1&search_filter=&larger=&max_sitelink_count=&min_redlink_count=1&manual_list_wiki=&language=commons&depth=10&categories=Cultural+heritage+monuments+in+Saxony-Anhalt+without+linked+Wikidata%0D%0ACultural+heritage+monuments+in+Dardesheim&sortorder=ascending&max_age=&interface_language=en&outlinks_yes=&templates_yes=&edits%5Bbots%5D=both&wikidata_item=without&combination=subset&ns%5B14%5D=1&search_max_results=500&pagepile=&referrer_url=&labels_no=&manual_list=&cb_labels_any_l=1&project=wikimedia&links_to_no=&negcats=&show_redirects=no&doit=
+
+# Deersheim
+# https://petscan.wmflabs.org/?maxlinks=&wikidata_item=without&manual_list_wiki=&wikidata_label_language=&wpiu=any&smaller=&min_sitelink_count=&minlinks=&format=html&manual_list=&show_disambiguation_pages=both&langs_labels_no=&depth=10&cb_labels_yes_l=1&before=&after=&ores_type=any&search_max_results=500&cb_labels_no_l=1&edits%5Banons%5D=both&sortby=none&labels_yes=&page_image=any&interface_language=en&outlinks_any=&cb_labels_any_l=1&language=commons&active_tab=tab_categories&project=wikimedia&categories=Cultural+heritage+monuments+in+Saxony-Anhalt+without+linked+Wikidata%0D%0ACultural+heritage+monuments+in+Deersheim&ns%5B14%5D=1&show_soft_redirects=both&langs_labels_any=&ores_prediction=any&output_compatability=catscan&edits%5Bflagged%5D=both&show_redirects=no&source_combination=&search_wiki=&sparql=&wikidata_source_sites=&links_to_no=&referrer_url=&doit=
+
+# Dingelstedt am Huy
+# https://petscan.wmflabs.org/?format=html&search_wiki=&active_tab=tab_categories&labels_any=&ns%5B14%5D=1&templates_no=&links_to_all=&sortorder=ascending&show_soft_redirects=both&source_combination=&sitelinks_no=&outlinks_no=&wikidata_item=without&cb_labels_yes_l=1&project=wikimedia&ores_type=any&search_filter=&ores_prob_to=&depth=10&langs_labels_yes=&show_redirects=no&larger=&language=commons&links_to_no=&links_to_any=&ores_prediction=any&maxlinks=&categories=Cultural+heritage+monuments+in+Saxony-Anhalt+without+linked+Wikidata%0D%0ACultural+heritage+monuments+in+Dingelstedt+am+Huy&search_query=&langs_labels_no=&sortby=none&sitelinks_any=&wikidata_label_language=&cb_labels_any_l=1&min_redlink_count=1&search_max_results=500&since_rev0=&show_disambiguation_pages=both&manual_list_wiki=&before=&sparql=&cb_labels_no_l=1&interface_language=en&doit=
+
+
+# Hessen, Osterwieck
+# https://petscan.wmflabs.org/?edits%5Banons%5D=both&interface_language=en&common_wiki=auto&links_to_all=&sitelinks_yes=&project=wikimedia&outlinks_any=&since_rev0=&pagepile=&cb_labels_yes_l=1&show_redirects=no&ns%5B14%5D=1&categories=Cultural+heritage+monuments+in+Saxony-Anhalt+without+linked+Wikidata%0D%0ACultural+heritage+monuments+in+Hessen+%28Fallstein%29&manual_list_wiki=&links_to_any=&ores_prediction=any&ores_type=any&sortorder=ascending&search_wiki=&active_tab=tab_categories&source_combination=&language=commons&wpiu=any&min_sitelink_count=&sortby=none&search_max_results=500&wikidata_item=without&ores_prob_from=&labels_yes=&langs_labels_yes=&cb_labels_no_l=1&subpage_filter=either&combination=subset&common_wiki_other=&cb_labels_any_l=1&min_redlink_count=1&before=&after=&show_disambiguation_pages=both&templates_yes=&depth=10&output_limit=&doit=
+
+# Lüttgenrode (Osterwieck)
+# https://petscan.wmflabs.org/?max_sitelink_count=&referrer_name=&templates_any=&wikidata_label_language=&sparql=&common_wiki=auto&interface_language=en&combination=subset&maxlinks=&wpiu=any&wikidata_prop_item_use=&langs_labels_any=&ns%5B14%5D=1&sitelinks_no=&sortorder=ascending&labels_yes=&regexp_filter=&edits%5Bflagged%5D=both&after=&sitelinks_any=&categories=Cultural+heritage+monuments+in+Saxony-Anhalt+without+linked+Wikidata%0D%0ACultural+heritage+monuments+in+L%C3%BCttgenrode+%28Osterwieck%29&pagepile=&search_query=&project=wikimedia&namespace_conversion=keep&max_age=&depth=10&cb_labels_no_l=1&page_image=any&cb_labels_yes_l=1&templates_yes=&format=html&outlinks_no=&search_max_results=500&cb_labels_any_l=1&language=commons&edits%5Banons%5D=both&show_redirects=no&search_wiki=&wikidata_item=without&output_limit=&doit=
+
 
 # SELECT ?item ?itemLabel ?value ?liegt_in_der_Verwaltungseinheit ?liegt_in_der_VerwaltungseinheitLabel ?Bild WHERE {
 #  ?item wdt:P1708 ?value.
@@ -229,7 +251,21 @@ $east = $8;
 # my $beschreibung = 'Bauwerk in Naumburg (Saale)';
 
 #my $beschreibung = 'Bauwerk in Quedlinburg, Sachsen-Anhalt';
-my $beschreibung = 'Bauwerk in Abbenrode, Nordharz, Sachsen-Anhalt';
+# my $beschreibung = 'Bauwerk in Abbenrode, Nordharz, Sachsen-Anhalt';
+#     my $beschreibung = 'Bauwerk in Aspenstedt, Halberstadt, Sachsen-Anhalt';
+#     my $beschreibung = 'Bauwerk in Athenstedt, Halberstadt, Sachsen-Anhalt';
+
+#     my $beschreibung = 'Bauwerk in Dardesheim, Osterwieck, Sachsen-Anhalt';
+#     my $beschreibung = 'Bauwerk in Deersheim, Osterwieck, Sachsen-Anhalt';
+
+#     my $beschreibung = 'Bauwerk in Dingelstedt am Huy, Sachsen-Anhalt';
+#     my $beschreibung = 'Bauwerk in Sachsen-Anhalt';
+
+#     my $beschreibung = 'Bauwerk in Hessen, Osterwieck, Sachsen-Anhalt';
+#     my $beschreibung = 'Bauwerk in Lüttgenrode, Osterwieck, Sachsen-Anhalt';
+     my $beschreibung = 'Bauwerk in Stötterlingen, Osterwieck, Sachsen-Anhalt';
+
+
 
 
 ##my $beschreibung = 'Bauwerk in Derenburg, Blankenburg, Landkreis Harz, Sachsen-Anhalt';
@@ -250,6 +286,11 @@ my $beschreibung = 'Bauwerk in Abbenrode, Nordharz, Sachsen-Anhalt';
 
 #     my $beschreibung = 'Bauwerk in Eilenstedt, Huy, Sachsen-Anhalt';
 #     my $beschreibung = 'Bauwerk in Gröningen, Sachsen-Anhalt';
+
+
+#     my $beschreibung = 'Bauwerk in Huy-Neinstedt, Sachsen-Anhalt'; # Huy-Neinstedt (Q1387060)
+
+
 
 
 
@@ -298,8 +339,8 @@ my $beschreibung = 'Bauwerk in Abbenrode, Nordharz, Sachsen-Anhalt';
 # print "LAST\tP131\tQ40623\n"; # liegt in der Verwaltungseinheit:     Quedlinburg (Q40623)
 
 
- print "LAST\tP131\tQ701320\n"; # liegt in der Verwaltungseinheit:     Nordharz (Q701320)
-print "LAST\tP276\tQ306221\n"; # Ort: Abbenrode (Q306221)
+# print "LAST\tP131\tQ701320\n"; # liegt in der Verwaltungseinheit:     Nordharz (Q701320)
+# print "LAST\tP276\tQ306221\n"; # Ort: Abbenrode (Q306221)
 
 
 # print "LAST\tP131\tQ1733\n"; # liegt in der Verwaltungseinheit:     Magdeburg (Q1733)
@@ -357,9 +398,29 @@ print "LAST\tP276\tQ306221\n"; # Ort: Abbenrode (Q306221)
 # print "LAST\tP131\tQ7072\n"; # liegt in der Verwaltungseinheit: Halberstadt (Q7072)
 # print "LAST\tP276\tQ697010\n"; # Ort: Ströbeck
 
+# print "LAST\tP131\tQ7072\n"; # liegt in der Verwaltungseinheit: Halberstadt (Q7072)
+# print "LAST\tP276\tQ703174\n"; # Ort:  Athenstedt
+# print "LAST\tP276\tQ697815\n"; # Ort:  Aspenstedt (Q697815)
+
+
+print "LAST\tP131\tQ547619\n"; # liegt in der Verwaltungseinheit: Osterwieck (Q547619)
+# print "LAST\tP276\tQ1165772\n"; # Ort:  Dardesheim (Q1165772)
+# print "LAST\tP276\tQ1000077\n"; # Ort:  Deersheim
+# print "LAST\tP276\tQ896361\n"; # Ort:  Hessen (Q896361)
+# print "LAST\tP276\tQ702580\n"; # Ort:  Lüttgenrode (Q702580)
+ print "LAST\tP276\tQ115483600\n"; # Ort:  Stötterlingen (Q115483600)
+
+
+
 
 # print "LAST\tP131\tQ21170\n"; # liegt in der Verwaltungseinheit:     Huy (Q21170)
 # print "LAST\tP276\tQ1304039\n"; # Ort: Eilenstedt (Q1304039)
+
+# print "LAST\tP131\tQ21170\n"; # liegt in der Verwaltungseinheit:     Huy (Q21170)
+# print "LAST\tP276\tQ1226388\n"; # Ort:Dingelstedt am Huy (Q1226388)
+
+# print "LAST\tP131\tQ21170\n"; # liegt in der Verwaltungseinheit:     Huy (Q21170)
+# print "LAST\tP276\tQ1387060\n"; # Ort:Huy-Neinstedt (Q1387060)
 
 
 # print "LAST\tP131\tQ571925\n"; # liegt in der Verwaltungseinheit:     Gröningen (Q571925)
