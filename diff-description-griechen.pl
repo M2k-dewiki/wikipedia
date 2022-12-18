@@ -60,6 +60,10 @@ foreach my $key (sort keys %urllist) {
 
 my %mons = ("Januar"=>'01',"Februar"=>'02',"März"=>'03',"April"=>'04',"Mai"=>'05',"Juni"=>'06',"Juli"=>'07',"August"=>'08',"September"=>'09',"Oktober"=>'10',"November"=>'11',"Dezember"=>'12');
 
+my $count_diff = 0;
+my $count_equal = 0;
+my $count_total = 0;
+	
 # my $INFILE = 'list.txt';
 # my $INFILE = 'query.csv';
 # my $INFILE = '/home/m2k/Downloads/query.csv';
@@ -72,6 +76,7 @@ open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 my $count =0 ;
 while(<IN>)
 {
+	
     chop;
 
     my ($number,$title,$pageid,$namespace,$length,$touched,$QID) = split (/\,/,$_); 
@@ -88,6 +93,10 @@ while(<IN>)
 	   # print "$QID ist KEINE QID\n";
 	next ;
     }
+$count_total++;
+
+print "COUNT_TOTAL:$count_total:COUNT_DIFF:$count_diff:COUNT_EQUAL:$count_equal:\n";
+
 
    #  print "QID:$QID:SL:$sitelink:\n"; # next;
 
@@ -162,8 +171,10 @@ my $wd_url = 'https://query.wikidata.org/sparql?query=SELECT%20%3FitemDesc%0AWHE
   } else {
           $result3 =~ s/itemDesc//og;
 	  if ($result3 ne $description) {
+		  $count_diff++;
     print '[[:d:'.$QID.']]:Beschreibung WD-Objekt:'.$result3.':KURZBESCHREIBUNG Personendaten:'.$description.":\n";
 	  } else {
+		  $count_equal++;
 		 # print "QID:$QID:identische Beschreibung WD-Objekt und Personendaten sind gleich:$description:\n";
 	  }
   }
