@@ -73,6 +73,16 @@ my $INFILE = 'Download.csv';
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
+
+print '
+
+{| class="wikitable zebra sortable" 
+|- class="hintergrundfarbe5" style="position: sticky; top: 0; z-index: 12;"
+!Objekt
+!WD-Beschreibung
+!PD-Kurzbeschreibung
+';
+
 my $count =0 ;
 while(<IN>)
 {
@@ -95,7 +105,7 @@ while(<IN>)
     }
 $count_total++;
 
-print "COUNT_TOTAL:$count_total:COUNT_DIFF:$count_diff:COUNT_EQUAL:$count_equal:\n";
+# print "COUNT_TOTAL:$count_total:COUNT_DIFF:$count_diff:COUNT_EQUAL:$count_equal:\n";
 
 
    #  print "QID:$QID:SL:$sitelink:\n"; # next;
@@ -172,7 +182,9 @@ my $wd_url = 'https://query.wikidata.org/sparql?query=SELECT%20%3FitemDesc%0AWHE
           $result3 =~ s/itemDesc//og;
 	  if ($result3 ne $description) {
 		  $count_diff++;
-    print '[[:d:'.$QID.']]:Beschreibung WD-Objekt:'.$result3.':KURZBESCHREIBUNG Personendaten:'.$description.":\n";
+		  print "|-\n";
+    print '| [[:d:'.$QID.']] || '.$result3.' || '.$description."\n";
+#    print '| [[:d:'.$QID.']]:Beschreibung WD-Objekt:'.$result3.':KURZBESCHREIBUNG Personendaten:'.$description.":\n";
 	  } else {
 		  $count_equal++;
 		 # print "QID:$QID:identische Beschreibung WD-Objekt und Personendaten sind gleich:$description:\n";
