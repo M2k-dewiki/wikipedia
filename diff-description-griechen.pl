@@ -180,6 +180,8 @@ my $wd_url = 'https://query.wikidata.org/sparql?query=SELECT%20%3FitemDesc%0AWHE
      }
   } else {
           $result3 =~ s/itemDesc//og;
+          $result3 =~ s/^\"//og;
+          $result3 =~ s/\"$//og;
 	  if ($result3 ne $description) {
 		  $count_diff++;
 		  print "|-\n";
