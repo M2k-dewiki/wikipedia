@@ -79,6 +79,7 @@ print '
 {| class="wikitable zebra sortable" 
 |- class="hintergrundfarbe5" style="position: sticky; top: 0; z-index: 12;"
 !Objekt
+!Artikel
 !WD-Beschreibung
 !PD-Kurzbeschreibung
 ';
@@ -104,6 +105,9 @@ while(<IN>)
 	next ;
     }
 $count_total++;
+
+# if ( $count_total == 100) { exit; }
+
 
 # print "COUNT_TOTAL:$count_total:COUNT_DIFF:$count_diff:COUNT_EQUAL:$count_equal:\n";
 
@@ -185,7 +189,10 @@ my $wd_url = 'https://query.wikidata.org/sparql?query=SELECT%20%3FitemDesc%0AWHE
 	  if ($result3 ne $description) {
 		  $count_diff++;
 		  print "|-\n";
-    print '| [[:d:'.$QID.']] || '.$result3.' || '.$description."\n";
+		  
+		   $title =~ s/\_/ /og;
+
+    print '| [[:d:'.$QID.']] || [['.$title .']] || '.$result3.' || '.$description."\n";
 #    print '| [[:d:'.$QID.']]:Beschreibung WD-Objekt:'.$result3.':KURZBESCHREIBUNG Personendaten:'.$description.":\n";
 	  } else {
 		  $count_equal++;
