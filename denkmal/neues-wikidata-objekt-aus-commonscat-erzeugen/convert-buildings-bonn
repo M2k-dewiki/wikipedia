@@ -1,0 +1,189 @@
+#!/usr/bin/perl
+
+use strict;
+
+# Crypt::SSLeay muss installiert sein fuer SSL-Support
+# apt-get install libwww-mechanize-perl libio-socket-ssl-perl libnet-ssleay-perl
+use WWW::Mechanize;
+use Data::Dumper;
+use HTML::FormatText;
+my $USER_AGENT='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36';
+# See the autocheck parameter, which turns all HTTP errors into fatal errors. When you turn autocheck off, you will need to do all error checking yourself.
+my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
+
+#http://glennf.com/writing/hexadecimal.url.encoding.html
+# This pattern takes the hex characters and decodes them back into real characters. The function hex() turns a hex number into decimal; 
+# there is no dec() that does the reverse in perl. The "e" at the end of the regexp means "evaluate the replacement pattern as an expression."
+sub URLDecode {
+    my $theURL = $_[0];
+    $theURL =~ tr/+/ /;
+    $theURL =~ s/%([a-fA-F0-9]{2,2})/chr(hex($1))/eg;
+    $theURL =~ s/<!--(.|\n)*-->//g;
+    return $theURL;
+}
+
+sub URLEncode {
+    my $theURL = $_[0];
+    $theURL =~ s/([\W])/"%" . uc(sprintf("%2.2x",ord($1)))/eg;
+    return $theURL;
+}
+
+# - intersection 
+# - depth 20
+# negative:
+# Nur kategorien, keine galerien !!!   
+# 
+# 
+
+# https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_S%C3%BCdstadt_(Bonn)
+
+# https://petscan.wmflabs.org/?project=wikimedia&edits%5Bflagged%5D=both&outlinks_yes=&regexp_filter=&page_image=any&language=commons&search_max_results=500&labels_yes=&maxlinks=&common_wiki=auto&negcats=Interiors+of+churches+in+Brandenburg&outlinks_any=&search_filter=&referrer_url=&categories=Cultural+heritage+monuments+in+S%C3%BCdstadt+%28Bonn%29&min_sitelink_count=&cb_labels_any_l=1&show_redirects=no&sparql=&ores_type=any&search_query=&cb_labels_no_l=1&interface_language=en&sitelinks_no=&sitelinks_yes=&search_wiki=&wikidata_item=without&sortby=title&output_limit=&ns%5B14%5D=1&since_rev0=&cb_labels_yes_l=1&ores_prob_to=&show_soft_redirects=both&max_age=&common_wiki_other=&wikidata_label_language=&depth=0&wpiu=any&format=html&before=&ores_prediction=any&doit=
+
+
+# Exclude:
+# Interiors of churches
+# Pipe organs
+
+# https://commons.wikimedia.org/wiki/Category:Churches_in_North_Rhine-Westphalia
+
+my $INFILE = 'list.txt';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+my $count =0 ;
+while(<IN>)
+{
+    chop;
+    my $kat = $_;
+    $kat =~ s/^(\s)*//og; # trim
+    $kat =~ s/(\s)*$//og; # trim
+    $kat =~ s/_/ /og; # trim
+    
+    # print "KAT:$kat:\n";
+
+    if ($kat eq "") { next ; }
+    
+    
+    my $lemma_mit_klammerzusatz = $kat;  # ohne präfix "category:"
+    $lemma_mit_klammerzusatz =~ s/Category://iog;
+    #fixme
+
+    my $lemma_ohne_klammerzusatz = $lemma_mit_klammerzusatz;  # ohne präfix und klammerzusatz
+    $lemma_ohne_klammerzusatz =~ s/\(.+\)//og;
+    $lemma_ohne_klammerzusatz =~ s/^(\s)*//og; # trim
+    $lemma_ohne_klammerzusatz =~ s/(\s)*$//og; # trim
+
+    my $lemma_ohne_klammer_aber_mit_zusatz = $lemma_mit_klammerzusatz;  # ohne präfix 
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/^(\s)*//og; # trim
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/(\s)*$//og; # trim
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/\(//og;
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/\)//og;
+    
+    my $kat_mit_prefix = "Category:".$kat;
+
+    my $klammerzusatz = "";
+    if ($lemma_mit_klammerzusatz =~ /\((.+)\)/og) {
+      $klammerzusatz = $1;
+      # print "KLAMMERZUSATZ:$klammerzusatz:\n";
+    }
+    
+##############
+
+   #   my $url = 'https://commons.wikimedia.org/wiki/Category:Dorfkirche_(Herzsprung_in_der_Uckermark)';
+     my $url = 'https://commons.wikimedia.org/wiki/Category:'.URLEncode($kat);
+    
+#      my $lemma = "";
+#     my $lemma_decode = "";
+#     if ($url =~ /Category:(.*)$/) {
+#        $lemma = $1;
+#        $lemma_decode = URLDecode($lemma);
+#        $lemma_decode =~ s/_/ /og;
+#      }
+#       print "LEMMA:$lemma:DECODE:$lemma_decode:\n";
+     
+       my $check_url = $url.'?action=raw';
+       # print "check URL:$check_url:\n"; # exit;
+
+    $agent->get( $check_url );
+  my $result2 = $agent->content;
+  # print "RESULT:$result2:\n";
+  
+       # if ($result2 =~ /Wikidata infobox/i) {
+         # print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";
+         # next;
+       # } 
+
+  
+
+my $north = "";
+my $east = "";
+  if ($result2 =~ /Object location/i) {
+      # print "Lemma $check_url hat Object location\n";
+      if ($result2 =~ /(\s*)\{\{Object location( dec)?(\s*)\|(\s*)([0-9\.]+)(\s*)\|(\s*)([0-9\.]+)(\s*)\}/i) {
+       #  print "*** HIER: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8\n";
+$north = $5;
+$east = $8;
+     }
+        # print "Lemma $check_url hat location $north $east:\n";
+   } # Baudenkmal
+   
+##############
+
+    
+    # print "KAT:$kat:LEMMA_MIT:$lemma_mit_klammerzusatz:LEMMA_OHNE:$lemma_ohne_klammerzusatz:\n";
+
+    print "CREATE\n";
+   print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
+#    print "LAST\tLde\t\"$lemma_ohne_klammer_aber_mit_zusatz\"\n"; # label de - bezeichnung
+
+
+    my $alias = $lemma_mit_klammerzusatz;
+    if ($lemma_mit_klammerzusatz ne $lemma_ohne_klammerzusatz) {
+      print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
+    }
+  
+#    my $beschreibung = "Kirchengebäude";
+
+    my $beschreibung = "Bauwerk im Bonner Ortsteil Südstadt";
+
+#    if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+        
+    print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
+    print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
+
+    # print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
+    print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+    
+    print "LAST\tP17\tQ183\n"; # Staat: Deutschland
+#    print "LAST\tP131\tQ1198\n"; # liegt in der Verwaltungseinheit: Nordrhein-Westfalen 
+    print "LAST\tP131\tQ892684\n"; # liegt in der Verwaltungseinheit: Bonn
+
+    
+    print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
+    
+    print "LAST\tP1435\tQ15632117\n";   # Schutzkategorie: Baudenkmal  Baudenkmal in Nordrhein-Westfalen (Q15632117)
+#    print "LAST\tP1435\tQ105959039\n";   # Schutzkategorie: Baudenkmal 
+    
+#    print "LAST\tP276\tQ1342525\n";   # Ort: 	Gronau (Q1342525)
+
+    print "LAST\tP276\tQ124705\n";   # Ort: 	Südstadt (Q124705)
+
+
+
+	
+    # Schutzkategorie (P1435): Kulturdenkmal in Nordrhein-Westfalen (Q105959039)
+
+    
+    
+#    print "LAST\tP2081\t\"$blfd_id\"\n";   # BLDAM-Objekt-ID 
+if (($north ne "") && ($east ne "")) {
+  my $cord = '@'.$north.'/'.$east;
+    print "LAST\tP625\t$cord\n";   # koordinaten 
+ }
+
+
+ 
+
+
+}
+close(IN);
