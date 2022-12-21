@@ -40,6 +40,9 @@ sub URLEncode {
 # https://petscan.wmflabs.org/?project=wikimedia&edits%5Bflagged%5D=both&outlinks_yes=&regexp_filter=&page_image=any&language=commons&search_max_results=500&labels_yes=&maxlinks=&common_wiki=auto&negcats=Interiors+of+churches+in+Brandenburg&outlinks_any=&search_filter=&referrer_url=&categories=Cultural+heritage+monuments+in+S%C3%BCdstadt+%28Bonn%29&min_sitelink_count=&cb_labels_any_l=1&show_redirects=no&sparql=&ores_type=any&search_query=&cb_labels_no_l=1&interface_language=en&sitelinks_no=&sitelinks_yes=&search_wiki=&wikidata_item=without&sortby=title&output_limit=&ns%5B14%5D=1&since_rev0=&cb_labels_yes_l=1&ores_prob_to=&show_soft_redirects=both&max_age=&common_wiki_other=&wikidata_label_language=&depth=0&wpiu=any&format=html&before=&ores_prediction=any&doit=
 
 
+# https://petscan.wmflabs.org/?regexp_filter=&referrer_name=&page_image=any&sitelinks_any=&larger=&edits%5Bbots%5D=both&format=html&cb_labels_yes_l=1&min_sitelink_count=&language=commons&ores_prediction=any&links_to_all=&templates_any=&common_wiki_other=&wikidata_item=without&search_max_results=500&wpiu=any&negcats=Interiors+of+churches+in+Brandenburg&labels_no=&since_rev0=&depth=30&outlinks_no=&cb_labels_no_l=1&interface_language=en&namespace_conversion=keep&ores_prob_to=&cb_labels_any_l=1&categories=Cultural+heritage+monuments+in+Poppelsdorf%0D%0AHouses+in+Poppelsdorf&ns%5B14%5D=1&langs_labels_yes=&output_compatability=catscan&edits%5Bflagged%5D=both&wikidata_prop_item_use=&after=&pagepile=&output_limit=&show_redirects=no&project=wikimedia&sortby=title&wikidata_label_language=&show_soft_redirects=both&search_query=&labels_any=&templates_no=&doit=
+
+
 # Exclude:
 # Interiors of churches
 # Pipe organs
@@ -134,6 +137,9 @@ $east = $8;
 
     print "CREATE\n";
    print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
+
+   print "LAST\tLen\t\"$lemma_ohne_klammerzusatz\"\n"; # label en - bezeichnung
+
 #    print "LAST\tLde\t\"$lemma_ohne_klammer_aber_mit_zusatz\"\n"; # label de - bezeichnung
 
 
@@ -144,16 +150,25 @@ $east = $8;
   
 #    my $beschreibung = "Kirchengebäude";
 
-    my $beschreibung = "Bauwerk im Bonner Ortsteil Südstadt";
+#    my $beschreibung = "Bauwerk im Bonner Ortsteil Südstadt";
+    my $beschreibung = "Wohnhaus im Bonner Ortsteil Poppelsdorf";
+    my $beschreibung_en = "house in Bonn, Germany";
 
 #    if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         
     print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
+    print "LAST\tDen\t\"$beschreibung_en\"\n"; # description en - beschreibung
+
+
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
 
     # print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
-    print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+#    print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+    print "LAST\tP31\tQ3947\n"; # ist eine: Haus (Q3947)
+
     
+
+	
     print "LAST\tP17\tQ183\n"; # Staat: Deutschland
 #    print "LAST\tP131\tQ1198\n"; # liegt in der Verwaltungseinheit: Nordrhein-Westfalen 
     print "LAST\tP131\tQ892684\n"; # liegt in der Verwaltungseinheit: Bonn
@@ -166,7 +181,17 @@ $east = $8;
     
 #    print "LAST\tP276\tQ1342525\n";   # Ort: 	Gronau (Q1342525)
 
-    print "LAST\tP276\tQ124705\n";   # Ort: 	Südstadt (Q124705)
+#    print "LAST\tP276\tQ124705\n";   # Ort: 	Südstadt (Q124705)
+    print "LAST\tP276\tQ153751\n";   # Ort: 	Poppelsdorf (Q153751))
+
+
+if ($lemma_ohne_klammerzusatz =~ /^Jagdweg /) {
+    print "LAST\tP669\tQ100464008\n";   # Straße: Jagdweg (Q100464008)
+}
+
+if ($lemma_ohne_klammerzusatz =~ /^Argelanderstraße /) {
+    print "LAST\tP669\tQ52556695\n";   # Straße: Argelanderstraße (Q52556695)
+}
 
 
 
