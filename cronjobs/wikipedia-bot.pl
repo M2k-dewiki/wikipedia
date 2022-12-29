@@ -332,7 +332,7 @@ exit 0;
 # 
 #   
 # # log in to the wiki
-# $mw->login( { lgname => 'M2k~dewiki', lgpassword => 'Owoho8Epes46' } )
+# $mw->login( { lgname => '.....', lgpassword => '..........' } )
 #   || die $mw->{error}->{code} . ': ' . $mw->{error}->{details};
 #   
 #   
