@@ -149,8 +149,9 @@ if ($result2 =~ / (es|fue) un (deportista|futbolista|jinete) /i) {
 if ($gender ne "") {
   
     print "$QID\tP21\t$gender\tS143\tQ8449\n";    
-    #FIXME
-}    
+   print "$QID\tP31\tQ5\n";    
+}  
+
     # S ... Fundstelle
 #    importiert aus Wikimedia-Projekt (P143)
 # deutschsprachige Wikipedia (Q48183)
