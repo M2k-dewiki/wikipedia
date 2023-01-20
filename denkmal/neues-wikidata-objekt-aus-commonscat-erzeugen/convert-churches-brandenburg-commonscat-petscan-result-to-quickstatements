@@ -48,6 +48,11 @@ sub URLEncode {
 # https://petscan.wmflabs.org/?max_sitelink_count=&show_redirects=no&categories=Cultural%20heritage%20monuments%20in%20Brandenburg%20with%20known%20ID%0AChurches%20in%20Brandenburg%0A&edits%5Bbots%5D=both&wikidata_item=without&edits%5Bflagged%5D=both&cb_labels_yes_l=1&depth=20&interface_language=en&project=wikimedia&negcats=Interiors%20of%20churches%20in%20Brandenburg&search_max_results=500&cb_labels_any_l=1&cb_labels_no_l=1&ns%5B14%5D=1&language=commons&edits%5Banons%5D=both&doit=
 
 
+# https://petscan.wmflabs.org/?wikidata_source_sites=&wikidata_item=without&source_combination=&edits%5Bflagged%5D=both&negcats=Interiors+of+churches+in+Brandenburg&outlinks_no=&labels_no=&page_image=any&cb_labels_yes_l=1&after=&cb_labels_any_l=1&ores_type=any&langs_labels_no=&langs_labels_any=&referrer_name=&outlinks_any=&min_redlink_count=1&min_sitelink_count=&combination=subset&sparql=&maxlinks=&language=commons&ores_prediction=any&show_redirects=no&pagepile=&max_age=&wikidata_label_language=&cb_labels_no_l=1&interface_language=en&sortorder=ascending&ns%5B14%5D=1&show_disambiguation_pages=both&search_max_results=500&links_to_all=&since_rev0=&depth=20&templates_no=&common_wiki_other=&larger=&project=wikimedia&categories=Churches+in+Brandenburg%0D%0A&sitelinks_yes=&active_tab=tab_categories&doit=
+
+# https://commons.wikimedia.org/wiki/Category:Churches_in_Brandenburg
+
+
 
 my $INFILE = 'list.txt';
 
@@ -143,7 +148,6 @@ $east = $8;
     
     # print "KAT:$kat:LEMMA_MIT:$lemma_mit_klammerzusatz:LEMMA_OHNE:$lemma_ohne_klammerzusatz:\n";
 
-    if ($blfd_id ne  "") {
     
     print "CREATE\n";
    print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
@@ -164,14 +168,19 @@ $east = $8;
     print "LAST\tP17\tQ183\n"; # Staat: Deutschland
     print "LAST\tP131\tQ1208\n"; # liegt in der Verwaltungseinheit: Brandenburg
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
-    print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
+
+    if ($blfd_id ne  "") {
     print "LAST\tP2081\t\"$blfd_id\"\n";   # BLDAM-Objekt-ID 
+    print "LAST\tP1435\tQ85101354\n";   # Schutzkategorie: Baudenkmal in Brandenburg (Q85101354)
+ 
+	}
+
 if (($north ne "") && ($east ne "")) {
   my $cord = '@'.$north.'/'.$east;
     print "LAST\tP625\t$cord\n";   # koordinaten 
  }
 
- }
+ 
  
 # {{Object location|52.975743| 13.988022}}  {{Baudenkmal Brandenburg|09130507}}
 # https://www.wikidata.org/wiki/Q101573281
