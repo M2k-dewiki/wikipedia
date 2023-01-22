@@ -167,7 +167,13 @@ $east = $8;
     
     # Schutzkategorie (P1435): Kulturdenkmal in Nordrhein-Westfalen (Q105959039)
 
-    
+    if ($lemma_ohne_klammerzusatz =~ /^Eschbachstraße /) {
+    print "LAST\tP669\tQ107361761\n";   # Straße: Eschbachstraße (Q107361761)
+}
+
+if ($lemma_ohne_klammerzusatz =~ /^Erfer Straße /) {
+    print "LAST\tP669\tQ116302531\n";   # Straße: Erfer Straße (Q116302531)
+}
     
 #    print "LAST\tP2081\t\"$blfd_id\"\n";   # BLDAM-Objekt-ID 
 if (($north ne "") && ($east ne "")) {
