@@ -147,7 +147,7 @@ $east = $8;
 
     my $alias = $lemma_mit_klammerzusatz;
     if ($lemma_mit_klammerzusatz ne $lemma_ohne_klammerzusatz) {
-      print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
+    #  print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
     }
   
 my $beschreibung_de = "";
@@ -157,16 +157,12 @@ my $lemma_de = "";
 my $lemma_en = "";
 
 my $ort = "";
-if ( $lemma_mit_klammerzusatz =~ /^Fire station (.+)$/) {
+if ( $lemma_mit_klammerzusatz =~ /^Fire station (.+)$/i) {
 #print "lemma_mit_klammerzusatz:$lemma_mit_klammerzusatz:\n";
 #print "lemma_ohne_klammerzusatz:$lemma_ohne_klammerzusatz:\n";
 #print "ZUSATZ:$1:\n";
 $ort = $1;
-$lemma_en = $lemma_mit_klammerzusatz;
-$lemma_en =~ s/Fire station /Fire station in /iog;
-$lemma_de = "Feuerwehrhaus in $ort";
 }
-
     if ($ort ne "") { 
 	  $beschreibung_de = "Feuerwehrhaus in ".$ort.", Österreich"; 
       $beschreibung_en = "Fire station in ".$ort.", Austria"; 
@@ -176,11 +172,25 @@ $lemma_de = "Feuerwehrhaus in $ort";
         $beschreibung_de = "Feuerwehrhaus in Österreich";
 		$beschreibung_en = "Firestation in Austria";
 	  }
+
+
+if ( $lemma_mit_klammerzusatz =~ /^Former Fire station (.+)$/i) {
+$ort = $1;
+$lemma_en = $lemma_mit_klammerzusatz;
+$lemma_en =~ s/Fire station /Fire station in /iog;
+$lemma_de = "Altes Feuerwehrhaus in $ort";
+	  $beschreibung_de = "Altes Feuerwehrhaus in ".$ort.", Österreich"; 
+      $beschreibung_en = "Former Fire station in ".$ort.", Austria"; 
+	
+}
+
 		
 
    print "LAST\tLde\t\"$lemma_de\"\n"; # label de - bezeichnung
-   print "LAST\tLen\t\"$lemma_en\"\n"; # label en - bezeichnung
-		
+   if ($lemma_en ne "") {
+     print "LAST\tLen\t\"$lemma_en\"\n"; # label en - bezeichnung
+   }
+   
     print "LAST\tDde\t\"$beschreibung_de\"\n"; # description de - beschreibung
     print "LAST\tDen\t\"$beschreibung_en\"\n"; # description de - beschreibung
 
