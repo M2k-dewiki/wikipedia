@@ -39,6 +39,11 @@ sub URLEncode {
 
 # https://commons.wikimedia.org/wiki/Category:Churches_in_Baden-W%C3%BCrttemberg
 
+# 
+# https://commons.wikimedia.org/wiki/Category:Chapels_in_Baden-W%C3%BCrttemberg
+# 
+
+
 # https://de.wikipedia.org/wiki/Liste_der_gr%C3%B6%C3%9Ften_St%C3%A4dte_in_Baden-W%C3%BCrttemberg
 
 
@@ -51,6 +56,12 @@ sub URLEncode {
 
 # Besigheim
 # https://petscan.wmflabs.org/?namespace_conversion=keep&cb_labels_yes_l=1&wpiu=any&search_max_results=500&source_combination=&regexp_filter=&common_wiki=auto&templates_yes=&interface_language=en&sortby=title&search_wiki=&minlinks=&common_wiki_other=&links_to_any=&categories=Cultural+heritage+monuments+in+Besigheim&language=commons&pagepile=&since_rev0=&cb_labels_no_l=1&edits%5Bbots%5D=both&links_to_no=&outlinks_any=&output_limit=&sortorder=ascending&sitelinks_any=&depth=10&show_redirects=no&outlinks_no=&min_sitelink_count=&maxlinks=&referrer_url=&ns%5B14%5D=1&page_image=any&edits%5Banons%5D=both&cb_labels_any_l=1&wikidata_prop_item_use=&langs_labels_no=&sitelinks_yes=&project=wikimedia&langs_labels_any=&before=&wikidata_item=without&doit=
+
+
+
+
+# https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Weil_der_Stadt
+# https://petscan.wmflabs.org/?after=&output_compatability=catscan&labels_yes=&wikidata_item=without&ns%5B14%5D=1&cb_labels_no_l=1&depth=10&wikidata_source_sites=&active_tab=tab_output&edits%5Bbots%5D=both&langs_labels_yes=&langs_labels_any=&sitelinks_yes=&pagepile=&categories=Cultural+heritage+monuments+in+Weil+der+Stadt&min_sitelink_count=&language=commons&max_age=&links_to_any=&cb_labels_any_l=1&templates_yes=&subpage_filter=either&cb_labels_yes_l=1&interface_language=en&before=&sortorder=ascending&outlinks_any=&search_max_results=500&search_filter=&templates_no=&output_limit=&ores_prob_to=&show_redirects=no&referrer_url=&project=wikimedia&edits%5Banons%5D=both&namespace_conversion=keep&wikidata_prop_item_use=&sortby=title&langs_labels_no=&combination=subset&search_wiki=&min_redlink_count=1&doit=
 
 
 # exclude:
@@ -170,18 +181,24 @@ $east = $8;
   
 
 
-    my $beschreibung = "Bauwerk";
-#    my $beschreibung = "Kirchengebäude";
+#    my $beschreibung = "Bauwerk";
+    my $beschreibung = "Kirchengebäude";
     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; } # else { $beschreibung = $beschreibung." in Baden-Württemberg"; } 
         
     print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
-#    print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
-    print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+
+    print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
+#    print "LAST\tP31\tQ108325\n"; # ist eine: Kapelle (Q108325)
+#    print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+
 print "LAST\tP17\tQ183\n"; # Staat: Deutschland
 #    print "LAST\tP131\tQ4037\n"; # liegt in der Verwaltungseinheit: Schwäbisch Gmünd (Q985)
 
-#    print "LAST\tP131\tQ985\n"; # liegt in der Verwaltungseinheit: Baden-Württemberg (Q985)
+    print "LAST\tP131\tQ985\n"; # liegt in der Verwaltungseinheit: Baden-Württemberg (Q985)
+
+#    print "LAST\tP131\tQ506323\n"; # liegt in der Verwaltungseinheit: Tettnang (Q506323)
+
 
 #    print "LAST\tP131\tQ495428\n"; # liegt in der Verwaltungseinheit: # Bretten (Q495428)
 #    print "LAST\tP131\tQ80980\n"; # liegt in der Verwaltungseinheit: # Pliezhausen (Q80980)
@@ -194,9 +211,11 @@ print "LAST\tP17\tQ183\n"; # Staat: Deutschland
 #    print "LAST\tP131\tQ3012\n"; # liegt in der Verwaltungseinheit:     Ulm (Q3012)
 #    print "LAST\tP131\tQ146373\n"; # liegt in der Verwaltungseinheit:     Rosenfeld (Q146373)
 	
-    print "LAST\tP131\tQ61825\n"; # liegt in der Verwaltungseinheit:     Besigheim (Q61825)
-
-
+#    print "LAST\tP131\tQ61825\n"; # liegt in der Verwaltungseinheit:     Besigheim (Q61825)
+#    print "LAST\tP131\tQ13896\n"; # liegt in der Verwaltungseinheit:     Markgröningen (Q13896)
+#    print "LAST\tP131\tQ7067\n"; # liegt in der Verwaltungseinheit:     Bietigheim-Bissingen (Q7067)
+#    print "LAST\tP131\tQ61837\n"; # liegt in der Verwaltungseinheit:     Bönnigheim (Q61837)
+#    print "LAST\tP131\tQ505147\n"; # liegt in der Verwaltungseinheit:     Weil der Stadt (Q505147)
 
 
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
