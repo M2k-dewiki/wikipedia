@@ -38,7 +38,7 @@ my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_mo
 
 
 ###############################
-# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Bavaria_without_linked_Wikidata';
+my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Hesse_without_linked_Wikidata';
 ###############################
 
 
