@@ -162,9 +162,11 @@ $east = $8;
     if ($lemma_mit_klammerzusatz ne $lemma_ohne_klammerzusatz) {
       print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
     }
+
+#     my $beschreibung = "Bauwerk in Pirna";
   
 #     my $beschreibung = "Bauwerk in Pirna, Landkreis Sächsische Schweiz-Osterzgebirge, Sachsen, Deutschland";
-     my $beschreibung = "Bauwerk in Pirna";
+#     my $beschreibung = "Bauwerk in Pirna";
 #     my $beschreibung = "Bauwerk in Meißen";
 #     my $beschreibung = "Bauwerk in Dresden";
 # my $beschreibung = "Bauwerk in Seiffen";
@@ -176,8 +178,10 @@ $east = $8;
 
 #     my $beschreibung = "Bauwerk in Schönheide";
 
-
-#     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+     # my $beschreibung = "Kirchengebäude";
+      my $beschreibung = "Bauwerk";
+	 
+     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
@@ -186,9 +190,9 @@ $east = $8;
     print "LAST\tP17\tQ183\n"; # Staat: Deutschland
 
 #        print "LAST\tP131\tQ8738\n"; # liegt in der Verwaltungseinheit: Meißen
-#    print "LAST\tP131\tQ1202\n"; # liegt in der Verwaltungseinheit: Sachsen
+    print "LAST\tP131\tQ1202\n"; # liegt in der Verwaltungseinheit: Sachsen
 
-        print "LAST\tP131\tQ6477\n"; # liegt in der Verwaltungseinheit: Pirna (Q6477)
+#        print "LAST\tP131\tQ6477\n"; # liegt in der Verwaltungseinheit: Pirna (Q6477)
 
 # print "LAST\tP131\tQ1731\n"; # liegt in der Verwaltungseinheit: Dresden
 # print "LAST\tP131\tQ57837\n"; # liegt in der Verwaltungseinheit: Seiffen
@@ -202,13 +206,12 @@ $east = $8;
     
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
     
+
+if ($blfd_id ne "") {
+    print "LAST\tP1708\t\"$blfd_id\"\n";   # LSFID
     print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
     print "LAST\tP1435\tQ19413851\n";   # Schutzkategorie (P1435): Kulturdenkmal in Sachsen (Q19413851)
-    
-    # print "LAST\tP2081\t\"$blfd_id\"\n";   # BLDAM-Objekt-ID 
-
-    print "LAST\tP1708\t\"$blfd_id\"\n";   # LSFID
-    
+}    
     
     if (($north ne "") && ($east ne "")) {
   my $cord = '@'.$north.'/'.$east;
