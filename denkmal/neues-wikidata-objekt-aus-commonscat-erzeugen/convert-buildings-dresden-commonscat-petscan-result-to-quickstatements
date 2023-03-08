@@ -151,10 +151,9 @@ $east = $8;
       print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
     }
   
-#     my $beschreibung = "Bauwerk in Dresden";
+     my $beschreibung = "Bauwerk in Dresden";
 
-     my $beschreibung = "Grabmal in Dresden";
-
+#     my $beschreibung = "Grabmal in Dresden";
 #     my $beschreibung = "Bauwerk in Plauen";
 #     my $beschreibung = "Bauwerk in Weißenberg";
      
@@ -164,9 +163,7 @@ $east = $8;
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
 #     print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
      print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
-	 
-     print "LAST\tP31\tQ56055312\n"; # ist eine: 	 Grabmal (Q56055312)
-
+#     print "LAST\tP31\tQ56055312\n"; # ist eine: 	 Grabmal (Q56055312)
 
 	 
     print "LAST\tP17\tQ183\n"; # Staat: Deutschland
