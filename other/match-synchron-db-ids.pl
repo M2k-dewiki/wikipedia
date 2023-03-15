@@ -41,9 +41,9 @@ sub URLEncode {
 
 
 #####################
-# my $INFILE = 'darsteller.txt';
+my $INFILE = 'darsteller.txt';
 #####################
-my $INFILE = 'sprecher.txt';
+# my $INFILE = 'sprecher.txt';
 #####################
 my %CLOUDhash;
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
@@ -111,8 +111,8 @@ foreach my $ID_old (sort keys %QIDhash) {
     if (( $QIDhash{$ID_old} ne 'invalid') && $CLOUDhash{$ID_old} ne 'invalid') {
 
 ################	
-	#### FIXME: property-ID von neuer person-ID für synch-db
- print $QIDhash{$ID_old}."\tP11585\t\"".$CLOUDhash{$ID_old}."\"\n";    
+	#### https://www.wikidata.org/wiki/Property:P11646
+ print $QIDhash{$ID_old}."\tP11646\t\"".$CLOUDhash{$ID_old}."\"\n";    
 ################	
 	
 	}
