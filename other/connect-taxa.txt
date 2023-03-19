@@ -25,6 +25,19 @@ sub URLEncode {
 }
 
 
+
+
+
+####################
+### TODO:
+
+### for each object check if there is already a existing sitelink
+### if there already is a sitelink, then do not change that object --> only add new sitelinks, dont modify existing sitelinks
+
+######
+####################
+
+
 my $USER_AGENT='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36';
 
 # See the autocheck parameter, which turns all HTTP errors into fatal errors. When you turn autocheck off, you will need to do all error checking yourself.
