@@ -1,0 +1,62 @@
+#!/usr/bin/perl
+
+use strict;
+
+
+my $INFILE = 'volleyballspielerinnen.csv';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+my @sprachliste = ("en","bar","br","ca","co","da","de","de-at","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
+
+my $count =0 ;
+while(<IN>)
+{
+    chop;
+
+    my ($name,$partei,$geschlecht) = split(/\,/,$_);
+#    my ($name,$partei,$geschlecht) = split(/\t/,$_);
+    # print "NAME:$name:$partei:GENDER:$geschlecht:\n";
+    
+    # $kat =~ s/^(\s)*//og; # trim
+    # $kat =~ s/(\s)*$//og; # trim
+
+    print "CREATE\n";
+    foreach my $sprache (@sprachliste) {
+      print "LAST\tL".$sprache."\t\"".$name."\"\n";
+    }
+
+    my $beschreibung_es = "voleibolista austríaca";
+	my $beschreibung = "österreichische Volleyballspielerin";
+    my $beschreibung_nl = 'volleybalster uit Oostenrijk';
+	
+    print "LAST\tP31\tQ5\n"; # mensch
+	print "LAST\tP21\tQ6581072\n"; # geschlecht weiblich
+    print "LAST\tP27\tQ40\n"; # österreicher
+    print "LAST\tP1412\tQ188\n"; # deutsch
+
+#  gesprochene oder publizierte Sprachen (P1412): Deutsch (Q188) 
+# print "LAST\tP1412\tQ188\n"; 
+
+# Land der Staatsangehörigkeit (P27): Österreich (Q40) 
+# print "LAST\tP27\tQ40\n"; 
+
+#  Mitglied von Sportmannschaft oder -verein (P54): Österreichische Volleyballnationalmannschaft der Frauen (Q306002)
+	print "LAST\tP54\tQ306002\n"; 
+# Sportart (P641): Volleyball (Q1734) 
+print "LAST\tP641\tQ1734\n"; 
+# Tätigkeit (P106): Volleyballspieler (Q15117302) 
+print "LAST\tP106\tQ15117302\n"; 
+ 
+    print "LAST\tDde\t\"".$beschreibung."\"\n";
+    print "LAST\tDde-at\t\"".$beschreibung."\"\n";
+
+	
+    print "LAST\tDen\t\"Austrian volleyball player\"\n";
+    print "LAST\tDes\t\"".$beschreibung_es."\"\n";
+    print "LAST\tDnl\t\"".$beschreibung_nl."\"\n";
+   
+   
+
+}
+close(IN);
