@@ -246,7 +246,7 @@ $east = $8;
      
 
 #my $beschreibung = 'Bauwerk in Merseburg, Sachsen-Anhalt';
-#my $beschreibung = 'Bauwerk';
+my $beschreibung = 'Bauwerk';
 
 # my $beschreibung = 'Bauwerk in Naumburg (Saale)';
 
@@ -263,7 +263,7 @@ $east = $8;
 
 #     my $beschreibung = 'Bauwerk in Hessen, Osterwieck, Sachsen-Anhalt';
 #     my $beschreibung = 'Bauwerk in Lüttgenrode, Osterwieck, Sachsen-Anhalt';
-     my $beschreibung = 'Bauwerk in Stötterlingen, Osterwieck, Sachsen-Anhalt';
+#     my $beschreibung = 'Bauwerk in Stötterlingen, Osterwieck, Sachsen-Anhalt';
 
 
 
@@ -307,7 +307,7 @@ $east = $8;
 
 
 
-#          if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+          if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
@@ -348,7 +348,7 @@ $east = $8;
 # print "LAST\tP131\tQ1733\n"; # liegt in der Verwaltungseinheit:     Magdeburg (Q1733)
 
 
-# print "LAST\tP131\tQ1206\n"; # liegt in der Verwaltungseinheit:     Sachsen-Anhalt (Q1206)
+ print "LAST\tP131\tQ1206\n"; # liegt in der Verwaltungseinheit:     Sachsen-Anhalt (Q1206)
 # print "LAST\tP131\tQ442875\n"; # liegt in der Verwaltungseinheit:     Altmärkische Höhe (Q442875)
 
 
@@ -403,12 +403,12 @@ $east = $8;
 # print "LAST\tP276\tQ697815\n"; # Ort:  Aspenstedt (Q697815)
 
 
-print "LAST\tP131\tQ547619\n"; # liegt in der Verwaltungseinheit: Osterwieck (Q547619)
+#print "LAST\tP131\tQ547619\n"; # liegt in der Verwaltungseinheit: Osterwieck (Q547619)
 # print "LAST\tP276\tQ1165772\n"; # Ort:  Dardesheim (Q1165772)
 # print "LAST\tP276\tQ1000077\n"; # Ort:  Deersheim
 # print "LAST\tP276\tQ896361\n"; # Ort:  Hessen (Q896361)
 # print "LAST\tP276\tQ702580\n"; # Ort:  Lüttgenrode (Q702580)
- print "LAST\tP276\tQ115483600\n"; # Ort:  Stötterlingen (Q115483600)
+# print "LAST\tP276\tQ115483600\n"; # Ort:  Stötterlingen (Q115483600)
 
 
 
