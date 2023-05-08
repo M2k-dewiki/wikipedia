@@ -135,6 +135,8 @@ $east = $8;
 
     print "CREATE\n";
    print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
+  print "LAST\tLen\t\"$lemma_ohne_klammerzusatz\"\n"; # label en - bezeichnung
+  print "LAST\tLde-at\t\"$lemma_ohne_klammerzusatz\"\n"; # label de-at - bezeichnung
 #    print "LAST\tLde\t\"$lemma_ohne_klammer_aber_mit_zusatz\"\n"; # label de - bezeichnung
 
 
