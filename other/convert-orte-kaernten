@@ -156,7 +156,15 @@ $east = $8;
 
     print "LAST\tP31\tQ3257686\n"; # ist eine: Ortschaft
     print "LAST\tP17\tQ40\n"; # Staat: Österreich
+
+
     print "LAST\tP131\tQ37985\n"; # liegt in der Verwaltungseinheit: Kärnten
+#    print "LAST\tP131\tQ664768\n"; # liegt in der Verwaltungseinheit: Frauenstein (Q664768)
+#    print "LAST\tP131\tQ664615\n"; # liegt in der Verwaltungseinheit: 	Kappel am Krappfeld (Q664615)
+#    print "LAST\tP131\tQ664752\n"; # liegt in der Verwaltungseinheit: 	Weitensfeld im Gurktal (Q664752)
+#    print "LAST\tP131\tQ660945\n"; # liegt in der Verwaltungseinheit: 	Straßburg (Q660945)
+#    print "LAST\tP131\tQ662243\n"; # liegt in der Verwaltungseinheit: Mölbling (Q662243)
+
     
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
    
