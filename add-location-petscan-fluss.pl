@@ -241,7 +241,6 @@ while(<IN>)
 
     $QID =~ s/http:\/\/www.wikidata.org\/entity\///og;
     
-$QID = 'Q29868767';
 
   # print "=============\n";  print "QID:$QID:SL:$sitelink:\n";
     
@@ -254,7 +253,10 @@ $QID = 'Q29868767';
 
      #my $url = 'https://de.wikipedia.org/wiki/Torfjanoje_(Kaliningrad,_Osjorsk)';
 
-     my $url = 'https://de.wikipedia.org/wiki/Kinschbach';
+
+##########
+# Testing:       $QID = 'Q29868767';    my $url = 'https://de.wikipedia.org/wiki/Kinschbach';
+##########
 	 
 	 
 ###################     
@@ -475,7 +477,6 @@ if (($muendung_north ne "") && ($muendung_east ne "")) {
   }    
 }
 
-exit;
 ######################################
 ######################################
 ######################################
