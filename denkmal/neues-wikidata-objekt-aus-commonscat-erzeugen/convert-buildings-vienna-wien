@@ -122,15 +122,20 @@ $east = $8;
       print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
     }
   
-     my $beschreibung = "Bauwerk in Wien";
+     my $beschreibung = "Schule in Wien, Österreich";
+     my $beschreibung_en = "school in Vienna, Austria";
      
 #     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
-     print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+	
+	
+     print "LAST\tP31\tQ1244442\n"; # ist eine: Schulgebäude
+     print "LAST\tP31\tQ3914\n"; # ist eine: Schule
+#     print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+	 	 
     print "LAST\tP17\tQ40\n"; # Staat: Österreich
-
         print "LAST\tP131\tQ1741\n"; # liegt in der Verwaltungseinheit: Wien 
     
     
