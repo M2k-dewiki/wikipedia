@@ -1,0 +1,109 @@
+#!/usr/bin/perl
+
+use strict;
+
+
+# https://petscan.wmflabs.org/?show_redirects=no&langs_labels_any=&wpiu=any&cb_labels_yes_l=1&negcats=Interiors+of+churches+in+Brandenburg&ns%5B14%5D=1&langs_labels_no=&sortby=title&maxlinks=&sitelinks_yes=&regexp_filter=&search_query=&ores_prediction=any&cb_labels_no_l=1&templates_no=&interface_language=en&links_to_no=&categories=Male+racecar+drivers+from+Austria&outlinks_no=&wikidata_item=without&project=wikimedia&common_wiki=auto&combination=subset&labels_no=&search_wiki=&ores_prob_to=&min_redlink_count=1&max_age=&edits%5Bflagged%5D=both&language=commons&templates_any=&referrer_url=&search_max_results=500&wikidata_prop_item_use=&cb_labels_any_l=1&sortorder=ascending&output_limit=&links_to_all=&wikidata_label_language=&max_sitelink_count=&larger=&doit=
+
+# https://commons.wikimedia.org/wiki/Category:Male_racecar_drivers_from_Austria
+
+
+my $INFILE = 'rennfahrer.csv';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+my @sprachliste = ("en","bar","br","ca","co","da","de","de-at","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
+
+my $count =0 ;
+while(<IN>)
+{
+    chop;
+
+    my ($name,$partei,$geschlecht) = split(/\,/,$_);
+
+#     print "NAME:$name:$partei:GENDER:$geschlecht:\n";
+
+
+    my $kat = $name;
+    $kat =~ s/^(\s)*//og; # trim
+    $kat =~ s/(\s)*$//og; # trim
+    $kat =~ s/_/ /og; # trim
+    
+    # print "KAT:$kat:\n";
+
+    if ($kat eq "") { next ; }
+    
+    
+	
+	
+    my $lemma_mit_klammerzusatz = $kat;  # ohne präfix "category:"
+    $lemma_mit_klammerzusatz =~ s/Category://iog;
+    #fixme
+
+    $lemma_mit_klammerzusatz =~ s/Fire station in /Fire station /iog;
+
+
+    my $lemma_ohne_klammerzusatz = $lemma_mit_klammerzusatz;  # ohne präfix und klammerzusatz
+    $lemma_ohne_klammerzusatz =~ s/\(.+\)//og;
+    $lemma_ohne_klammerzusatz =~ s/^(\s)*//og; # trim
+    $lemma_ohne_klammerzusatz =~ s/(\s)*$//og; # trim
+
+    my $lemma_ohne_klammer_aber_mit_zusatz = $lemma_mit_klammerzusatz;  # ohne präfix 
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/^(\s)*//og; # trim
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/(\s)*$//og; # trim
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/\(//og;
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/\)//og;
+    
+    my $kat_mit_prefix = "Category:".$kat;
+
+    my $klammerzusatz = "";
+    if ($lemma_mit_klammerzusatz =~ /\((.+)\)/og) {
+      $klammerzusatz = $1;
+      # print "KLAMMERZUSATZ:$klammerzusatz:\n";
+    }
+    
+$name = $lemma_ohne_klammerzusatz ;
+    
+    # $kat =~ s/^(\s)*//og; # trim
+    # $kat =~ s/(\s)*$//og; # trim
+
+    print "CREATE\n";
+    foreach my $sprache (@sprachliste) {
+      print "LAST\tL".$sprache."\t\"".$name."\"\n";
+    }
+
+    my $beschreibung_es = "piloto de automovilismo austríaco";
+	my $beschreibung = "österreichischer Rennfahrer";
+    my $beschreibung_en = 'Austrian racing driver';
+	
+    print "LAST\tP31\tQ5\n"; # mensch
+	print "LAST\tP21\tQ6581097\n"; # geschlecht männlich
+    print "LAST\tP27\tQ40\n"; # österreicher
+    print "LAST\tP1412\tQ188\n"; # deutsch
+
+#  gesprochene oder publizierte Sprachen (P1412): Deutsch (Q188) 
+# print "LAST\tP1412\tQ188\n"; 
+
+# Land der Staatsangehörigkeit (P27): Österreich (Q40) 
+# print "LAST\tP27\tQ40\n"; 
+
+# P641:Q5386
+# P106:Q378622
+
+# Sportart (P641):  (Q5386) 
+print "LAST\tP641\tQ5386\n"; 
+# Tätigkeit (P106):  Q378622
+print "LAST\tP106\tQ378622\n"; 
+ 
+    print "LAST\tDde\t\"".$beschreibung."\"\n";
+    print "LAST\tDde-at\t\"".$beschreibung."\"\n";
+
+    print "LAST\tDen\t\"".$beschreibung_en."\"\n";
+    print "LAST\tDes\t\"".$beschreibung_es."\"\n";
+   
+       print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
+    print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
+
+
+}
+close(IN);
