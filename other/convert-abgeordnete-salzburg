@@ -1,0 +1,94 @@
+#!/usr/bin/perl
+
+use strict;
+
+
+my $INFILE = 'landtag-salzburg.csv';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+my @sprachliste = ("en","bar","br","ca","co","da","de","de-at","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
+
+my $count =0 ;
+while(<IN>)
+{
+    chop;
+
+    my ($name,$partei,$geschlecht) = split(/\,/,$_);
+#    my ($name,$partei,$geschlecht) = split(/\t/,$_);
+    # print "NAME:$name:$partei:GENDER:$geschlecht:\n";
+    
+    # $kat =~ s/^(\s)*//og; # trim
+    # $kat =~ s/(\s)*$//og; # trim
+
+    print "CREATE\n";
+    foreach my $sprache (@sprachliste) {
+      print "LAST\tL".$sprache."\t\"".$name."\"\n";
+    }
+
+    my $beschreibung = "";
+    my $beschreibung_es = "";
+    my $beschreibung_nl = "";
+    if ($geschlecht eq "Frau") {
+	$beschreibung = "österreichische Politikerin (".$partei.")";
+	print "LAST\tP21\tQ6581072\n"; # geschlecht weiblich
+	$beschreibung_es = "política austríaca";
+	$beschreibung_nl = "politica uit Oostenrijk";
+    }
+    if ($geschlecht eq "Mann") {
+	$beschreibung = "österreichischer Politiker (".$partei.")";
+	print "LAST\tP21\tQ6581097\n"; # geschlecht maennlich
+	$beschreibung_es = "político austríaco";
+	$beschreibung_nl = "politicus uit Oostenrijk";
+    }
+    
+    if ($partei eq "GRÜNE") {
+	print "LAST\tP102\tQ193178\n"; # parteizugehörigkeit grüne
+	print "LAST\tP102\tQ15805741\n"; # parteizugehörigkeit Die Grünen Salzburg (Q15805741)
+
+    }
+
+    if ($partei eq "ÖVP") {
+	print "LAST\tP102\tQ186867\n"; # parteizugehörigkeit
+	print "LAST\tP102\tQ29561683\n"; # ÖVP Salzburg (Q29561683)
+
+    }
+
+    if ($partei eq "SPÖ") {
+	print "LAST\tP102\tQ179111\n"; # parteizugehörigkeit
+	print "LAST\tP102\tQ91012793\n"; # SPÖ Salzburg (Q91012793)
+
+    }
+
+    if ($partei eq "FPÖ") {
+	print "LAST\tP102\tQ131692\n"; # parteizugehörigkeit
+    }
+
+    if ($partei eq "NEOS") {
+	print "LAST\tP102\tQ13564543\n"; # parteizugehörigkeit
+    }
+	
+    if ($partei eq "KPÖ") {
+	print "LAST\tP102\tQ161118\n"; # parteizugehörigkeit Kommunistische Partei Österreichs (Q161118)
+
+    }
+	
+
+
+    print "LAST\tDde\t\"".$beschreibung."\"\n";
+    print "LAST\tDde-at\t\"".$beschreibung."\"\n";
+    print "LAST\tDen\t\"Austrian politician\"\n";
+    print "LAST\tDes\t\"".$beschreibung_es."\"\n";
+    print "LAST\tDnl\t\"".$beschreibung_nl."\"\n";
+    
+    
+    print "LAST\tP31\tQ5\n"; # mensch
+    print "LAST\tP106\tQ82955\n"; # politiker
+    print "LAST\tP27\tQ40\n"; # österreicher
+    print "LAST\tP1412\tQ188\n"; # deutsch
+
+    print "LAST\tP39\tQ23710976\tP580\t+2023-06-14T00:00:00Z/11\n";  # Mitglied des Salzburger Landtages (Q23710976) ab 2023-06-14
+   
+
+}
+close(IN);
