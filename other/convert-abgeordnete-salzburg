@@ -62,6 +62,7 @@ while(<IN>)
 
     if ($partei eq "FPÖ") {
 	print "LAST\tP102\tQ131692\n"; # parteizugehörigkeit
+	print "LAST\tP102\tQ120110776\n"; # parteizugehörigkeit FPÖ Salzburg (Q120110776)
     }
 
     if ($partei eq "NEOS") {
