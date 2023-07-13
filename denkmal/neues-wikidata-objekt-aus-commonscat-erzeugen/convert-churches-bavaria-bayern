@@ -1,0 +1,183 @@
+#!/usr/bin/perl
+
+use strict;
+
+# Crypt::SSLeay muss installiert sein fuer SSL-Support
+# apt-get install libwww-mechanize-perl libio-socket-ssl-perl libnet-ssleay-perl
+use WWW::Mechanize;
+use Data::Dumper;
+use HTML::FormatText;
+my $USER_AGENT='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36';
+# See the autocheck parameter, which turns all HTTP errors into fatal errors. When you turn autocheck off, you will need to do all error checking yourself.
+my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
+
+#http://glennf.com/writing/hexadecimal.url.encoding.html
+# This pattern takes the hex characters and decodes them back into real characters. The function hex() turns a hex number into decimal; 
+# there is no dec() that does the reverse in perl. The "e" at the end of the regexp means "evaluate the replacement pattern as an expression."
+sub URLDecode {
+    my $theURL = $_[0];
+    $theURL =~ tr/+/ /;
+    $theURL =~ s/%([a-fA-F0-9]{2,2})/chr(hex($1))/eg;
+    $theURL =~ s/<!--(.|\n)*-->//g;
+    return $theURL;
+}
+
+sub URLEncode {
+    my $theURL = $_[0];
+    $theURL =~ s/([\W])/"%" . uc(sprintf("%2.2x",ord($1)))/eg;
+    return $theURL;
+}
+
+#
+#
+# https://commons.wikimedia.org/wiki/Category:Modernist_churches_in_Bavaria
+# 
+# https://petscan.wmflabs.org/?ores_prob_from=&show_redirects=no&output_limit=&links_to_any=&interface_language=en&page_image=any&cb_labels_no_l=1&sparql=&manual_list_wiki=&combination=subset&maxlinks=&sitelinks_any=&sortby=title&wikidata_item=without&sitelinks_no=&cb_labels_yes_l=1&depth=30&output_compatability=catscan&project=wikimedia&search_max_results=500&after=&wikidata_prop_item_use=&before=&outlinks_no=&search_wiki=&format=html&ores_prob_to=&categories=Modernist+churches+in+Bavaria&max_sitelink_count=&cb_labels_any_l=1&manual_list=&active_tab=tab_categories&edits%5Banons%5D=both&templates_any=&show_disambiguation_pages=both&max_age=&langs_labels_any=&language=commons&wikidata_source_sites=&langs_labels_yes=&ns%5B14%5D=1&doit=
+
+
+# https://commons.wikimedia.org/wiki/Category:Churches_in_Bavaria_by_municipality
+#  tiefe 2 
+
+# https://petscan.wmflabs.org/?show_redirects=no&labels_no=&referrer_url=&common_wiki_other=&wikidata_item=without&language=commons&depth=2&format=html&cb_labels_no_l=1&minlinks=&langs_labels_yes=%C2%AEexp_filter&links_to_all=&ns%5B14%5D=1&categories=Churches+in+Bavaria+by+municipality&labels_any=&cb_labels_yes_l=1&source_combination=&smaller=&outlinks_yes=&wikidata_label_language=&wpiu=any&search_max_results=500&min_sitelink_count=&sortby=title&manual_list=&output_compatability=catscan&cb_labels_any_l=1&after=&langs_labels_any=&min_redlink_count=1&labels_yes=&interface_language=en&ores_prob_to=&sortorder=ascending&subpage_filter=either&maxlinks=&templates_yes=&links_to_no=%C2%AEexp_filter&max_age=&search_filter=&pagepile=&show_disambiguation_pages=both&outlinks_any=&project=wikimedia&doit=
+
+
+# exclude
+# https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Bavaria_by_municipality
+
+# https://petscan.wmflabs.org/?langs_labels_any=&edits%5Banons%5D=both&outlinks_any=&wikidata_item=without&since_rev0=&search_wiki=&depth=2&sitelinks_any=&cb_labels_no_l=1&categories=Churches+in+Bavaria+by+municipality&edits%5Bbots%5D=both&negcats=Cultural+heritage+monuments+in+Bavaria+by+municipality%7C2&page_image=any&ns%5B14%5D=1&output_limit=&sitelinks_no=&cb_labels_any_l=1&before=&show_redirects=no&outlinks_yes=&langs_labels_yes=%C2%AEexp_filter&interface_language=en&links_to_all=&combination=subset&wpiu=any&language=commons&templates_any=&cb_labels_yes_l=1&wikidata_label_language=&minlinks=&labels_yes=&search_filter=&outlinks_no=&min_sitelink_count=&search_max_results=500&links_to_no=%C2%AEexp_filter&links_to_any=&common_wiki_other=&sortby=title&project=wikimedia&sortorder=ascending&labels_any=&ores_prob_to=&doit=
+
+
+
+my $INFILE = 'list.txt';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+my $count =0 ;
+while(<IN>)
+{
+    chop;
+    my $kat = $_;
+    $kat =~ s/^(\s)*//og; # trim
+    $kat =~ s/(\s)*$//og; # trim
+    $kat =~ s/_/ /og; # trim
+    
+    # print "KAT:$kat:\n";
+    
+    my $lemma_mit_klammerzusatz = $kat;  # ohne präfix "category:"
+    $lemma_mit_klammerzusatz =~ s/Category://iog;
+    #fixme
+
+    my $lemma_ohne_klammerzusatz = $lemma_mit_klammerzusatz;  # ohne präfix und klammerzusatz
+    $lemma_ohne_klammerzusatz =~ s/\(.+\)//og;
+    $lemma_ohne_klammerzusatz =~ s/^(\s)*//og; # trim
+    $lemma_ohne_klammerzusatz =~ s/(\s)*$//og; # trim
+
+    my $lemma_ohne_klammer_aber_mit_zusatz = $lemma_mit_klammerzusatz;  # ohne präfix 
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/^(\s)*//og; # trim
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/(\s)*$//og; # trim
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/\(//og;
+    $lemma_ohne_klammer_aber_mit_zusatz =~ s/\)//og;
+    
+    my $kat_mit_prefix = "Category:".$kat;
+
+    my $klammerzusatz = "";
+    if ($lemma_mit_klammerzusatz =~ /\((.+)\)/og) {
+      $klammerzusatz = $1;
+      # print "KLAMMERZUSATZ:$klammerzusatz:\n";
+    }
+    
+##############
+
+   #   my $url = 'https://commons.wikimedia.org/wiki/Category:Dorfkirche_(Herzsprung_in_der_Uckermark)';
+     my $url = 'https://commons.wikimedia.org/wiki/Category:'.URLEncode($kat);
+    
+#      my $lemma = "";
+#     my $lemma_decode = "";
+#     if ($url =~ /Category:(.*)$/) {
+#        $lemma = $1;
+#        $lemma_decode = URLDecode($lemma);
+#        $lemma_decode =~ s/_/ /og;
+#      }
+#       print "LEMMA:$lemma:DECODE:$lemma_decode:\n";
+     
+       my $check_url = $url.'?action=raw';
+       # print "check URL:$check_url:\n"; # exit;
+
+    $agent->get( $check_url );
+  my $result2 = $agent->content;
+  # print "RESULT:$result2:\n";
+  
+       if ($result2 =~ /Wikidata infobox/i) {
+        # print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";  next;
+     } 
+
+  
+  my $blfd_id = "";
+  if ($result2 =~ /Kulturdenkmal Berlin/i) {
+     # print "Lemma $check_url hat Baudenkmal-ID\n";
+ 
+       if ($result2 =~ /(\s*)\{\{Kulturdenkmal Berlin(\s*)\|(1=)?(\s*)([0-9]+)/i) {
+         # print "*** HIER: $1:$2:$3:$4:\n";
+#           $blfd_id = $4;
+           $blfd_id = $5;
+     }
+      #   print "Lemma $check_url hat Baudenkmal-ID $blfd_id:\n";
+   } # Baudenkmal
+
+my $north = "";
+my $east = "";
+  if ($result2 =~ /Object location/i) {
+      # print "Lemma $check_url hat Object location\n";
+      if ($result2 =~ /(\s*)\{\{Object location( dec)?(\s*)\|(\s*)([0-9\.]+)(\s*)\|(\s*)([0-9\.]+)(\s*)\}/i) {
+       #  print "*** HIER: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8\n";
+$north = $5;
+$east = $8;
+     }
+        # print "Lemma $check_url hat location $north $east:\n";
+   } # Baudenkmal
+   
+##############
+
+    
+    # print "KAT:$kat:LEMMA_MIT:$lemma_mit_klammerzusatz:LEMMA_OHNE:$lemma_ohne_klammerzusatz:\n";
+    
+    print "CREATE\n";
+   print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
+#    print "LAST\tLde\t\"$lemma_ohne_klammer_aber_mit_zusatz\"\n"; # label de - bezeichnung
+
+
+    my $alias = $lemma_mit_klammerzusatz;
+    if ($lemma_mit_klammerzusatz ne $lemma_ohne_klammerzusatz) {
+      print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
+    }
+  
+     my $beschreibung = "Kirchengebäude";
+     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+        print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
+    
+    print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
+     print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
+#     print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+    print "LAST\tP17\tQ183\n"; # Staat: Deutschland
+
+
+    print "LAST\tP131\tQ980\n"; # liegt in der Verwaltungseinheit: Bayern (Q980)
+
+        
+    print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
+	
+	if ($blfd_id ne "") {
+      print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
+      print "LAST\tP1435\tQ85171142\n";   # Schutzkategorie: Kulturdenkmal in Berlin
+       print "LAST\tP2424\t\"$blfd_id\"\n";   # Denkmal-ID
+	} 
+    
+    if (($north ne "") && ($east ne "")) {
+  my $cord = '@'.$north.'/'.$east;
+    print "LAST\tP625\t$cord\n";   # koordinaten 
+ }
+   
+
+
+}
+close(IN);
