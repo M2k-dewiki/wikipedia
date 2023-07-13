@@ -72,13 +72,20 @@ $name = $lemma_ohne_klammerzusatz ;
       print "LAST\tL".$sprache."\t\"".$name."\"\n";
     }
 
-    my $beschreibung_es = "piloto de automovilismo austríaco";
-	my $beschreibung = "österreichischer Rennfahrer";
-    my $beschreibung_en = 'Austrian racing driver';
-	
+#    my $beschreibung_es = "piloto de automovilismo austríaco";
+#	my $beschreibung = "österreichischer Rennfahrer";
+#    my $beschreibung_en = 'Austrian racing driver';
+
+    my $beschreibung_es = "piloto de automovilismo alemán";
+	my $beschreibung = "deutscher Rennfahrer";
+    my $beschreibung_en = 'German racing driver';
+
     print "LAST\tP31\tQ5\n"; # mensch
 	print "LAST\tP21\tQ6581097\n"; # geschlecht männlich
-    print "LAST\tP27\tQ40\n"; # österreicher
+
+#    print "LAST\tP27\tQ40\n"; # österreicher
+    print "LAST\tP27\tQ183\n"; # Deutscher
+
     print "LAST\tP1412\tQ188\n"; # deutsch
 
 #  gesprochene oder publizierte Sprachen (P1412): Deutsch (Q188) 
