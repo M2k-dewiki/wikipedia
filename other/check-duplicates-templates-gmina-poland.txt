@@ -132,6 +132,8 @@ my $noe = @result_lines;
 if ($noe > 2) {
 
 my $count_match = 0;
+my @qid_list = ();
+
 foreach my $this_line (@result_lines) {
 #	print "THIS_LINE:$this_line:\n";
 
@@ -141,14 +143,27 @@ foreach my $this_line (@result_lines) {
    	$count_match++;
     my	      $qid = $1;
 
-       if ($count_match == 1) { print "|-\n"; print "| $kat\n"; }
-	    print "| [[:d:Q".$qid."]]:\n";
-   
+       if ($count_match == 1) { 
+	      # print "|-\n"; print "| $kat\n"; 
+	   }
+	   # print "| [[:d:Q".$qid."]]:\n";
+       push(@qid_list, $qid) ;  
 		 
 		 
 	} # if
 	  
 } # foreach
+
+my $number_of_qidlist_elements = @qid_list;
+# print "NOE:$number_of_qidlist_elements:\n";
+if ($number_of_qidlist_elements == 2) {
+  if ($qid_list[0] > $qid_list[1]) {
+    print "MERGE\tQ".@qid_list[0]."\tQ".$qid_list[1]."\n";
+  } else {
+  print "MERGE\tQ".@qid_list[1]."\tQ".$qid_list[0]."\n";
+  }	
+}
+
 
 } # if
 
