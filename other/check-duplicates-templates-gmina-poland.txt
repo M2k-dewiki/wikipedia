@@ -144,9 +144,9 @@ foreach my $this_line (@result_lines) {
     my	      $qid = $1;
 
        if ($count_match == 1) { 
-	      # print "|-\n"; print "| $kat\n"; 
+	        print "|-\n"; print "| $kat\n"; 
 	   }
-	   # print "| [[:d:Q".$qid."]]:\n";
+	    print "| [[:d:Q".$qid."]]:\n";
        push(@qid_list, $qid) ;  
 		 
 		 
@@ -155,14 +155,21 @@ foreach my $this_line (@result_lines) {
 } # foreach
 
 my $number_of_qidlist_elements = @qid_list;
+
 # print "NOE:$number_of_qidlist_elements:\n";
-if ($number_of_qidlist_elements == 2) {
-  if ($qid_list[0] > $qid_list[1]) {
-    print "MERGE\tQ".@qid_list[0]."\tQ".$qid_list[1]."\n";
-  } else {
-  print "MERGE\tQ".@qid_list[1]."\tQ".$qid_list[0]."\n";
-  }	
-}
+# if ($number_of_qidlist_elements == 2) {
+#   if ($qid_list[0] > $qid_list[1]) {
+#      print "MERGE\tQ".@qid_list[0]."\tQ".$qid_list[1]."\n";
+#   } else {
+#     print "MERGE\tQ".@qid_list[1]."\tQ".$qid_list[0]."\n";
+#   }	
+# }
+
+# if ($number_of_qidlist_elements == 3) {
+#   print "MERGE\tQ".@qid_list[2]."\tQ".$qid_list[0]."\n";
+#   print "MERGE\tQ".@qid_list[1]."\tQ".$qid_list[0]."\n";
+# }
+
 
 
 } # if
