@@ -1,0 +1,47 @@
+#!/usr/bin/perl
+
+use strict;
+
+# CREATE		
+# LAST	P31	Q4167836
+# LAST	Sdewiki	Kategorie:Geographie (Bezirk Bruck-Mürzzuschlag)
+# LAST	Lde	Kategorie:Geographie (Bezirk Bruck-Mürzzuschlag)
+
+
+my $INFILE = 'list.txt';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+my $count =0 ;
+while(<IN>)
+{
+    chop;
+    my $kat = $_;
+    $kat =~ s/^(\s)*//og; # trim
+    $kat =~ s/(\s)*$//og; # trim
+    $kat =~ s/_/ /og; # trim
+    
+    # print "KAT:$kat:\n";
+	
+
+    my $beschreibung_DE = "Wikimedia-Kategorie";
+    my $beschreibung_AT = "Wikimedia-Kategorie";
+    my $beschreibung_EN = 'Wikimedia category';
+    my $beschreibung_ES = 'categoría de Wikimedia';
+
+print "CREATE\n";
+print "LAST\tP31\tQ4167836\n";
+
+print "LAST\tSdewiki\t\"Kategorie:".$kat."\"\n"; # sitelink
+
+print "LAST\tLde\t\"Kategorie:".$kat."\"\n"; # bezeichnung
+   
+print "LAST\tDde\t\"".$beschreibung_DE."\"\n";
+print "LAST\tDde-at\t\"".$beschreibung_AT."\"\n";
+print "LAST\tDen\t\"".$beschreibung_EN."\"\n";
+print "LAST\tDes\t\"".$beschreibung_ES."\"\n";
+
+    
+
+}
+close(IN);
