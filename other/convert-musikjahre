@@ -1,0 +1,45 @@
+#!/usr/bin/perl
+
+use strict;
+
+
+for ( my $jahr = 1139; $jahr <= 1200; $jahr++ ) {
+
+    
+my	$label_de = "Musikjahr ".$jahr;
+my	$label_en = $jahr." in music";
+my	$label_es = "música en ".$jahr;
+	
+	
+
+    print "CREATE\n";
+    print "LAST\tLde\t\"$label_de\"\n"; # label de - bezeichnung
+    print "LAST\tLen\t\"$label_en\"\n"; # label en - bezeichnung
+	
+    print "LAST\tLes\t\"$label_es\"\n"; # label es - bezeichnung
+    print "LAST\tAes\t\"Anexo:Música en $jahr\"\n"; # label es - alias
+
+print "LAST\tLhr\t\"Glazba u $jahr\.\"\n"; # 
+print "LAST\tLnb\t\"Musikkåret $jahr\"\n"; # 
+print "LAST\tLit\t\"Musica nel $jahr\"\n"; # 
+print "LAST\tLnl\t\"Muziek in $jahr\"\n"; # 
+print "LAST\tLpl\t\"$jahr w muzyce\"\n"; # 
+print "LAST\tLpt\t\"$jahr na música\"\n"; # 
+print "LAST\tLro\t\"$jahr în muzică\"\n"; # 
+print "LAST\tLsq\t\"$jahr në muzikë\"\n"; # 
+print "LAST\tLsv\t\"musikåret $jahr\"\n"; # 
+print "LAST\tLfr\t\"$jahr en musique\"\n"; # 
+print "LAST\tLfi\t\"musiikkivuosi $jahr\"\n"; # 
+print "LAST\tLcs\t\"$jahr v hudbě\"\n"; # 
+
+
+print "LAST\tP31\tQ18340514\tP642\tQ638\n";
+print "LAST\tP1269\tQ638\n";
+
+# +2023-06-14T00:00:00Z/11
+
+print "LAST\tP585\t+".$jahr."-00-00T00:00:00Z/4\n";
+
+
+}
+close(IN);
