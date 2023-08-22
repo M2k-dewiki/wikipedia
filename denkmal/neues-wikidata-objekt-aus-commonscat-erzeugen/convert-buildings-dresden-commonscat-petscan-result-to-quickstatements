@@ -143,6 +143,7 @@ $east = $8;
     
     print "CREATE\n";
    print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
+   print "LAST\tLen\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
 #    print "LAST\tLde\t\"$lemma_ohne_klammer_aber_mit_zusatz\"\n"; # label de - bezeichnung
 
 
@@ -152,13 +153,13 @@ $east = $8;
     }
   
      my $beschreibung = "Bauwerk in Dresden";
+     my $beschreibung_en = "building in Dresden, Germany";
 
-#     my $beschreibung = "Grabmal in Dresden";
-#     my $beschreibung = "Bauwerk in Plauen";
-#     my $beschreibung = "Bauwerk in Weißenberg";
      
 #     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
+        print "LAST\tDen\t\"$beschreibung_en\"\n"; # description de - beschreibung
+
     
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
 #     print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
@@ -185,13 +186,18 @@ $east = $8;
     
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
     
-    print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
+ #   print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
     print "LAST\tP1435\tQ19413851\n";   # Schutzkategorie (P1435): Kulturdenkmal in Sachsen (Q19413851)
     
-    # print "LAST\tP2081\t\"$blfd_id\"\n";   # BLDAM-Objekt-ID 
 
     print "LAST\tP1708\t\"$blfd_id\"\n";   # LSFID
-    
+	
+	### 
+    print "LAST\tP669\tQ100936739\n";   # Straße: Oberwachwitzer Weg (Q100936739)
+    print "LAST\tP276\tQ2538540\n";   # Wachwitz (Q2538540)
+	### 
+  
+	
     
     if (($north ne "") && ($east ne "")) {
   my $cord = '@'.$north.'/'.$east;

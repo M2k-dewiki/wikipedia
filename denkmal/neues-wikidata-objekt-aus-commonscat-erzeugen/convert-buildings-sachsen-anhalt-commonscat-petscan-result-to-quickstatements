@@ -246,7 +246,8 @@ $east = $8;
      
 
 #my $beschreibung = 'Bauwerk in Merseburg, Sachsen-Anhalt';
-my $beschreibung = 'Bauwerk';
+#my $beschreibung = 'Bauwerk';
+my $beschreibung = 'Bauwerk in Hohe Börde, Sachsen-Anhalt';
 
 # my $beschreibung = 'Bauwerk in Naumburg (Saale)';
 
@@ -307,7 +308,7 @@ my $beschreibung = 'Bauwerk';
 
 
 
-          if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+#          if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
@@ -348,7 +349,14 @@ my $beschreibung = 'Bauwerk';
 # print "LAST\tP131\tQ1733\n"; # liegt in der Verwaltungseinheit:     Magdeburg (Q1733)
 
 
- print "LAST\tP131\tQ1206\n"; # liegt in der Verwaltungseinheit:     Sachsen-Anhalt (Q1206)
+ ## print "LAST\tP131\tQ1206\n"; # liegt in der Verwaltungseinheit:     Sachsen-Anhalt (Q1206)
+ 
+print "LAST\tP131\tQ689996\n"; # liegt in der Verwaltungseinheit:     Hohe Börde (Q689996)
+
+ 
+
+ 
+ 
 # print "LAST\tP131\tQ442875\n"; # liegt in der Verwaltungseinheit:     Altmärkische Höhe (Q442875)
 
 
@@ -461,6 +469,7 @@ my $beschreibung = 'Bauwerk';
 #    print "LAST\tP131\tQ57828\n"; # liegt in der Verwaltungseinheit: Schönheide
 #    print "LAST\tP131\tQ490960\n"; # liegt in der Verwaltungseinheit: Arendsee
 #    print "LAST\tP131\tQ184714\n"; # liegt in der Verwaltungseinheit:      # Zehrental (Q184714)
+
 
     
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property

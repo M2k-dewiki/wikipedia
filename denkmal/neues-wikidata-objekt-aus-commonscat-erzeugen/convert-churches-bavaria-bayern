@@ -47,6 +47,9 @@ sub URLEncode {
 # https://petscan.wmflabs.org/?langs_labels_any=&edits%5Banons%5D=both&outlinks_any=&wikidata_item=without&since_rev0=&search_wiki=&depth=2&sitelinks_any=&cb_labels_no_l=1&categories=Churches+in+Bavaria+by+municipality&edits%5Bbots%5D=both&negcats=Cultural+heritage+monuments+in+Bavaria+by+municipality%7C2&page_image=any&ns%5B14%5D=1&output_limit=&sitelinks_no=&cb_labels_any_l=1&before=&show_redirects=no&outlinks_yes=&langs_labels_yes=%C2%AEexp_filter&interface_language=en&links_to_all=&combination=subset&wpiu=any&language=commons&templates_any=&cb_labels_yes_l=1&wikidata_label_language=&minlinks=&labels_yes=&search_filter=&outlinks_no=&min_sitelink_count=&search_max_results=500&links_to_no=%C2%AEexp_filter&links_to_any=&common_wiki_other=&sortby=title&project=wikimedia&sortorder=ascending&labels_any=&ores_prob_to=&doit=
 
 
+# https://commons.wikimedia.org/wiki/Category:Churches_in_Switzerland
+
+
 
 my $INFILE = 'list.txt';
 
@@ -157,11 +160,15 @@ $east = $8;
     
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
      print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
+
+
 #     print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
-    print "LAST\tP17\tQ183\n"; # Staat: Deutschland
 
 
-    print "LAST\tP131\tQ980\n"; # liegt in der Verwaltungseinheit: Bayern (Q980)
+#    print "LAST\tP17\tQ183\n"; # Staat: Deutschland
+#    print "LAST\tP131\tQ980\n"; # liegt in der Verwaltungseinheit: Bayern (Q980)
+
+    print "LAST\tP17\tQ39\n"; # Staat: Schweiz (Q39)
 
         
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
