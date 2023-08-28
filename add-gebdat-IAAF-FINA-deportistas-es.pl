@@ -196,6 +196,9 @@ if ($jahr > 0) {
 if ($gebdat ne "") {
   
     print "$QID\tP569\t$gebdat\tS143\tQ8449\n";    
+	
+	  print "$QID\tP31\tQ5\n";    
+	
     #FIXME
 }    
     # S ... Fundstelle
