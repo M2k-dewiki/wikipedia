@@ -43,6 +43,9 @@ sub URLEncode {
 # https://commons.wikimedia.org/wiki/Category:Chapels_in_Baden-W%C3%BCrttemberg
 # 
 
+# https://petscan.wmflabs.org/?language=commons&links_to_all=&cb_labels_any_l=1&interface_language=en&min_sitelink_count=&categories=Churches+in+Baden-W%C3%BCrttemberg%0D%0AChapels+in+Baden-W%C3%BCrttemberg&combination=union&show_redirects=no&sparql=&project=wikimedia&show_disambiguation_pages=both&ns%5B14%5D=1&search_query=&cb_labels_yes_l=1&negcats=&sitelinks_yes=&search_max_results=500&labels_yes=&sortby=title&max_sitelink_count=&cb_labels_no_l=1&since_rev0=&depth=10&manual_list=&manual_list_wiki=&sortorder=ascending&edits%5Banons%5D=both&wikidata_item=without&templates_no=&smaller=&wikidata_label_language=&subpage_filter=either&common_wiki_other=&show_soft_redirects=both&links_to_any=&langs_labels_no=&after=&search_wiki=&namespace_conversion=keep&templates_any=&format=html&regexp_filter=&common_wiki=auto&doit=
+
+
 
 # https://de.wikipedia.org/wiki/Liste_der_gr%C3%B6%C3%9Ften_St%C3%A4dte_in_Baden-W%C3%BCrttemberg
 

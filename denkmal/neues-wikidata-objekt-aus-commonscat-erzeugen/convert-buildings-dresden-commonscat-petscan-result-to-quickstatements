@@ -193,8 +193,8 @@ $east = $8;
     print "LAST\tP1708\t\"$blfd_id\"\n";   # LSFID
 	
 	### 
-    print "LAST\tP669\tQ100936739\n";   # Straße: Oberwachwitzer Weg (Q100936739)
-    print "LAST\tP276\tQ2538540\n";   # Wachwitz (Q2538540)
+  #  print "LAST\tP669\tQ100936739\n";   # Straße: Oberwachwitzer Weg (Q100936739)
+  #  print "LAST\tP276\tQ2538540\n";   # Wachwitz (Q2538540)
 	### 
   
 	
