@@ -108,15 +108,27 @@ $east = $8;
     
     # print "KAT:$kat:LEMMA_MIT:$lemma_mit_klammerzusatz:LEMMA_OHNE:$lemma_ohne_klammerzusatz:\n";
     
+	my ($de_label,$fr_label) = split (/\//,$lemma_ohne_zusatz);
+	
+	
+	
+	
     print "CREATE\n";
-   print "LAST\tLde\t\"$lemma_ohne_zusatz\"\n"; # label de - bezeichnung
-   print "LAST\tLen\t\"$lemma_ohne_zusatz\"\n"; # label de - bezeichnung
+    print "LAST\tAde\t\"$lemma_ohne_zusatz\"\n"; # label de - bezeichnung
+    print "LAST\tAen\t\"$lemma_ohne_zusatz\"\n"; # label de - bezeichnung
+    print "LAST\tAfr\t\"$lemma_ohne_zusatz\"\n"; # label de - bezeichnung
+    print "LAST\tAfr\t\"$de_label\"\n"; # label de - bezeichnung
+    print "LAST\tLde\t\"$de_label\"\n"; # label de - bezeichnung
+    print "LAST\tAde\t\"$fr_label\"\n"; # label de - bezeichnung
+    print "LAST\tLfr\t\"$fr_label\"\n"; # label de - bezeichnung
+   print "LAST\tLen\t\"$de_label\"\n"; # label de - bezeichnung
+   print "LAST\tAen\t\"$fr_label\"\n"; # label de - bezeichnung
 
     my $alias = $lemma_ohne_zusatz;
-      print "LAST\tAde\t\"".$alias.", Biel/Bienne\"\n"; # alias de - alias
-      print "LAST\tAen\t\"".$alias.", Biel/Bienne\"\n"; # alias de - alias
-      print "LAST\tAde\t\"".$alias." (Biel/Bienne)\"\n"; # alias de - alias
-      print "LAST\tAen\t\"".$alias." (Biel/Bienne)\"\n"; # alias de - alias
+#      print "LAST\tAde\t\"".$alias.", Biel/Bienne\"\n"; # alias de - alias
+#      print "LAST\tAen\t\"".$alias.", Biel/Bienne\"\n"; # alias de - alias
+#      print "LAST\tAde\t\"".$alias." (Biel/Bienne)\"\n"; # alias de - alias
+#      print "LAST\tAen\t\"".$alias." (Biel/Bienne)\"\n"; # alias de - alias
   
      my $beschreibung = "Straße in Biel/Bienne";
      my $beschreibung_en = "street in Biel/Bienne";
