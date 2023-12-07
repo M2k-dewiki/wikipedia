@@ -134,7 +134,14 @@ my	      $LEMMA_MATCH = $2;
 	        # Wenn Q-ID gefunden, dann quickstatement ausgeben
 	        # print "QUICKSTATEMENT for Q$qid\n";
 
-		  print "Q".$qid."\tSnlwiki\t\"".$kat."\"\n";
+
+############ nlwiki
+#		  print "Q".$qid."\tSnlwiki\t\"".$kat."\"\n";
+
+############ trwiki
+		  print "Q".$qid."\tStrwiki\t\"".$kat."\"\n";
+
+
             # $count++;
 		    # print "COUNT:$count:\n";
 	        # if ($count == 5) { exit ; }
