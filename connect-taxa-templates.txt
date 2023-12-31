@@ -1,0 +1,183 @@
+#!/usr/bin/perl
+
+use strict;
+
+# Crypt::SSLeay muss installiert sein fuer SSL-Support
+# apt-get install libwww-mechanize-perl libio-socket-ssl-perl libnet-ssleay-perl
+use WWW::Mechanize;
+use Data::Dumper;
+use HTML::FormatText;
+
+#http://glennf.com/writing/hexadecimal.url.encoding.html
+# This pattern takes the hex characters and decodes them back into real characters. The function hex() turns a hex number into decimal; there is no dec() that does the reverse in perl. The "e" at the end of the regexp means "evaluate the replacement pattern as an expression."
+sub URLDecode {
+    my $theURL = $_[0];
+    $theURL =~ tr/+/ /;
+    $theURL =~ s/%([a-fA-F0-9]{2,2})/chr(hex($1))/eg;
+    $theURL =~ s/<!--(.|\n)*-->//g;
+    return $theURL;
+}
+
+sub URLEncode {
+    my $theURL = $_[0];
+    $theURL =~ s/([\W])/"%" . uc(sprintf("%2.2x",ord($1)))/eg;
+    return $theURL;
+}
+
+
+
+
+
+####################
+### TODO:
+
+### for each object check if there is already a existing sitelink
+### if there already is a sitelink, then do not change that object --> only add new sitelinks, dont modify existing sitelinks
+
+######
+####################
+
+
+my $USER_AGENT='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36';
+
+# See the autocheck parameter, which turns all HTTP errors into fatal errors. When you turn autocheck off, you will need to do all error checking yourself.
+my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
+
+##########################
+
+#### https://w.wiki/6TpE
+
+# https://w.wiki/8ETX
+
+# SELECT DISTINCT ?item ?label ?sitelink
+# WHERE
+# {
+#   { ?item wdt:P31 wd:Q16521. } UNION  { ?item wdt:P31 wd:Q23038290. } UNION  { ?item wdt:P31 wd:Q310890. }
+#   SERVICE wikibase:mwapi
+#   {
+#     bd:serviceParam wikibase:endpoint "www.wikidata.org";
+#                     wikibase:api "Generator";
+#                     mwapi:generator "search";
+#                     mwapi:gsrsearch "^Acipenser$"@en;
+#                     mwapi:gsrlimit "max".
+#     ?item wikibase:apiOutputItem mwapi:title.
+#   }
+#   ?item rdfs:label ?label. FILTER( LANG(?label)="en" 
+#                                  && REGEX( ?label, "^?Acipenser$") 
+#                                  ) 
+#  ?article schema:about ?item ;
+#     schema:isPartOf <https://nl.wikipedia.org/> ; 
+#     schema:name ?sitelink .
+#   
+# }
+
+# Sewellia marmorata
+# 
+# 
+
+
+
+my $INFILE = 'list.txt';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+my $desc_tr = 'Vikimedya şablonu';
+
+my $count =0 ;
+while(<IN>)
+{
+	
+	chop;
+    my $kat = $_;
+    $kat =~ s/^(\s)*//og; # trim
+    $kat =~ s/(\s)*$//og; # trim
+    $kat =~ s/_/ /og; # trim
+
+my $kat_tr = $kat;
+
+ $kat =~ s/Taksonomi/Template\:Taxonomy/og;
+# get_WD_ID_for_URL($kat);
+
+my $taxstring = 'Şablon:Taksonomi';
+#$kat_tr =~ s/Taksonomi/$taxstring/ee; # eval variable $taxstring
+$kat_tr =~ s/Taksonomi/Şablon:Taksonomi/;
+
+   my $QID_KAT = get_WD_ID_for_URL($kat);
+#  print "KAT:$kat:QID_KAT:$QID_KAT:\n";
+
+ if ($QID_KAT > 0) {
+			  print "Q".$QID_KAT."\tStrwiki\t\"".$kat_tr."\"\n";
+			  print "Q".$QID_KAT."\tLtr\t\"".$kat_tr."\"\n";
+			  print "Q".$QID_KAT."\tDtr\t\"".$desc_tr."\"\n";
+
+
+ }
+ 
+ #        my $lemma_encode = URLEncode($kat);
+# get_WD_ID_for_URL($kat); 
+
+
+}
+
+exit;
+
+
+
+# example:
+# https://www.wikidata.org/wiki/Q116332416
+
+############
+# https://en.wikipedia.org/w/index.php?title=Template:Taxonomy/Fevillea&action=info
+# -> get ID
+############
+
+
+
+#############
+
+# SELECT DISTINCT ?item ?label
+#WHERE
+#{
+# { ?item wdt:P31 wd:Q11266439. } 
+#UNION  { ?item wdt:P31 wd:Q11753321. }
+# UNION  { ?item wdt:P31 wd:Q115595777. }
+# SERVICE wikibase:mwapi
+#  {
+#    bd:serviceParam wikibase:endpoint "www.wikidata.org";
+#                    wikibase:api "Generator";
+#                    mwapi:generator "search";
+#                    mwapi:gsrsearch "^Template:Taxonomy/Fevillea$"@en;
+#                    mwapi:gsrlimit "max".
+#    ?item wikibase:apiOutputItem mwapi:title.
+#  }
+#  ?item rdfs:label ?label. FILTER( LANG(?label)="en" 
+#                                 && REGEX( ?label, "^?Template:Taxonomy/Fevillea$") 
+#                                 ) 
+#  
+#}
+
+#############
+
+
+
+exit;
+	
+
+
+# https://en.wikipedia.org/w/index.php?title=Template:Taxonomy/Fevillea&action=info
+
+
+sub get_WD_ID_for_URL {
+  my $lemma = $_[0];
+  my $QID = 0;
+  my $checkURL = 'https://en.wikipedia.org/w/api.php?action=query&prop=pageprops&titles='.URLEncode($lemma).'&format=json';
+  # print "checkURL:$checkURL:\n";
+  $agent->get( $checkURL );
+  my $result = $agent->content;
+   # print "RESULT:$result:\n";
+  if ($result =~ /\"Q([0-9]+)\"/) {
+    $QID = $1;
+    # print "QID:$QID:\n";
+  }
+  return $QID;
+}
