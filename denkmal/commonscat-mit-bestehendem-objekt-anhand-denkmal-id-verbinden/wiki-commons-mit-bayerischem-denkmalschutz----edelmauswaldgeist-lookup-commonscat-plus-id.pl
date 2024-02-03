@@ -26,19 +26,31 @@ my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
 
 # https://de.wikipedia.org/wiki/Spezial:Neue_Seiten
 
+ 
+# 'Edelmauswaldgeist',
+#	'Plozessor',
+# 'Störfix'
+# 'Reinhardhauke',
 
+# 'Ricardalovesmonuments',
+#	   'Rufus46',
+ 
     my @userlist = (
-    'Edelmauswaldgeist',
-	'Plozessor',
+#	'Plozessor',
+#	   'Rufus46',
+# 'Edelmauswaldgeist',
+ 'Reinhardhauke',
+
        );
-   my $limit = 5000;
+   my $limit = 300;
+   my $limit = 1000;
 #    'Flussar',
 #      'I.+Berger',
 #     'Georg Karl Ell',
 
 
 # my $newOnly = 1; # nur neue kategorien
- my $newOnly = 1; # auch bestehende kategorien
+ my $newOnly = 0; # auch bestehende kategorien
 
 
 my $URL = "";

@@ -27,8 +27,10 @@ my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
 # https://de.wikipedia.org/wiki/Spezial:Neue_Seiten
 
 # my $startURL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs';
-my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Hesse_with_known_ID';
-    
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Hesse_with_known_ID';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Hesse_without_linked_Wikidata';
+	
+	
 # my $startURL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs&subcatfrom=++D-6-75-139-11+%0ABahnhofstra%C3%9Fe+16+%28Iphofen%29#mw-subcategories';
 # my $URL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs&subcatfrom=+D-1-61-000-642+%0AVermessungsamt+%28Ingolstadt%29#mw-subcategories';
 # my $startURL = 'https://commons.wikimedia.org/w/index.php?title=Category:Cultural_heritage_monuments_in_Bavaria_with_known_IDs';
@@ -38,7 +40,11 @@ my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_mo
 
 
 ###############################
+my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Hesse_with_known_ID';
 my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Hesse_without_linked_Wikidata';
+my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Buchschlag';
+
+
 ###############################
 
 
@@ -125,21 +131,21 @@ for my $link ( @links ) {
       # print "LEMMA:$lemma:DECODE:$lemma_decode:\n";
      
        my $check_url = $url.'?action=raw';
-       print "check URL:$url:\n";
+       # print "check URL:$url:\n";
   $agent->get( $check_url );
   my $result2 = $agent->content;
    # print "RESULT:$result2:\n";
   if ($result2 =~ /Kulturdenkmal Hessen/i) {
      # print "Lemma $check_url hat Baudenkmal-ID\n";
-     if ($result2 =~ /Wikidata infobox/i) {
-       # print "Lemma $check_url hat Wikidata Infobox - do nothing\n";
+     if ($result2 =~ /xxxx Wikidata infobox/i) {
+        # print "Lemma $check_url hat Wikidata Infobox - do nothing\n";
      } else {
 	my $blfd_id = "";
         if ($result2 =~ /(\s*)\{\{Kulturdenkmal Hessen(\s*)\|(\s*)([\0-9]+)/i) {
           #  print "*** HIER: $1:$2:$3:$4:\n";
            $blfd_id = $4;
         }
-	  print "Lemma $check_url hat Baudenkmal-ID $blfd_id:\n";
+#	  print "Lemma $check_url hat Baudenkmal-ID $blfd_id:\n";
        # print "Lookup Q-ID for BLFD_ID:$blfd_id:\n";
 
 	
@@ -199,7 +205,7 @@ for my $link ( @links ) {
     }
 		   
   } else {
-     print "Lemma $check_url - Kein Baudenkmal\n";
+     # print "Lemma $check_url - Kein Baudenkmal\n";
   }
 
   #  exit;
