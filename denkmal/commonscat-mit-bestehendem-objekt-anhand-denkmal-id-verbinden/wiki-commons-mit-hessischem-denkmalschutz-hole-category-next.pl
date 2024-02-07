@@ -40,9 +40,15 @@ my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
 
 
 ###############################
-my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Hesse_with_known_ID';
-my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Hesse_without_linked_Wikidata';
-my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Buchschlag';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Hesse_with_known_ID';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Hesse_without_linked_Wikidata';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Buchschlag';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Dreieichenhain';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Egelsbach';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Langen_(Hessen)';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_M%C3%BChlheim_am_Main';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Geisenheim';
+my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Dietzenbach';
 
 
 ###############################
