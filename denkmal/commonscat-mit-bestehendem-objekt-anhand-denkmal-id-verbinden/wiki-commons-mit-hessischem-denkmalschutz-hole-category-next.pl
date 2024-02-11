@@ -43,12 +43,21 @@ my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
 # my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Hesse_with_known_ID';
 # my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Hesse_without_linked_Wikidata';
 # my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Buchschlag';
-# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Dreieichenhain';
 # my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Egelsbach';
 # my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Langen_(Hessen)';
 # my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_M%C3%BChlheim_am_Main';
 # my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Geisenheim';
-my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Dietzenbach';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Dietzenbach';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Sprendlingen_(Dreieich)';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Bad_Homburg_vor_der_H%C3%B6he';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Offenthal';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_G%C3%B6tzenhain';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Dreieichenhain';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_at_Audenstra%C3%9Fe';
+# my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Egelsbach';
+my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Hainburg_(Hessen)';
+my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Heusenstamm';
+my $startURL = 'https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Langen_(Hessen)';
 
 
 ###############################
