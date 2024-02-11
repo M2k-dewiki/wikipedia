@@ -29,6 +29,15 @@ sub URLEncode {
 }
 
 
+#############
+
+
+# https://commons.wikimedia.org/wiki/Category:Churches_in_Baden-W%C3%BCrttemberg
+
+# https://petscan.wmflabs.org/?source_combination=&common_wiki_other=&ns%5B14%5D=1&depth=10&cb_labels_no_l=1&wikidata_label_language=&langs_labels_yes=&combination=subset&templates_yes=&labels_no=&referrer_name=&ores_prob_to=&max_sitelink_count=&cb_labels_any_l=1&language=commons&outlinks_yes=&project=wikimedia&show_redirects=no&edits%5Bbots%5D=both&categories=Churches+in+Baden-W%C3%BCrttemberg&search_query=&cb_labels_yes_l=1&search_max_results=500&interface_language=en&pagepile=&langs_labels_no=&outlinks_any=&manual_list=&links_to_any=&wikidata_item=without&maxlinks=&sparql=&langs_labels_any=&show_soft_redirects=both&sortby=title&outlinks_no=&wpiu=any&rxp_filter=&active_tab=tab_categories&ores_prediction=any&links_to_all=&page_image=any&doit=
+
+#############
+
 
 # https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Schw%C3%A4bisch_Gm%C3%BCnd
 
@@ -37,7 +46,7 @@ sub URLEncode {
 
 # https://petscan.wmflabs.org/?pagepile=&project=wikimedia&categories=Churches%20in%20Lower%20Saxony%0AChurches%20in%20Lower%20Saxony%0A&language=commons&edits%5Banons%5D=both&cb_labels_no_l=1&search_max_results=500&depth=10&cb_labels_yes_l=1&edits%5Bbots%5D=both&interface_language=en&active_tab=tab_output&sortby=title&wikidata_item=without&show_redirects=no&cb_labels_any_l=1&ns%5B14%5D=1&edits%5Bflagged%5D=both&ores_prob_to=&doit=
 
-# https://commons.wikimedia.org/wiki/Category:Churches_in_Baden-W%C3%BCrttemberg
+
 
 # 
 # https://commons.wikimedia.org/wiki/Category:Chapels_in_Baden-W%C3%BCrttemberg
@@ -65,6 +74,12 @@ sub URLEncode {
 
 # https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Weil_der_Stadt
 # https://petscan.wmflabs.org/?after=&output_compatability=catscan&labels_yes=&wikidata_item=without&ns%5B14%5D=1&cb_labels_no_l=1&depth=10&wikidata_source_sites=&active_tab=tab_output&edits%5Bbots%5D=both&langs_labels_yes=&langs_labels_any=&sitelinks_yes=&pagepile=&categories=Cultural+heritage+monuments+in+Weil+der+Stadt&min_sitelink_count=&language=commons&max_age=&links_to_any=&cb_labels_any_l=1&templates_yes=&subpage_filter=either&cb_labels_yes_l=1&interface_language=en&before=&sortorder=ascending&outlinks_any=&search_max_results=500&search_filter=&templates_no=&output_limit=&ores_prob_to=&show_redirects=no&referrer_url=&project=wikimedia&edits%5Banons%5D=both&namespace_conversion=keep&wikidata_prop_item_use=&sortby=title&langs_labels_no=&combination=subset&search_wiki=&min_redlink_count=1&doit=
+
+
+
+# https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Durlach
+# https://petscan.wmflabs.org/?maxlinks=&sortorder=ascending&larger=&labels_yes=&outlinks_no=&smaller=&cb_labels_no_l=1&templates_any=&active_tab=tab_categories&output_limit=&common_wiki_other=&labels_any=&min_sitelink_count=&regexp_filter=&outlinks_yes=&links_to_no=&output_compatability=catscan&cb_labels_any_l=1&cb_labels_yes_l=1&wikidata_prop_item_use=&project=wikimedia&categories=Cultural+heritage+monuments+in+Durlach&wpiu=any&manual_list=&ores_prediction=any&interface_language=en&ns%5B14%5D=1&wikidata_item=without&sitelinks_yes=&format=html&show_redirects=no&combination=union&edits%5Bflagged%5D=both&source_combination=&links_to_all=&sortby=title&depth=10&langs_labels_yes=&search_max_results=500&edits%5Banons%5D=both&language=commons&page_image=any&doit=
+
 
 
 # exclude:
@@ -184,9 +199,11 @@ $east = $8;
   
 
 
-#    my $beschreibung = "Bauwerk";
+ #   my $beschreibung = "Bauwerk in Karlsruhe-Durlach";
     my $beschreibung = "Kirchengebäude";
     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; } # else { $beschreibung = $beschreibung." in Baden-Württemberg"; } 
+
+#   my $beschreibung = "Bauwerk in Rottenburg am Neckar";
         
     print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
@@ -198,6 +215,8 @@ $east = $8;
 print "LAST\tP17\tQ183\n"; # Staat: Deutschland
 #    print "LAST\tP131\tQ4037\n"; # liegt in der Verwaltungseinheit: Schwäbisch Gmünd (Q985)
 
+#    print "LAST\tP131\tQ7078\n"; # liegt in der Verwaltungseinheit: Rottenburg am Neckar (Q7078)
+
     print "LAST\tP131\tQ985\n"; # liegt in der Verwaltungseinheit: Baden-Württemberg (Q985)
 
 #    print "LAST\tP131\tQ506323\n"; # liegt in der Verwaltungseinheit: Tettnang (Q506323)
@@ -208,7 +227,13 @@ print "LAST\tP17\tQ183\n"; # Staat: Deutschland
 #    print "LAST\tP131\tQ5398\n"; # liegt in der Verwaltungseinheit: # Zülpich (Q5398)
 #    print "LAST\tP131\tQ1022\n"; # liegt in der Verwaltungseinheit: Stuttgart (Q1022)    
 #    print "LAST\tP131\tQ2119\n"; # liegt in der Verwaltungseinheit:     Mannheim (Q2119)
+
+
 #    print "LAST\tP131\tQ1040\n"; # liegt in der Verwaltungseinheit:     Karlsruhe (Q1040)
+#    print "LAST\tP276\tQ639876\n"; # Ort:     Durlach (Q639876)
+
+
+
 #    print "LAST\tP131\tQ2833\n"; # liegt in der Verwaltungseinheit:     Freiburg im Breisgau (Q2833)
 #    print "LAST\tP131\tQ2966\n"; # liegt in der Verwaltungseinheit:     Heidelberg (Q2966)
 #    print "LAST\tP131\tQ3012\n"; # liegt in der Verwaltungseinheit:     Ulm (Q3012)
