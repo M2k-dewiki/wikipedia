@@ -2,6 +2,33 @@
 
 use strict;
 
+
+######################
+# # # # # https://qlever.cs.uni-freiburg.de/wikidata/3IHmlL
+######################
+# PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+# PREFIX schema: <http://schema.org/>
+# PREFIX wd: <http://www.wikidata.org/entity/>
+# PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+# SELECT ?item ?article WHERE 
+# {
+# { ?item wdt:P31 wd:Q5 . }
+#   ?article schema:isPartOf <https://de.wikipedia.org/> .       
+#   ?article schema:about ?item .
+#   optional {?item rdfs:label ?itemLabel . filter(lang(?itemLabel)="de") }
+#   MINUS {?item schema:description ?itemDescription . filter(lang(?itemDescription)="de") }
+#  # FILTER (STRLEN(?itemLabel) > 0)  
+#   MINUS { ?item wdt:P31/wdt:P279* wd:Q4167836 . }
+#   MINUS { ?item wdt:P31 wd:Q11266439 .}
+#   MINUS { ?item wdt:P31 wd:Q15184295 .}
+#   MINUS { ?item wdt:P31 wd:Q11753321 .}
+#   MINUS { ?item wdt:P31 wd:Q17633526 .}
+#   MINUS { ?item wdt:P31 wd:Q19887878 .}
+# } 
+######################
+
+
+
 # Crypt::SSLeay muss installiert sein fuer SSL-Support
 # apt-get install libwww-mechanize-perl libio-socket-ssl-perl libnet-ssleay-perl
 use WWW::Mechanize;
@@ -55,8 +82,8 @@ foreach my $key (sort keys %urllist) {
 my %mons = ("Januar"=>'01',"Februar"=>'02',"März"=>'03',"April"=>'04',"Mai"=>'05',"Juni"=>'06',"Juli"=>'07',"August"=>'08',"September"=>'09',"Oktober"=>'10',"November"=>'11',"Dezember"=>'12');
 
 # my $INFILE = 'list.txt';
-# my $INFILE = 'query.csv';
- my $INFILE = '/home/m2k/Downloads/query.csv';
+ my $INFILE = 'query.csv';
+# my $INFILE = '/home/m2k/Downloads/query.csv';
 # my $INFILE = '/home/m2k/Downloads/Download';
 # my $INFILE = '/home/m2k/Downloads/Download.csv';
 
@@ -85,9 +112,11 @@ while(<IN>)
     $sitelink =~ s/\"//og;
    $QID =~ s/http:\/\/www.wikidata.org\/entity\///og;
 
+# print "LINE:$_;QID:$QID:\n";
+
 
     if (! ($QID =~ /Q[0-9]+/ )) {
-	# print "$QID ist KEINE QID\n";
+	 print "**** QID:$QID: ist KEINE QID\n";
 	next ;
     }
 
@@ -101,9 +130,9 @@ while(<IN>)
      
 ###################     
      if (defined($urllist{$url})) { 
-      # print "URL $url bereits geprueft\n"; 
-#      print OUT "$url\n"; # bereits gepruefte URL, beim naechsten durchgang nicht nochmals pruefen
-# print "URL $url bereits geprüft - ignore\n";
+    #   print "URL $url bereits geprueft\n"; 
+    #  print OUT "$url\n"; # bereits gepruefte URL, beim naechsten durchgang nicht nochmals pruefen
+ # print "URL $url bereits geprüft - ignore\n";
       next; 
     }
 ###################     
@@ -113,13 +142,13 @@ while(<IN>)
        
 #my $check_url = 'https://de.wikipedia.org/wiki/H%C3%BCbnersm%C3%BChle?action=raw';
        
- #       print "check URL:$check_url:\n"; # exit;
-   print OUT "$url\n"; # bereits gepruefte URL, beim naechsten durchgang nicht nochmals pruefen
+     #  print "check URL:$check_url:\n"; # exit;
+   #print OUT "$url\n"; # bereits gepruefte URL, beim naechsten durchgang nicht nochmals pruefen
  
  
     $agent->get( $check_url );
   my $result2 = $agent->content;
-#   print "RESULT:$result2:\n";
+  # print "RESULT:$result2:\n";
   
 
  my $description = "";
