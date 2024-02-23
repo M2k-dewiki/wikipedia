@@ -8,6 +8,10 @@ use strict;
 # cpan> install HTML::Strip
 ###################
 
+use Text::MediawikiFormat 'wikiformat';
+use HTML::Strip;
+
+
 
 ###################
 #### $ sudo cpan
@@ -210,17 +214,80 @@ while(<IN>)
     $agent->get( $check_url );
   my $result2 = $agent->content;
   
-  $result2 =~ s|\n| |g; # newlines entfernen
-  $result2 =~ s|\r| |g; # carrige return entfernen
-  # $result2 =~ s|\{\{Infobox.+?\}\}||g; # vorlage/infobox entfernen
-  # $result2 =~ s|\{\{daS.+?\}\}||g; # dänisch
-  $result2 =~ s|\{\{.+?\}\}||g; # vorlagen entfernen
+  
+  
+  ########### für rein textliche einleitungssätze - allfällige infoboxen und vorlagen entfernen
+  # $result2 =~ s|\n| |g; # newlines entfernen
+  # $result2 =~ s|\r| |g; # carrige return entfernen
+  ##### $result2 =~ s|\{\{Infobox.+?\}\}||g; # vorlage/infobox entfernen
+  ##### $result2 =~ s|\{\{daS.+?\}\}||g; # dänisch
+  # $result2 =~ s|\{\{.+?\}\}||g; # vorlagen entfernen
+  ########### für rein textliche einleitungssätze
 
-#   print "RESULT:$result2:\n";
+
+   # print "RESULT:$result2:\n";
 
    
- my $description = "";
+   
+#################################  
+##################   
+#   {{Infobox Film
+# |Erscheinungsjahr = 1923
+# |Regie            = [[Luigi Romano]]
+# }}
+##################   
+
+my $erscheinungsjahr = "";
+if ($result2 =~ /\|(\s*)(Erscheinungsjahr|EJ)(\s*)=(\s*)([0-9]{4})(\s*)/i) {
+ $erscheinungsjahr = $5;
+ # print " Erscheinungsjahr:$erscheinungsjahr:\n";  
+  }
+
+my $regisseur = "";   
+if ($result2 =~ /\|(\s*)(Regie|Regisseur|REG)(\s*)=(\s*)(.+)(\s*)/i) {
+#	     print "*** REG: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
+ $regisseur = $5;
+# print " Reg:$regisseur:\n";  
+# $regisseur =~ s/\[//og;
+# $regisseur =~ s/\]//og;
+
+  
+my $regisseur_plain = wikiformat ($regisseur);
+my $hs = HTML::Strip->new(emit_spaces => 0);
+my $clean_text = $hs->parse( $regisseur_plain );
+
+$regisseur = $clean_text;
+
+$regisseur =~ s/^(\s)*//og; # trim
+$regisseur =~ s/(\s)*$//og; # trim
+# ohne klammerzusätze etc.
+ # print " Reg:$clean_text:\n";  
+
+  }
+   
+   
+ my $description_film = "";
+ if ($regisseur ne "") {
+	 $description_film = "Film von $regisseur";
+	 if ( $erscheinungsjahr ne "") {
+	   $description_film = $description_film ." ($erscheinungsjahr)";	 
+	 }
+ }
+
+# print "DESC:$description_film:\n";
+#   print "------------\n";
+#    next;
+#################################  
+
+
+#################################  
+#################################  
+#################################  
+
  
+   ########### für rein textliche einleitungssätze
+
+
  
 # use Text::WikiText;
 #use Text::WikiText::Output::HTML;
@@ -231,7 +298,6 @@ while(<IN>)
 #my $html = Text::WikiText::Output::HTML->new->dump($document);
 #print $html;
  
- use Text::MediawikiFormat 'wikiformat';
 my $html = wikiformat ($result2);
 
 
@@ -247,7 +313,6 @@ my $html = wikiformat ($result2);
 #$formatter = HTML::FormatText->new(leftmargin => 0, rightmargin => 50);
 #my $formatter = HTML::FormatText->new();
 
-use HTML::Strip;
 my $hs = HTML::Strip->new(emit_spaces => 0);
 my $clean_text = $hs->parse( $html );
 # $hs->eof;  
@@ -276,6 +341,7 @@ my $clean_text = $hs->parse( $html );
 # $result =
 # Die [[bronzezeit]]liche '''Steinkiste von Horne''' befindet sich auf dem Friedhof der [[Horne Kirke (Hjørring Kommune)|Horne Kirke]] in der [[Hjørring Kommune]] im [[Vendsyssel]] in [[Region Nordjylland|Nordjütland]] in [[Dänemark]]. 
  
+ my $description = "";
   if ($clean_text =~ /(ist eine|ist ein|war ein|war eine|befindet sich|liegt|wurde) ([^\.\,]+)(\.|\,)/i) {
 #         print "*** MATCH:1: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
 	  $description = $2;
@@ -300,6 +366,14 @@ $description =~ s/\<ref\>.*$//og; # remove ref-tag and the rest of the line
     
 
 
+if ($description_film ne "") {
+   print "$QID\tDde\t\"".$description_film."\"\n";
+# print "-------------\n";
+}
+next;
+
+
+
 if ($description ne "") {
 
 ############
@@ -321,12 +395,10 @@ $description =~ s/US-amerikanischer //og;
 # bei filmen jahresangabe in klammern
 if ($description =~/aus dem Jahre? ([0-9]{4})/) {
 my $jahr = $1;
-  print "JAHR:$jahr:\n";
+  # print "JAHR:$jahr:\n";
 $description =~ s/aus dem Jahre? ([0-9]{4})/\($jahr\)/og;
 
 }
-
-
   
   
 if ($nummerische_ID > 0) {
@@ -334,7 +406,7 @@ if ($nummerische_ID > 0) {
 }
   
    print "$QID\tDde\t\"".$description."\"\n";
-print "-------------\n";
+# print "-------------\n";
 
 }    
 # exit;
