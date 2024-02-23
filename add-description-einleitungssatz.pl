@@ -2,6 +2,13 @@
 
 use strict;
 
+
+###################
+# cpan> install Text::MediawikiFormat
+# cpan> install HTML::Strip
+###################
+
+
 ###################
 #### $ sudo cpan
 #### cpan shell -- CPAN exploration and modules installation (v2.22)
@@ -109,7 +116,11 @@ foreach my $key (sort keys %urllist) {
 
 my %mons = ("Januar"=>'01',"Februar"=>'02',"März"=>'03',"April"=>'04',"Mai"=>'05',"Juni"=>'06',"Juli"=>'07',"August"=>'08',"September"=>'09',"Oktober"=>'10',"November"=>'11',"Dezember"=>'12');
 
-my $INFILE = '/home/m2k/Downloads/query.tsv';
+# my $INFILE = '/home/m2k/Downloads/query.tsv';
+# my $INFILE = 'Download.csv';
+
+my $INFILE = 'wikidata_2NZoiQ.tsv';
+
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
@@ -142,8 +153,14 @@ while(<IN>)
      # print "Beschreibung $beschreibung ist nicht leer für QID Q$QID - ignore\n"; 
      next; 
     }
-#    print "QID:$QID:SL:$sitelink:BESCHREIBUNG:$beschreibung:\n";
-# next;
+	
+    $sitelink =~ s/^<//og;
+    $sitelink =~ s/>$//og;
+	
+    $QID =~ s/^<//og;
+    $QID =~ s/>$//og;
+	
+ #   print "QID:$QID:SL:$sitelink:BESCHREIBUNG:$beschreibung:\n";  next;
  
      my $url = URLEncode($sitelink);
      my $url = $sitelink;
@@ -199,7 +216,7 @@ while(<IN>)
   # $result2 =~ s|\{\{daS.+?\}\}||g; # dänisch
   $result2 =~ s|\{\{.+?\}\}||g; # vorlagen entfernen
 
-  #   print "RESULT:$result2:\n";
+#   print "RESULT:$result2:\n";
 
    
  my $description = "";
@@ -284,12 +301,40 @@ $description =~ s/\<ref\>.*$//og; # remove ref-tag and the rest of the line
 
 
 if ($description ne "") {
+
+############
+# bei filmen darsteller ignorieren
+$description =~ s/ mit (.+)$//og;
+
+$description =~ s/ der Regisseurin / von /og;
+$description =~ s/ des Regisseurs / von /og;
+$description =~ s/ von Regisseur / von /og;
+$description =~ s/deutscher //og;
+$description =~ s/deutsches //og;
+$description =~ s/US-amerikanisches //og;
+$description =~ s/US-amerikanischer //og;
+
+
+
+############
+############
+# bei filmen jahresangabe in klammern
+if ($description =~/aus dem Jahre? ([0-9]{4})/) {
+my $jahr = $1;
+  print "JAHR:$jahr:\n";
+$description =~ s/aus dem Jahre? ([0-9]{4})/\($jahr\)/og;
+
+}
+
+
+  
   
 if ($nummerische_ID > 0) {
  $description  = $description . " ($nummerische_ID)";
 }
   
    print "$QID\tDde\t\"".$description."\"\n";
+print "-------------\n";
 
 }    
 # exit;
