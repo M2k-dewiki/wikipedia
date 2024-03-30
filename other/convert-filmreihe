@@ -39,31 +39,51 @@ while(<IN>)
     print "CREATE\n";
     print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
 
-	my $alias1 = $lemma_ohne_klammerzusatz." (Wismar)";
-	my $alias2 = $lemma_ohne_klammerzusatz.", Wismar";
-      print "LAST\tAde\t\"$alias1\"\n"; # alias de - alias
-      print "LAST\tAde\t\"$alias2\"\n"; # alias de - alias
+    # print "LAST\tP31\tQ5\n"; # ist ein mensch
+	 
+	#### link 
+   print "LAST\tSdewiki\t\"$lemma_mit_klammerzusatz\"\n"; # sitelink
+	#### link 
+  
+  
+#     print "LAST\tP31\tQ192611\n"; # ist ein wahlkreis
+#     print "LAST\tP1001\tQ223\n"; # gehört zum zuständigkeitsbereich grönland
+
+
+
+#	my $alias1 = $lemma_ohne_klammerzusatz." (Wismar)";
+#	my $alias2 = $lemma_ohne_klammerzusatz.", Wismar";
+	
+	
+
+	#    print "LAST\tAde\t\"$alias1\"\n"; # alias de - alias
+    #  print "LAST\tAde\t\"$alias2\"\n"; # alias de - alias
      # if ($lemma_ohne_klammerzusatz ne $lemma_mit_klammerzusatz) {
 #	print "LAST\tAde\t\"$lemma_mit_klammerzusatz\"\n"; # alias de - alias
 #     } else {
 	 
-    print "LAST\tDde\t\"Straße in Wismar\"\n"; # description de - beschreibung
-    print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
-    print "LAST\tP31\tQ79007\n"; # ist eine: Innerortsstraße
-    print "LAST\tP17\tQ183\n"; # Staat: Deutschland
-    print "LAST\tP131\tQ7030\n"; # liegt in der Verwaltungseinheit: Wismar
-    print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
+#    print "LAST\tDde\t\"Straße in Wismar\"\n"; # description de - beschreibung
+#    print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
+#    print "LAST\tP31\tQ79007\n"; # ist eine: Innerortsstraße
+#    print "LAST\tP17\tQ183\n"; # Staat: Deutschland
+#    print "LAST\tP131\tQ7030\n"; # liegt in der Verwaltungseinheit: Wismar
+#    print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
 
 #     print "LAST\tLde\t\"$kat\"\n";
 #     print "LAST\tDde\t\"deutscher Fernsehfilm der Reihe Praxis mit Meerblick\"\n";
 #     
-#     print "LAST\tP31\tQ506240\n"; # ist ein fernsehfilm
+     print "LAST\tP31\tQ506240\n"; # ist ein fernsehfilm
+     print "LAST\tP179\tQ65562706\n"; # Der Barcelona-Krimi (Q65562706)
 #     print "LAST\tP179\tQ62081310\n"; # serie "das traumhotel" 
 # 
 #     # print "LAST\tP179\tQ50612604\n"; # serie "das traumhotel" 
-#     print "LAST\tP495\tQ183\n"; # land DE
+     print "LAST\tP495\tQ183\n"; # land DE
 #     # print "LAST\tP495\tQ40\n"; # land AT
-#     print "LAST\tP364\tQ188\n"; # sprache DE
+     print "LAST\tP364\tQ188\n"; # sprache DE
+     print "LAST\tP136\tQ959790\n"; # Genre (P136): Kriminalfilm (Q959790)
+     print "LAST\tP462\tQ22006653\n"; # Farbe (P462): Farbe (Q22006653)
+
+
 
 
 }
