@@ -39,6 +39,8 @@ sub URLEncode {
 
 # https://commons.wikimedia.org/wiki/Category:Churches_in_Hamburg
 
+# https://commons.wikimedia.org/wiki/Category:Road_bridges_in_Hamburg?uselang=de
+
 
 my $INFILE = 'list.txt';
 
@@ -136,7 +138,8 @@ $east = $8;
       print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
     }
   
-    my $beschreibung = "Kirchengebäude";
+#    my $beschreibung = "Kirchengebäude";
+    my $beschreibung = "Straßenbrücke";
     if ($klammerzusatz ne "") { 
        $beschreibung = $beschreibung." in ".$klammerzusatz; 
     } else { 
@@ -144,7 +147,12 @@ $east = $8;
       }
     print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
-    print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
+
+
+#    print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
+    print "LAST\tP31\tQ537127\n"; # ist eine: Straßenbrücke (Q537127)
+	
+		
     print "LAST\tP17\tQ183\n"; # Staat: Deutschland
     print "LAST\tP131\tQ1055\n"; # liegt in der Verwaltungseinheit: Hamburg
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property

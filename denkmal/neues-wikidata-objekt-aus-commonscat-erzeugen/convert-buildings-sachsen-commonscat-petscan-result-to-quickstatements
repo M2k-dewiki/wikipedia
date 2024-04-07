@@ -47,6 +47,12 @@ sub URLEncode {
 
 
 
+# https://commons.wikimedia.org/wiki/Category:Churches_in_Saxony
+
+
+# https://petscan.wmflabs.org/?psid=27901752
+
+
 
 
 # SELECT ?item ?itemLabel ?value ?liegt_in_der_Verwaltungseinheit ?liegt_in_der_VerwaltungseinheitLabel ?Bild WHERE {
@@ -178,15 +184,24 @@ $east = $8;
 
 #     my $beschreibung = "Bauwerk in Schönheide";
 
-     # my $beschreibung = "Kirchengebäude";
-      my $beschreibung = "Bauwerk";
+#      my $beschreibung = "Kirchengebäude";
+#      my $beschreibung = "Bauwerk";
+#      my $beschreibung = "Friedhof";
+      my $beschreibung = "Pfarrhaus";
+
 	 
-     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; } else { $beschreibung = $beschreibung." in Sachsen"; }
         print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
+
 #     print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
-     print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+#     print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+#     print "LAST\tP31\tQ39614\n"; # ist ein: Friedhof 
+     print "LAST\tP31\tQ607241\n"; # ist ein: Pfarrhaus
+
+
+
     print "LAST\tP17\tQ183\n"; # Staat: Deutschland
 
 #        print "LAST\tP131\tQ8738\n"; # liegt in der Verwaltungseinheit: Meißen

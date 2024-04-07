@@ -28,21 +28,11 @@ sub URLEncode {
     return $theURL;
 }
 
-# - intersection 
-# - depth 20
-# negative:
-# Nur kategorien, keine galerien !!!   
-# 
-# 
+# # https://petscan.wmflabs.org/?depth=10&language=commons&since_rev0=&cb_labels_any_l=1&edits%5Bbots%5D=both&sortby=title&edits%5Banons%5D=both&categories=Buildings+in+Leutasch&show_soft_redirects=both&ores_type=any&manual_list=&wikidata_label_language=&search_query=&show_redirects=no&outlinks_any=&source_combination=&cb_labels_no_l=1&wikidata_item=without&cb_labels_yes_l=1&project=wikimedia&interface_language=en&sitelinks_yes=&langs_labels_no=&output_limit=&ns%5B14%5D=1&active_tab=tab_categories&search_max_results=500&after=&before=&show_disambiguation_pages=both&max_age=&referrer_name=&outlinks_yes=&manual_list_wiki=&templates_no=&links_to_all=&search_filter=&templates_any=&ores_prediction=any&negcats=&links_to_any=&doit=
 
-# https://commons.wikimedia.org/wiki/Category:Cultural_properties_of_local_significance_in_Biel/Bienne
-
-# https://petscan.wmflabs.org/?edits%5Bbots%5D=both&wikidata_prop_item_use=&project=wikimedia&cb_labels_yes_l=1&sortby=title&search_query=&referrer_name=&active_tab=tab_categories&interface_language=en&common_wiki_other=&max_sitelink_count=&common_wiki=auto&minlinks=&cb_labels_any_l=1&ns%5B14%5D=1&wikidata_item=without&templates_yes=&manual_list_wiki=&format=html&cb_labels_no_l=1&edits%5Banons%5D=both&show_redirects=no&output_compatability=catscan&categories=Cultural+properties+of+local+significance+in+Biel%2FBienne&regexp_filter=&source_combination=&links_to_all=&search_wiki=&search_max_results=500&ores_prediction=any&templates_no=&combination=subset&sortorder=ascending&sitelinks_any=&max_age=&labels_yes=&sitelinks_no=&outlinks_no=&edits%5Bflagged%5D=both&show_soft_redirects=both&language=commons&doit=
+# https://commons.wikimedia.org/wiki/Category:Buildings_in_Leutasch
 
 
-# Exclude:
-# Interiors of churches
-# Pipe organs
 
 
 my $INFILE = 'list.txt';
@@ -59,10 +49,7 @@ while(<IN>)
     $kat =~ s/_/ /og; # trim
     
     # print "KAT:$kat:\n";
-
-    if ($kat eq "") { next ; }
-    
-    
+         if ($kat eq "") { next ; }
     my $lemma_mit_klammerzusatz = $kat;  # ohne präfix "category:"
     $lemma_mit_klammerzusatz =~ s/Category://iog;
     #fixme
@@ -80,25 +67,23 @@ while(<IN>)
     
     my $kat_mit_prefix = "Category:".$kat;
 
+   
+        
     my $klammerzusatz = "";
     if ($lemma_mit_klammerzusatz =~ /\((.+)\)/og) {
       $klammerzusatz = $1;
       # print "KLAMMERZUSATZ:$klammerzusatz:\n";
     }
     
+   
+    # print "KAT:$kat:LEMMA_MIT:$lemma_mit_klammerzusatz:LEMMA_OHNE:$lemma_ohne_klammerzusatz:\n";
+    
+	
 ##############
 
    #   my $url = 'https://commons.wikimedia.org/wiki/Category:Dorfkirche_(Herzsprung_in_der_Uckermark)';
      my $url = 'https://commons.wikimedia.org/wiki/Category:'.URLEncode($kat);
     
-#      my $lemma = "";
-#     my $lemma_decode = "";
-#     if ($url =~ /Category:(.*)$/) {
-#        $lemma = $1;
-#        $lemma_decode = URLDecode($lemma);
-#        $lemma_decode =~ s/_/ /og;
-#      }
-#       print "LEMMA:$lemma:DECODE:$lemma_decode:\n";
      
        my $check_url = $url.'?action=raw';
        # print "check URL:$check_url:\n"; # exit;
@@ -107,22 +92,17 @@ while(<IN>)
   my $result2 = $agent->content;
   # print "RESULT:$result2:\n";
   
-       # if ($result2 =~ /Wikidata infobox/i) {
-         # print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";
-         # next;
-       # } 
-
+       if ($result2 =~ /Wikidata infobox/i) {
+        print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";
+        next;
+     } 
   
-
 my $north = "";
 my $east = "";
-
-#    {{Object location dec|47.13527|7.24298|region:CH-BE_scale:10000|Wikidata=}}
-
   if ($result2 =~ /Object location/i) {
       # print "Lemma $check_url hat Object location\n";
-      if ($result2 =~ /(\s*)\{\{Object location( dec)?(\s*)\|(\s*)([0-9\.]+)(\s*)\|(\s*)([0-9\.]+)(\s*)\|/i) {
-         # print "*** HIER: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8\n";
+      if ($result2 =~ /(\s*)\{\{Object location( dec)?(\s*)\|(\s*)([0-9\.]+)(\s*)\|(\s*)([0-9\.]+)(\s*)\}/i) {
+       #  print "*** HIER: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8\n";
 $north = $5;
 $east = $8;
      }
@@ -131,57 +111,45 @@ $east = $8;
    
 ##############
 
-    
-    # print "KAT:$kat:LEMMA_MIT:$lemma_mit_klammerzusatz:LEMMA_OHNE:$lemma_ohne_klammerzusatz:\n";
-
+   
+	
     print "CREATE\n";
-#   print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
-    print "LAST\tLde\t\"$lemma_ohne_klammer_aber_mit_zusatz\"\n"; # label de - bezeichnung
+   print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
 
 
     my $alias = $lemma_mit_klammerzusatz;
     if ($lemma_mit_klammerzusatz ne $lemma_ohne_klammerzusatz) {
       print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
     }
+
+     my $beschreibung = "Bauwerk in Leutasch, Tirol, Österreich";
   
-#    my $beschreibung = "Kirchengebäude";
-
-    my $beschreibung = "Bauwerk in Biel/Bienne im Kanton Bern, Schweiz";
-    my $beschreibung_en = "building in Biel/Bienne in the canton of Bern, Switzerland";
-
-#    if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
-        
-    print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
-    print "LAST\tDen\t\"$beschreibung_en\"\n"; # description en - beschreibung
-    print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
-
-    # print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
-    print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
-    print "LAST\tP31\tQ11755880\n"; # ist eine: Wohngebäude
-	
+#     my $beschreibung = "Schule in Wien, Österreich";
+#     my $beschreibung_en = "school in Vienna, Austria";
+     
+#     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+        print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     
-    print "LAST\tP17\tQ39\n"; # Staat: Schweiz (Q39)
-    print "LAST\tP131\tQ1034\n"; # liegt in der Verwaltungseinheit: Biel/Bienne (Q1034)
-
-    print "LAST\tP1435\tQ28971394\n"; #   Schutzkategorie (P1435) : Schweizer Kulturgut von kantonaler oder lokaler Bedeutung (Q28971394)
-
+    print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
 	
 	
+#     print "LAST\tP31\tQ1244442\n"; # ist eine: Schulgebäude
+#     print "LAST\tP31\tQ3914\n"; # ist eine: Schule
+     print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+	 	 
+    print "LAST\tP17\tQ40\n"; # Staat: Österreich
+        print "LAST\tP131\tQ665186\n"; # liegt in der Verwaltungseinheit:  Leutasch (Q665186)
+    
+    
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
    
-    
 
-
-	
-	
 if (($north ne "") && ($east ne "")) {
   my $cord = '@'.$north.'/'.$east;
     print "LAST\tP625\t$cord\n";   # koordinaten 
  }
 
-
  
-
 
 }
 close(IN);

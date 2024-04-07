@@ -31,18 +31,15 @@ sub URLEncode {
 # - intersection 
 # - depth 20
 # negative:
+# https://commons.wikimedia.org/wiki/Category:Churches_in_Rhineland-Palatinate
 # Nur kategorien, keine galerien !!!   
 # 
-# 
-
-# https://commons.wikimedia.org/wiki/Category:Cultural_properties_of_local_significance_in_Biel/Bienne
-
-# https://petscan.wmflabs.org/?edits%5Bbots%5D=both&wikidata_prop_item_use=&project=wikimedia&cb_labels_yes_l=1&sortby=title&search_query=&referrer_name=&active_tab=tab_categories&interface_language=en&common_wiki_other=&max_sitelink_count=&common_wiki=auto&minlinks=&cb_labels_any_l=1&ns%5B14%5D=1&wikidata_item=without&templates_yes=&manual_list_wiki=&format=html&cb_labels_no_l=1&edits%5Banons%5D=both&show_redirects=no&output_compatability=catscan&categories=Cultural+properties+of+local+significance+in+Biel%2FBienne&regexp_filter=&source_combination=&links_to_all=&search_wiki=&search_max_results=500&ores_prediction=any&templates_no=&combination=subset&sortorder=ascending&sitelinks_any=&max_age=&labels_yes=&sitelinks_no=&outlinks_no=&edits%5Bflagged%5D=both&show_soft_redirects=both&language=commons&doit=
+# https://petscan.wmflabs.org/?manual_list=&cb_labels_yes_l=1&wikidata_item=without&edits%5Bbots%5D=both&cb_labels_no_l=1&negcats=Interiors%20of%20churches%20in%20Brandenburg&categories=War%20memorials%20in%20Thuringia&edits%5Bflagged%5D=both&cb_labels_any_l=1&depth=20&ns%5B14%5D=1&search_max_results=500&active_tab=tab_output&edits%5Banons%5D=both&interface_language=en&project=wikimedia&since_rev0=&language=commons&show_redirects=no&links_to_no=&doit=
 
 
-# Exclude:
-# Interiors of churches
-# Pipe organs
+# https://commons.wikimedia.org/wiki/Category:War_memorials_in_Saxony
+
+# https://petscan.wmflabs.org/?psid=27901566
 
 
 my $INFILE = 'list.txt';
@@ -108,21 +105,45 @@ while(<IN>)
   # print "RESULT:$result2:\n";
   
        # if ($result2 =~ /Wikidata infobox/i) {
-         # print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";
-         # next;
-       # } 
+        # print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";
+        # next;
+     # } 
 
   
+  
+    my $blfd_id = "";
+  if ($result2 =~ /Kulturdenkmal Sachsen/i) {
+     # print "Lemma $check_url hat Baudenkmal-ID\n";
+ 
+       if ($result2 =~ /(\s*)\{\{Kulturdenkmal Sachsen(\s*)\|(1=)?(\s*)([0-9]+)/i) {
+         # print "*** HIER: $1:$2:$3:$4:\n";
+#           $blfd_id = $4;
+           $blfd_id = $5;
+     }
+      #   print "Lemma $check_url hat Baudenkmal-ID $blfd_id:\n";
+   } # Baudenkmal
 
 my $north = "";
 my $east = "";
-
-#    {{Object location dec|47.13527|7.24298|region:CH-BE_scale:10000|Wikidata=}}
-
   if ($result2 =~ /Object location/i) {
       # print "Lemma $check_url hat Object location\n";
-      if ($result2 =~ /(\s*)\{\{Object location( dec)?(\s*)\|(\s*)([0-9\.]+)(\s*)\|(\s*)([0-9\.]+)(\s*)\|/i) {
-         # print "*** HIER: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8\n";
+      if ($result2 =~ /(\s*)\{\{Object location( dec)?(\s*)\|(\s*)([0-9\.]+)(\s*)\|(\s*)([0-9\.]+)(\s*)\}/i) {
+       #  print "*** HIER: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8\n";
+$north = $5;
+$east = $8;
+     }
+        # print "Lemma $check_url hat location $north $east:\n";
+   } # Baudenkmal
+   
+   
+   
+
+my $north = "";
+my $east = "";
+  if ($result2 =~ /Object location/i) {
+      # print "Lemma $check_url hat Object location\n";
+      if ($result2 =~ /(\s*)\{\{Object location( dec)?(\s*)\|(\s*)([0-9\.]+)(\s*)\|(\s*)([0-9\.]+)(\s*)\}/i) {
+       #  print "*** HIER: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8\n";
 $north = $5;
 $east = $8;
      }
@@ -135,8 +156,8 @@ $east = $8;
     # print "KAT:$kat:LEMMA_MIT:$lemma_mit_klammerzusatz:LEMMA_OHNE:$lemma_ohne_klammerzusatz:\n";
 
     print "CREATE\n";
-#   print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
-    print "LAST\tLde\t\"$lemma_ohne_klammer_aber_mit_zusatz\"\n"; # label de - bezeichnung
+   print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
+#    print "LAST\tLde\t\"$lemma_ohne_klammer_aber_mit_zusatz\"\n"; # label de - bezeichnung
 
 
     my $alias = $lemma_mit_klammerzusatz;
@@ -144,36 +165,27 @@ $east = $8;
       print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
     }
   
-#    my $beschreibung = "Kirchengebäude";
-
-    my $beschreibung = "Bauwerk in Biel/Bienne im Kanton Bern, Schweiz";
-    my $beschreibung_en = "building in Biel/Bienne in the canton of Bern, Switzerland";
-
-#    if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+    my $beschreibung = "Kriegerdenkmal";
+    if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         
     print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
-    print "LAST\tDen\t\"$beschreibung_en\"\n"; # description en - beschreibung
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
-
-    # print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
-    print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
-    print "LAST\tP31\tQ11755880\n"; # ist eine: Wohngebäude
-	
+    print "LAST\tP31\tQ575759\n"; # ist eine: Kriegerdenkmal Q575759
+    print "LAST\tP17\tQ183\n"; # Staat: Deutschland
     
-    print "LAST\tP17\tQ39\n"; # Staat: Schweiz (Q39)
-    print "LAST\tP131\tQ1034\n"; # liegt in der Verwaltungseinheit: Biel/Bienne (Q1034)
+        print "LAST\tP131\tQ1202\n"; # liegt in der Verwaltungseinheit: Sachsen
 
-    print "LAST\tP1435\tQ28971394\n"; #   Schutzkategorie (P1435) : Schweizer Kulturgut von kantonaler oder lokaler Bedeutung (Q28971394)
-
-	
-	
+    
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
-   
     
-
-
-	
-	
+   
+    if ($blfd_id ne "") {
+    print "LAST\tP1708\t\"$blfd_id\"\n";   # LSFID
+    print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
+    print "LAST\tP1435\tQ19413851\n";   # Schutzkategorie (P1435): Kulturdenkmal in Sachsen (Q19413851)
+}    
+    
+#    print "LAST\tP2081\t\"$blfd_id\"\n";   # BLDAM-Objekt-ID 
 if (($north ne "") && ($east ne "")) {
   my $cord = '@'.$north.'/'.$east;
     print "LAST\tP625\t$cord\n";   # koordinaten 
