@@ -82,7 +82,9 @@ my %mons = ("Januar"=>'01',"Februar"=>'02',"März"=>'03',"April"=>'04',"Mai"=>'0
 # my $INFILE = '/home/m2k/Downloads/query.csv';
 # my $INFILE = '/home/m2k/Downloads/Download';
 # my $INFILE = 'Download.csv';
-my $INFILE = 'wikidata_YvNHKy.csv';
+# my $INFILE = 'wikidata_YvNHKy.csv';
+my $INFILE = 'wikidata_NE6TiU.csv';
+
 
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
@@ -249,6 +251,18 @@ if ($gebdat ne "") {
 # deutschsprachige Wikipedia (Q48183)
 
 # exit;
+
+
+###### labels nicht prüfen/setzen
+###### labels nicht prüfen/setzen
+###### labels nicht prüfen/setzen
+###### labels nicht prüfen/setzen
+###### labels nicht prüfen/setzen
+next;
+###### labels nicht prüfen/setzen
+###### labels nicht prüfen/setzen
+###### labels nicht prüfen/setzen
+###### labels nicht prüfen/setzen
 
 
 #############
