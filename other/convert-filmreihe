@@ -21,6 +21,10 @@ while(<IN>)
     $kat =~ s/_/ /og; # trim
     
     # print "KAT:$kat:\n";
+my ($ordnungsnummer,$titel,@restlist) = split(/\t/,$kat);
+# print "O:ordnungsnummer:T:$titel:\n";
+
+
 
     my $lemma_mit_klammerzusatz = $kat;  # ohne präfix "category:"
     $lemma_mit_klammerzusatz =~ s/Category://iog;
@@ -36,13 +40,23 @@ while(<IN>)
     
     # print "KAT:$kat:LEMMA_MIT:$lemma_mit_klammerzusatz:LEMMA_OHNE:$lemma_ohne_klammerzusatz:\n";
     
+
     print "CREATE\n";
-    print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
+#    print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
+
+print "LAST\tLde\t\"Der Staatsanwalt hat das Wort: ".$titel."\"\n"; # label de - bezeichnung
+print "LAST\tAde\t\"".$titel."\"\n"; # label de - bezeichnung # alias
+
+print "LAST\tDde\t\"Episode der Fernsehserie Der Staatsanwalt hat das Wort\"\n"; # label de - bezeichnung
+
+
+
+
 
     # print "LAST\tP31\tQ5\n"; # ist ein mensch
 	 
 	#### link 
-   print "LAST\tSdewiki\t\"$lemma_mit_klammerzusatz\"\n"; # sitelink
+  # print "LAST\tSdewiki\t\"$lemma_mit_klammerzusatz\"\n"; # sitelink
 	#### link 
   
   
@@ -73,15 +87,35 @@ while(<IN>)
 #     print "LAST\tDde\t\"deutscher Fernsehfilm der Reihe Praxis mit Meerblick\"\n";
 #     
      print "LAST\tP31\tQ506240\n"; # ist ein fernsehfilm
-     print "LAST\tP179\tQ65562706\n"; # Der Barcelona-Krimi (Q65562706)
+#     print "LAST\tP179\tQ65562706\n"; # Der Barcelona-Krimi (Q65562706)
+#     print "LAST\tP179\tQ80569758\n"; # 	 Der Kroatien-Krimi (Q80569758)
 #     print "LAST\tP179\tQ62081310\n"; # serie "das traumhotel" 
-# 
 #     # print "LAST\tP179\tQ50612604\n"; # serie "das traumhotel" 
-     print "LAST\tP495\tQ183\n"; # land DE
+#     print "LAST\tP179\tQ99195135\n"; # 	 Käthe und ich (Q99195135)
+
+
+print "LAST\tP179\tQ1197038\tP1545\t\"".$ordnungsnummer."\"\n"; # 	 Der Staatsanwalt hat das Wort (Q1197038)
+	 #	 Ordnungsnummer (P1545)
+
+
+	 
+     print "LAST\tP449\tQ115076\n"; # 	 Sender der Erstausstrahlung (P449): Deutscher Fernsehfunk
+   print "LAST\tP495\tQ16957\n"; # land DDR
+   
+print "LAST\tP1476\tde:\"".$titel."\"\n"; # Titel (P1476)
+
+
+
+#     print "LAST\tP449\tQ49727\n"; # 	 Sender der Erstausstrahlung (P449): Das Erste (Q49727)
+#    print "LAST\tP161\tQ2669267\n"; # Darsteller (P161): Christoph Schechinger (Q2669267)
+
+#
+ #    print "LAST\tP495\tQ183\n"; # land DE
 #     # print "LAST\tP495\tQ40\n"; # land AT
+
      print "LAST\tP364\tQ188\n"; # sprache DE
      print "LAST\tP136\tQ959790\n"; # Genre (P136): Kriminalfilm (Q959790)
-     print "LAST\tP462\tQ22006653\n"; # Farbe (P462): Farbe (Q22006653)
+#     print "LAST\tP462\tQ22006653\n"; # Farbe (P462): Farbe (Q22006653)
 
 
 
