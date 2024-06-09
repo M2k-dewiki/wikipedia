@@ -44,13 +44,14 @@ my ($ordnungsnummer,$titel,@restlist) = split(/\t/,$kat);
     print "CREATE\n";
 #    print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
 
-print "LAST\tLde\t\"Der Staatsanwalt hat das Wort: ".$titel."\"\n"; # label de - bezeichnung
-print "LAST\tAde\t\"".$titel."\"\n"; # label de - bezeichnung # alias
-
-print "LAST\tDde\t\"Episode der Fernsehserie Der Staatsanwalt hat das Wort\"\n"; # label de - bezeichnung
 
 
+ print "LAST\tAde\t\"".$titel."\"\n"; # label de - bezeichnung # alias
 
+# print "LAST\tLde\t\"Der Staatsanwalt hat das Wort: ".$titel."\"\n"; # label de - bezeichnung
+ print "LAST\tLde\t\"Der Alte: ".$titel."\"\n"; # label de - bezeichnung
+# print "LAST\tDde\t\"Episode der Fernsehserie Der Staatsanwalt hat das Wort\"\n"; # label de - bezeichnung
+ print "LAST\tDde\t\"Episode der Fernsehserie Der Alte\"\n"; # label de - bezeichnung
 
 
     # print "LAST\tP31\tQ5\n"; # ist ein mensch
@@ -93,24 +94,28 @@ print "LAST\tDde\t\"Episode der Fernsehserie Der Staatsanwalt hat das Wort\"\n";
 #     # print "LAST\tP179\tQ50612604\n"; # serie "das traumhotel" 
 #     print "LAST\tP179\tQ99195135\n"; # 	 Käthe und ich (Q99195135)
 
+#     print "LAST\tP179\tQ687483\n"; # 	 Der Alte (Q687483)
+print "LAST\tP179\tQ687483\tP1545\t\"".$ordnungsnummer."\"\n"; #Der Alte (Q687483)
 
-print "LAST\tP179\tQ1197038\tP1545\t\"".$ordnungsnummer."\"\n"; # 	 Der Staatsanwalt hat das Wort (Q1197038)
+
+
+#print "LAST\tP179\tQ1197038\tP1545\t\"".$ordnungsnummer."\"\n"; # 	 Der Staatsanwalt hat das Wort (Q1197038)
 	 #	 Ordnungsnummer (P1545)
 
 
+     print "LAST\tP449\tQ48989\n"; # 	 Sender der Erstausstrahlung (P449): ZDF (Q48989)
+
 	 
-     print "LAST\tP449\tQ115076\n"; # 	 Sender der Erstausstrahlung (P449): Deutscher Fernsehfunk
-   print "LAST\tP495\tQ16957\n"; # land DDR
+    # print "LAST\tP449\tQ115076\n"; # 	 Sender der Erstausstrahlung (P449): Deutscher Fernsehfunk
+   # print "LAST\tP495\tQ16957\n"; # land DDR
    
-print "LAST\tP1476\tde:\"".$titel."\"\n"; # Titel (P1476)
-
-
+ print "LAST\tP1476\tde:\"".$titel."\"\n"; # Titel (P1476)
 
 #     print "LAST\tP449\tQ49727\n"; # 	 Sender der Erstausstrahlung (P449): Das Erste (Q49727)
 #    print "LAST\tP161\tQ2669267\n"; # Darsteller (P161): Christoph Schechinger (Q2669267)
 
 #
- #    print "LAST\tP495\tQ183\n"; # land DE
+    print "LAST\tP495\tQ183\n"; # land DE
 #     # print "LAST\tP495\tQ40\n"; # land AT
 
      print "LAST\tP364\tQ188\n"; # sprache DE
