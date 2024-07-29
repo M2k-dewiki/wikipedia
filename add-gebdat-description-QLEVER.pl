@@ -340,7 +340,7 @@ my $wd_url = 'https://query.wikidata.org/sparql?query=SELECT%20%3FitemDesc%0AWHE
 ########## get labels for other languages, if not existing, then copy german label to other language  ##########
   if ($de_label ne "") {
   # check if labels are already set for given languages
-  my @sprachliste = ("en","bar","br","ca","co","da","de","de-at","de-ch","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
+  my @sprachliste = ("mul","en","bar","br","ca","co","da","de","de-at","de-ch","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
     foreach my $sprache (@sprachliste) {
 
 my $wd_url = 'https://query.wikidata.org/sparql?query=SELECT%20%3FitemLabel%0AWHERE%20%7B%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%0A%20%20%20%20bd%3AserviceParam%20wikibase%3Alanguage%20%22'.$sprache.'%22%20.%0A%20%20%20%20wd%3A'.$QID.'%20rdfs%3Alabel%20%3FitemLabel%20.%0A%20%20%7D%0A%7D';
