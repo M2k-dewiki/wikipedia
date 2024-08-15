@@ -11,7 +11,7 @@ my $INFILE = 'list.txt';
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
-my @sprachliste = ("en","bar","br","ca","co","da","de","de-at","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
+my @sprachliste = ("mul","en","bar","br","ca","co","da","de","de-at","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
 
 my $count =0 ;
 while(<IN>)

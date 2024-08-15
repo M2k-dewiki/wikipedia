@@ -7,14 +7,14 @@ my $INFILE = 'landtag-wien-2020.csv';
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
-my @sprachliste = ("en","bar","br","ca","co","da","de","de-at","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
+my @sprachliste = ("mul","en","bar","br","ca","co","da","de","de-at","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
 
 my $count =0 ;
 while(<IN>)
 {
     chop;
 
-    my ($name,$partei,$geschlecht) = split(/\t/,$_);
+    my ($name,$partei,$geschlecht) = split(/\,/,$_);
     # print "NAME:$name:$partei:GENDER:$geschlecht:\n";
     
     # $kat =~ s/^(\s)*//og; # trim

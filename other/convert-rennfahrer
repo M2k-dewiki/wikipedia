@@ -12,7 +12,7 @@ my $INFILE = 'rennfahrer.csv';
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
-my @sprachliste = ("en","bar","br","ca","co","da","de","de-at","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
+my @sprachliste = ("mul","en","bar","br","ca","co","da","de","de-at","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
 
 my $count =0 ;
 while(<IN>)
@@ -72,6 +72,8 @@ $name = $lemma_ohne_klammerzusatz ;
       print "LAST\tL".$sprache."\t\"".$name."\"\n";
     }
 
+
+
 #    my $beschreibung_es = "piloto de automovilismo austríaco";
 #	my $beschreibung = "österreichischer Rennfahrer";
 #    my $beschreibung_en = 'Austrian racing driver';
@@ -80,20 +82,23 @@ $name = $lemma_ohne_klammerzusatz ;
 #	my $beschreibung = "deutscher Rennfahrer";
 #    my $beschreibung_en = 'German racing driver';
 
-    my $beschreibung_es = "piloto de automovilismo estadounidense";
-	my $beschreibung = "US-amerikanischer Rennfahrer";
-    my $beschreibung_en = 'American racing driver';
+#    my $beschreibung_es = "piloto de automovilismo estadounidense";
+#	my $beschreibung = "US-amerikanischer Rennfahrer";
+#    my $beschreibung_en = 'American racing driver';
 
 
     print "LAST\tP31\tQ5\n"; # mensch
-	print "LAST\tP21\tQ6581097\n"; # geschlecht männlich
+#	print "LAST\tP21\tQ6581097\n"; # geschlecht männlich
+	print "LAST\tP21\tQ6581072\n"; # geschlecht weiblich
+
+
 
 #    print "LAST\tP27\tQ40\n"; # österreicher
 #    print "LAST\tP27\tQ183\n"; # Deutscher
-    print "LAST\tP27\tQ30\n"; # US-Amerikaner
+#    print "LAST\tP27\tQ30\n"; # US-Amerikaner
 
 #    print "LAST\tP1412\tQ188\n"; # deutsch
-    print "LAST\tP1412\tQ1860\n"; # Englisch
+#    print "LAST\tP1412\tQ1860\n"; # Englisch
 
 #  gesprochene oder publizierte Sprachen (P1412): Deutsch (Q188) 
 # print "LAST\tP1412\tQ188\n"; 
@@ -104,16 +109,27 @@ $name = $lemma_ohne_klammerzusatz ;
 # P641:Q5386
 # P106:Q378622
 
+########### 
+# rennfahrer
+########### 
 # Sportart (P641):  (Q5386) 
-print "LAST\tP641\tQ5386\n"; 
+# print "LAST\tP641\tQ5386\n"; 
 # Tätigkeit (P106):  Q378622
-print "LAST\tP106\tQ378622\n"; 
- 
-    print "LAST\tDde\t\"".$beschreibung."\"\n";
-    print "LAST\tDde-at\t\"".$beschreibung."\"\n";
+# print "LAST\tP106\tQ378622\n"; 
+########### 
 
-    print "LAST\tDen\t\"".$beschreibung_en."\"\n";
-    print "LAST\tDes\t\"".$beschreibung_es."\"\n";
+########### 
+ # kanuten 
+ print "LAST\tP641\tQ213934\n"; 
+ print "LAST\tP106\tQ13382566\n"; 
+########### 
+ 
+ 
+ #   print "LAST\tDde\t\"".$beschreibung."\"\n";
+ #   print "LAST\tDde-at\t\"".$beschreibung."\"\n";
+
+  #  print "LAST\tDen\t\"".$beschreibung_en."\"\n";
+  #  print "LAST\tDes\t\"".$beschreibung_es."\"\n";
    
        print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
