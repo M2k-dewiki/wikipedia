@@ -252,6 +252,10 @@ while(<IN>)
      my $url = $sitelink;
 
      #my $url = 'https://de.wikipedia.org/wiki/Torfjanoje_(Kaliningrad,_Osjorsk)';
+	 
+	 ####Testing#####
+# $QID = 'Q127870437'; my $url = 'https://de.wikipedia.org/wiki/Riverside_(Stirling)';
+	 ####Testing#####
 
 
 ##########
@@ -273,7 +277,7 @@ while(<IN>)
        
 #my $check_url = 'https://de.wikipedia.org/wiki/H%C3%BCbnersm%C3%BChle?action=raw';
        
-     #   print "check URL:$check_url:\n"; # exit;
+    #   print "check URL:$check_url:\n"; # exit;
    print OUT "$url\n"; # bereits gepruefte URL, beim naechsten durchgang nicht nochmals pruefen
  
  
@@ -293,7 +297,7 @@ my $east = "";
    # old      if ($result2 =~ /(\s*)\{\{Coordinate?(\s*)\|(\s*)NS(\s*)=(\s*)([0-9\.]+)(\s*)\|(\s*)EW(\s*)=(\s*)([0-9\.]+)(\s*)/i) {
 
 #      if ($result2 =~ /(\s*)\{\{Coordinate?(\s*)\|(article=\/\|)?(\s*)NS(\s*)=(\s*)([0-9\.]+)(\s*)\|(\s*)EW(\s*)=(\s*)([0-9\.]+)(\s*)/i) {
-      if ($result2 =~ /\|(\s*)NS(\s*)=(\s*)([0-9\.\/N]+)(\s*)\|(\s*)EW(\s*)=(\s*)([0-9\.\/E]+)(\s*)/i) {
+if ($result2 =~ /\|(\s*)NS(\s*)=(\s*)([0-9\.\/N]+)(\s*)\|(\s*)EW(\s*)=(\s*)([0-9\.\-\/E]+)(\s*)/i) {
      #     print "*** Coordinate(1): 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
 # $north = $7;
 # $east = $12;
@@ -515,7 +519,8 @@ if (($north ne "") && ($east ne "")) {
 }
 
 
-    
+    #exit;
+	
 # {{Object location|52.975743| 13.988022}}  {{Baudenkmal Brandenburg|09130507}}
 # https://www.wikidata.org/wiki/Q101573281
 # https://commons.wikimedia.org/wiki/Category:Dorfkirche_(Herzsprung_in_der_Uckermark)
