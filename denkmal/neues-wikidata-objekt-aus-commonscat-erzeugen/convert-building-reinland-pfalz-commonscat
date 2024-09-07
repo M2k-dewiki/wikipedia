@@ -34,12 +34,12 @@ sub URLEncode {
 # https://commons.wikimedia.org/wiki/Category:Churches_in_Rhineland-Palatinate
 # Nur kategorien, keine galerien !!!   
 # 
-# https://petscan.wmflabs.org/?manual_list=&cb_labels_yes_l=1&wikidata_item=without&edits%5Bbots%5D=both&cb_labels_no_l=1&negcats=Interiors%20of%20churches%20in%20Brandenburg&categories=War%20memorials%20in%20Thuringia&edits%5Bflagged%5D=both&cb_labels_any_l=1&depth=20&ns%5B14%5D=1&search_max_results=500&active_tab=tab_output&edits%5Banons%5D=both&interface_language=en&project=wikimedia&since_rev0=&language=commons&show_redirects=no&links_to_no=&doit=
+# https://petscan.wmflabs.org/?links_to_no=&depth=20&language=commons&project=wikimedia&search_max_results=500&cb_labels_no_l=1&since_rev0=&edits%5Bbots%5D=both&show_redirects=no&negcats=Interiors%20of%20churches%20in%20Brandenburg&interface_language=en&ns%5B14%5D=1&wikidata_item=without&edits%5Banons%5D=both&cb_labels_yes_l=1&categories=Churches_in_Rhineland-Palatinate&cb_labels_any_l=1&edits%5Bflagged%5D=both&doit=
 
+# https://commons.wikimedia.org/wiki/Category:Churches_in_Saarland
+# https://commons.wikimedia.org/wiki/Category:Chapels_in_Rhineland-Palatinate
 
-# https://commons.wikimedia.org/wiki/Category:War_memorials_in_Saxony
-
-# https://petscan.wmflabs.org/?psid=27901566
+# https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_Trier-Mitte/Gartenfeld
 
 
 my $INFILE = 'list.txt';
@@ -104,39 +104,12 @@ while(<IN>)
   my $result2 = $agent->content;
   # print "RESULT:$result2:\n";
   
-       # if ($result2 =~ /Wikidata infobox/i) {
-        # print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";
-        # next;
-     # } 
+       if ($result2 =~ /Wikidata infobox/i) {
+       # print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";
+       # next;
+     } 
 
   
-  
-    my $blfd_id = "";
-  if ($result2 =~ /Kulturdenkmal Sachsen/i) {
-     # print "Lemma $check_url hat Baudenkmal-ID\n";
- 
-       if ($result2 =~ /(\s*)\{\{Kulturdenkmal Sachsen(\s*)\|(1=)?(\s*)([0-9]+)/i) {
-         # print "*** HIER: $1:$2:$3:$4:\n";
-#           $blfd_id = $4;
-           $blfd_id = $5;
-     }
-      #   print "Lemma $check_url hat Baudenkmal-ID $blfd_id:\n";
-   } # Baudenkmal
-
-my $north = "";
-my $east = "";
-  if ($result2 =~ /Object location/i) {
-      # print "Lemma $check_url hat Object location\n";
-      if ($result2 =~ /(\s*)\{\{Object location( dec)?(\s*)\|(\s*)([0-9\.]+)(\s*)\|(\s*)([0-9\.]+)(\s*)\}/i) {
-       #  print "*** HIER: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8\n";
-$north = $5;
-$east = $8;
-     }
-        # print "Lemma $check_url hat location $north $east:\n";
-   } # Baudenkmal
-   
-   
-   
 
 my $north = "";
 my $east = "";
@@ -165,30 +138,37 @@ $east = $8;
       print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
     }
   
-    my $beschreibung = "Kriegerdenkmal";
-    if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+#    my $beschreibung = "Wasserturm";
+#    my $beschreibung = "Bauwerk in Trier, Rheinland-Pfalz";
+    # if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         
     print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
-    print "LAST\tP31\tQ575759\n"; # ist eine: Kriegerdenkmal Q575759
+	
+	
+#    print "LAST\tP31\tQ575759\n"; # ist eine: Kriegerdenkmal Q575759
+#    print "LAST\tP31\tQ274153\n"; # ist eine: Wasserturm (Q274153) 
+ print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
+#    print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+
+
+	
     print "LAST\tP17\tQ183\n"; # Staat: Deutschland
-    
-#        print "LAST\tP131\tQ1202\n"; # liegt in der Verwaltungseinheit: Sachsen
-#        print "LAST\tP131\tQ1206\n"; # liegt in der Verwaltungseinheit: Sachsen-Anhalt
-#        print "LAST\tP131\tQ1197\n"; # liegt in der Verwaltungseinheit: Niedersachsen
-#        print "LAST\tP131\tQ1208\n"; # liegt in der Verwaltungseinheit: Brandenburg (Q1208)
+    print "LAST\tP131\tQ1200\n"; # liegt in der Verwaltungseinheit: Rheinland-Pfalz (Q1200)
 
-        print "LAST\tP131\tQ1205\n"; # liegt in der Verwaltungseinheit: Thüringen (Q1205)
+#    print "LAST\tP131\tQ3138\n"; # liegt in der Verwaltungseinheit: Trier (Q3138)
+#    print "LAST\tP131\tQ637683\n"; # liegt in der Verwaltungseinheit: Trier-Mitte/Gartenfeld (Q637683)
 
-    
+
+
+
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
     
-   
-    if ($blfd_id ne "") {
-    print "LAST\tP1708\t\"$blfd_id\"\n";   # LSFID
-    print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
-    print "LAST\tP1435\tQ19413851\n";   # Schutzkategorie (P1435): Kulturdenkmal in Sachsen (Q19413851)
-}    
+
+#    print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
+#    print "LAST\tP1435\tQ84357648\n";   #  Schutzkategorie (P1435): Kulturdenkmal in Rheinland-Pfalz (Q84357648)
+
+    
     
 #    print "LAST\tP2081\t\"$blfd_id\"\n";   # BLDAM-Objekt-ID 
 if (($north ne "") && ($east ne "")) {

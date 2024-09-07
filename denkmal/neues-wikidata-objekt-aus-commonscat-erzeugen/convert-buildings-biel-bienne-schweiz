@@ -161,7 +161,7 @@ $east = $8;
 	
     
     print "LAST\tP17\tQ39\n"; # Staat: Schweiz (Q39)
-    print "LAST\tP131\tQ1034\n"; # liegt in der Verwaltungseinheit: Biel/Bienne (Q1034)
+    print "LAST\tP131\tQ1668684\n"; # liegt in der Verwaltungseinheit: Lübecker Altstadt (Q1668684)
 
     print "LAST\tP1435\tQ28971394\n"; #   Schutzkategorie (P1435) : Schweizer Kulturgut von kantonaler oder lokaler Bedeutung (Q28971394)
 

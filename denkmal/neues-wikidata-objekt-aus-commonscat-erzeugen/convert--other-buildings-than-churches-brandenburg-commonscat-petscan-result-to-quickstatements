@@ -110,8 +110,8 @@ while(<IN>)
   # print "RESULT:$result2:\n";
   
        if ($result2 =~ /Wikidata infobox/i) {
-        print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";
-        next;
+        #print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";
+        #next;
      } 
 
   
@@ -161,11 +161,19 @@ $east = $8;
 #     my $beschreibung = "Bauwerk in Erkner";
 #     my $beschreibung = "Bauwerk in Ludwigsfelde, Brandenburg";
 #     my $beschreibung = "Bauwerk in Senftenberg, Landkreis Oberspreewald-Lausitz, Brandenburg";
-#     my $beschreibung = "Bauwerk in Frankfurt (Oder)";
+
+ #    my $beschreibung = "Bauwerk in Frankfurt (Oder)";
+#     my $beschreibung = "Bauwerk in Potsdam, Brandenburg";
+#     my $beschreibung = "Bauwerk in Prenzlau, Brandenburg";
+#     my $beschreibung = "Bauwerk in Eberswalde, Brandenburg";
 
 
-#     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+
+     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
+
+
+
     
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
 #     print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
@@ -188,12 +196,20 @@ $east = $8;
     
 #    print "LAST\tP131\tQ4024\n"; # liegt in der Verwaltungseinheit:    Frankfurt (Oder) (Q4024)
  
+#    print "LAST\tP131\tQ1711\n"; # liegt in der Verwaltungseinheit: Potsdam (Q1711)
+    #print "LAST\tP131\tQ537214\n"; # liegt in der Verwaltungseinheit: Prenzlau (Q537214)
 
+
+ #   print "LAST\tP131\tQ9306\n"; # liegt in der Verwaltungseinheit: Eberswalde (Q9306)
+
+
+
+	
     
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
     
     if ($blfd_id ne "") {
-      print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
+     # print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
       print "LAST\tP1435\tQ85101354\n";   # Schutzkategorie: Kulturdenkmal in Brandenburg (Q85101354) 
     print "LAST\tP2081\t\"$blfd_id\"\n";   # BLDAM-Objekt-ID 
     }

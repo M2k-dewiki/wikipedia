@@ -116,15 +116,20 @@ $east = $8;
     print "CREATE\n";
    print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
 
+   print "LAST\tLmul\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
 
     my $alias = $lemma_mit_klammerzusatz;
     if ($lemma_mit_klammerzusatz ne $lemma_ohne_klammerzusatz) {
       print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
     }
   
-     my $beschreibung = "jüdischer Friedhof ";
-     my $beschreibung_en = "Jewish cemetery in Germany";
+#     my $beschreibung = "jüdischer Friedhof ";
+#     my $beschreibung_en = "Jewish cemetery in Germany";
      
+     my $beschreibung = "Kriegsgräberstätte in Deutschland ";
+     my $beschreibung_en = "war cemetery in Germany";
+	 
+	 
      if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
         print "LAST\tDen\t\"$beschreibung_en\"\n"; # description en - beschreibung
@@ -136,7 +141,9 @@ $east = $8;
 #     print "LAST\tP31\tQ3914\n"; # ist eine: Schule
 #     print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
 
-     print "LAST\tP31\tQ846659\n"; # ist eine: jüdischer Friedhof (Q846659)
+#     print "LAST\tP31\tQ846659\n"; # ist eine: jüdischer Friedhof (Q846659)
+     print "LAST\tP31\tQ1707610\n"; # ist eine: Kriegsgräberstätte (Q1707610)
+
 
 
 	    print "LAST\tP17\tQ183\n"; # Staat: Deutschland

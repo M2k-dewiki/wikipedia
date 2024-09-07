@@ -38,6 +38,10 @@ sub URLEncode {
 # https://commons.wikimedia.org/wiki/Category:Churches_in_Schleswig-Holstein
 
 
+# https://commons.wikimedia.org/wiki/Category:Dr.-Julius-Leber-Stra%C3%9Fe_(L%C3%BCbeck)
+# https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_in_L%C3%BCbeck-Altstadt
+
+
 my $INFILE = 'list.txt';
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
@@ -101,7 +105,7 @@ while(<IN>)
   # print "RESULT:$result2:\n";
   
        if ($result2 =~ /Wikidata infobox/i) {
-        print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";         next;
+        # print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";         next;
      } 
 
   
@@ -127,27 +131,101 @@ $east = $8;
    print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
 #    print "LAST\tLde\t\"$lemma_ohne_klammer_aber_mit_zusatz\"\n"; # label de - bezeichnung
 
+   print "LAST\tLmul\t\"$lemma_ohne_klammerzusatz\"\n"; # label mul - bezeichnung
 
     my $alias = $lemma_mit_klammerzusatz;
     if ($lemma_mit_klammerzusatz ne $lemma_ohne_klammerzusatz) {
       print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
     }
   
-    my $beschreibung = "Kirchengebäude";
-    if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
+#    my $beschreibung = "Kirchengebäude";
+    my $beschreibung = "Bauwerk in der Lübecker Altstadt";
+
+    my $beschreibung_en = "building in Lübeck-Altstadt, Germany";
+
+
+#    if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         
     print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
+	    print "LAST\tDen\t\"$beschreibung_en\"\n"; # description en - beschreibung
+
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
-    print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
+	
+ #   print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
+#    print "LAST\tP31\tQ16970\n"; # ist eine: Kirchengebäude
+  print "LAST\tP31\tQ811979\n"; # ist eine: Bauwerk
+ 
     print "LAST\tP17\tQ183\n"; # Staat: Deutschland
-    print "LAST\tP131\tQ1194\n"; # liegt in der Verwaltungseinheit: Schleswig-Holstein (Q1194)
+ #   print "LAST\tP131\tQ1194\n"; # liegt in der Verwaltungseinheit: Schleswig-Holstein (Q1194)
+    print "LAST\tP131\tQ1668684\n"; # liegt in der Verwaltungseinheit: Lübecker Altstadt (Q1668684)
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
     
 #    print "LAST\tP1435\tQ811165\n";   # Schutzkategorie: Baudenkmal 
 #    print "LAST\tP1435\tQ85192696\n";   # Schutzkategorie: Baudenkmal 
-  
-    # Schutzkategorie (P1435): Kulturdenkmal in Schleswig-Holstein (Q85192696)
+    print "LAST\tP1435\tQ85192696\n";   # Schutzkategorie (P1435): Kulturdenkmal in Schleswig-Holstein (Q85192696)
     
+	
+
+if ($lemma_ohne_klammerzusatz =~ /^Aegidienstraße /) {
+    print "LAST\tP669\tQ380606\n";   # Straße: 	Aegidienstraße (Q380606)
+}
+
+	
+if ($lemma_ohne_klammerzusatz =~ /^Dr.-Julius-Leber-Straße /) {
+    print "LAST\tP669\tQ1253777\n";   # Straße: Dr.-Julius-Leber-Straße (Q1253777)
+}
+
+if ($lemma_ohne_klammerzusatz =~ /^An der Untertrave /) {
+    print "LAST\tP669\tQ482587\n";   # Straße: An der Untertrave (Q482587)
+}
+
+if ($lemma_ohne_klammerzusatz =~ /^An der Obertrave /) {
+    print "LAST\tP669\tQ482580\n";   # Straße: An der Obertrave (Q482580)
+}
+
+if ($lemma_ohne_klammerzusatz =~ /^Dankwartsgrube /) {
+    print "LAST\tP669\tQ1164289\n";   # Straße: Dankwartsgrube (Q1164289)
+}
+
+if ($lemma_ohne_klammerzusatz =~ /^Engelsgrube /) {
+    print "LAST\tP669\tQ1342186\n";   # Straße: Engelsgrube (Q1342186)
+}
+if ($lemma_ohne_klammerzusatz =~ /^Engelswisch /) {
+    print "LAST\tP669\tQ1342212\n";   # Straße: Engelswisch (Q1342212)
+}
+if ($lemma_ohne_klammerzusatz =~ /^Fleischhauerstraße /) {
+    print "LAST\tP669\tQ1427857\n";   # Straße: Fleischhauerstraße (Lübeck) (Q1427857)
+}
+
+if ($lemma_ohne_klammerzusatz =~ /^Hundestraße /) {
+    print "LAST\tP669\tQ1637530\n";   # Straße: Hundestraße (Q1637530)
+}
+
+if ($lemma_ohne_klammerzusatz =~ /^Hüxstraße /) {
+    print "LAST\tP669\tQ1652693\n";   # Straße: Hüxstraße (Q1652693)
+}
+
+if ($lemma_ohne_klammerzusatz =~ /^Königstraße /) {
+    print "LAST\tP669\tQ1689592\n";   # Straße: Königstraße (Q1689592)
+}
+
+if ($lemma_ohne_klammerzusatz =~ /^Mengstraße /) {
+    print "LAST\tP669\tQ1350892\n";   # Straße: Mengstraße (Q1350892)
+}
+if ($lemma_ohne_klammerzusatz =~ /^Wahmstraße /) {
+    print "LAST\tP669\tQ2806309\n";   # Straße: Wahmstraße (Q2806309)
+}
+
+if ($lemma_ohne_klammerzusatz =~ /^Wakenitzmauer /) {
+    print "LAST\tP669\tQ2540879\n";   # Straße: Wakenitzmauer (Q2540879)
+}
+
+
+
+
+
+
+
     
 #    print "LAST\tP2081\t\"$blfd_id\"\n";   # BLDAM-Objekt-ID 
 if (($north ne "") && ($east ne "")) {
