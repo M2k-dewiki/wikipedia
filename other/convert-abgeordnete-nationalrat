@@ -73,7 +73,7 @@ while(<IN>)
     print "LAST\tP1412\tQ188\n"; # deutsch
 
     # +1967-01-17T00:00:00Z/11
-    print "LAST\tP39\tQ17535155\tP580\t+2024-10-24T00:00:00Z/11\n";  # Abgeordneter zum Nationalrat seit 24.10.2024
+print "LAST\tP39\tQ17535155\tP580\t+2024-10-24T00:00:00Z/11\tP2937\tQ130381789\n";  # Abgeordneter zum Nationalrat seit 24.10.2024
     
 
 }
