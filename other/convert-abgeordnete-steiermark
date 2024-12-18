@@ -3,7 +3,7 @@
 use strict;
 
 
-my $INFILE = 'landtag-vorarlberg.csv';
+my $INFILE = 'landtag-steiermark.csv';
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
@@ -48,17 +48,16 @@ while(<IN>)
     }
 
     if ($partei eq "ÖVP") {
-	print "LAST\tP102\tQ186867\n"; # parteizugehörigkeit
-
+	print "LAST\tP102\tQ186867\n"; # parteizugehörigkeit övp
     }
 
     if ($partei eq "SPÖ") {
-	print "LAST\tP102\tQ179111\n"; # parteizugehörigkeit
+	print "LAST\tP102\tQ179111\n"; # parteizugehörigkeit SPÖ
 
     }
 
     if ($partei eq "FPÖ") {
-	print "LAST\tP102\tQ131692\n"; # parteizugehörigkeit
+	print "LAST\tP102\tQ131692\n"; # parteizugehörigkeit FPÖ
     }
 
     if ($partei eq "NEOS") {
@@ -84,7 +83,7 @@ while(<IN>)
     print "LAST\tP27\tQ40\n"; # österreicher
     print "LAST\tP1412\tQ188\n"; # deutsch
 
-    print "LAST\tP39\tQ87275062\tP580\t+2024-11-20T00:00:00Z/11\n";  # Abgeordneter zum Vorarlberger Landtag (Q87275062) ab 2023-06-14
+    print "LAST\tP39\tQ25608222\tP580\t+2024-12-18T00:00:00Z/11\n";  # Mitglied des Steirischen Landtages ab 2024-12-18
    
 
 }
