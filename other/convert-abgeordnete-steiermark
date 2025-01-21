@@ -83,7 +83,8 @@ while(<IN>)
     print "LAST\tP27\tQ40\n"; # österreicher
     print "LAST\tP1412\tQ188\n"; # deutsch
 
-    print "LAST\tP39\tQ25608222\tP580\t+2024-12-18T00:00:00Z/11\n";  # Mitglied des Steirischen Landtages ab 2024-12-18
+#    print "LAST\tP39\tQ25608222\tP580\t+2024-12-18T00:00:00Z/11\n";  # Mitglied des Steirischen Landtages ab 2024-12-18
+    print "LAST\tP39\tQ25608222\tP580\t+2025-01-21T00:00:00Z/11\n";  # Mitglied des Steirischen Landtages ab 2024-12-18
    
 
 }
