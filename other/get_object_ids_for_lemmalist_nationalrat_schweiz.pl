@@ -72,7 +72,13 @@ while(<IN>)
 
 # Abgeordneter zum Nationalrat (Q17535155)
 # 28. Gesetzgebungsperiode des österreichischen Nationalrats (Q130381789)
-      print  "Q".$QID_LEMMA."\tP39\tQ17535155\tP2937\tQ130381789\n";
+# https://meta.wikimedia.org/wiki/QuickStatements_3.0/Documentation#Force_creation_of_duplicate_statements
+#   + - > Force_creation_of_duplicate_statements
+
+      print  "+Q".$QID_LEMMA."\tP39\tQ17535155\tP2937\tQ130381789\tP580\t+2024-10-24T00:00:00Z/11\n";
+
+# 24. Oktober 2024
+# Q42328389	P39	Q17535155	P2937	Q130381789
 
 
     }
