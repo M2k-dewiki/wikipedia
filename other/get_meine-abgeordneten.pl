@@ -94,7 +94,7 @@ while(<IN>)
   
   my $AID = "";
   #https://www.meineabgeordneten.at/Abgeordnete/jakob.gruener
-if ($result2 =~ /www\.meineabgeordneten\.at\/Abgeordnete\/([a-z.]+) /i) {
+if ($result2 =~ /www\.meineabgeordneten\.at\/Abgeordnete\/([a-z.-_]+) /i) {
 # print "MATCH:0:$0:1:$1:2:$2:\n";
 $AID = $1;
 }
