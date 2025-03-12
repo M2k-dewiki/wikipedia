@@ -14,6 +14,20 @@ use HTML::FormatText;
 #### use JSON::Parse 'parse_json';
 
 
+
+####################
+# PetScan: 
+#   Politiker (21. Jahrhundert) 
+#   Österreicher
+
+# https://petscan.wmcloud.org/?cb_labels_no_l=1&referrer_name=&language=de&categories=Politiker+%2821.+Jahrhundert%29%0D%0A%C3%96sterreicher&larger=&search_wiki=&combination=subset&min_redlink_count=1&manual_list=&active_tab=tab_categories&project=wikipedia&smaller=&interface_language=en&outlinks_any=&pagepile=&rxp_filter=&before=&sitelinks_yes=&since_rev0=&edits%5Bflagged%5D=both&labels_any=&show_disambiguation_pages=both&search_query=&search_filter=&cb_labels_any_l=1&max_sitelink_count=&langs_labels_yes=&output_limit=&search_max_results=500&langs_labels_no=&outlinks_no=&sitelinks_any=&edits%5Bbots%5D=both&cb_labels_yes_l=1&sitelinks_no=&links_to_no=&templates_yes=&maxlinks=&sortorder=ascending&doit=
+
+# ===> Export CSV - list of names into list.txt
+
+####################
+
+
+
 #http://glennf.com/writing/hexadecimal.url.encoding.html
 # This pattern takes the hex characters and decodes them back into real characters. The function hex() turns a hex number into decimal; there is no dec() that does the reverse in perl. The "e" at the end of the regexp means "evaluate the replacement pattern as an expression."
 sub URLDecode {
@@ -54,7 +68,8 @@ while(<IN>)
 
     $count++; 
     # if ( $count == 500 ) { close(IN); close(OUT); exit ; }    
-     if ( $count == 10 ) { close(IN); close(OUT); exit ; }    
+   #  if ( $count == 10 ) { close(IN); close(OUT); exit ; }    
+   # if ( $count == 100 ) { close(IN); close(OUT); exit ; }    
 
     # print "count:$count:\n";
     my $QID_LEMMA = get_WD_ID_for_URL($lemma);
@@ -89,7 +104,7 @@ $AID = $1;
 	
     if (($QID_LEMMA > 0) && ($AID ne "")) {
 
-	print  "+Q".$QID_LEMMA."\tP13350\t\"".$AID."\"\tS143\tQ48183\n";
+	print  "Q".$QID_LEMMA."\tP13350\t\"".$AID."\"\tS143\tQ48183\n";
 
     # S ... Fundstelle
 #    importiert aus Wikimedia-Projekt (P143)
