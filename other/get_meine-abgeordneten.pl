@@ -66,6 +66,11 @@ while(<IN>)
     $lemma =~ s/_/ /og; # trim                                                                                                                                                                                                             
     # print ":LEMMA:$lemma:\n";   
 
+#if (!($lemma =~ /(\-|\_)/)) { 
+# if (!($lemma =~ /\-/)) { 
+  # print "SKIP:\n"; 
+ #  next; } 
+
     $count++; 
     # if ( $count == 500 ) { close(IN); close(OUT); exit ; }    
    #  if ( $count == 10 ) { close(IN); close(OUT); exit ; }    
@@ -82,9 +87,10 @@ while(<IN>)
        
        
 #my $check_url = 'https://de.wikipedia.org/wiki/Jakob_Gr%C3%BCner?action=raw';
+# $check_url = 'https://de.wikipedia.org/wiki/Lisa_Schuch-Gubik?action=raw';
 	   
 	   
- #      print "check URL:$check_url:\n"; # exit;
+    #  print "check URL:$check_url:\n"; # exit;
 #  print OUT "$url\n"; # bereits gepruefte URL, beim naechsten durchgang nicht nochmals pruefen
  
  
@@ -94,12 +100,16 @@ while(<IN>)
   
   my $AID = "";
   #https://www.meineabgeordneten.at/Abgeordnete/jakob.gruener
-if ($result2 =~ /www\.meineabgeordneten\.at\/Abgeordnete\/([a-z.-_]+) /i) {
+if ($result2 =~ /www\.meineabgeordneten\.at\/Abgeordnete\/([a-z\.\-_]+) /i) {
 # print "MATCH:0:$0:1:$1:2:$2:\n";
 $AID = $1;
 }
   
  # exit;
+	
+	
+
+	
 	
 	
     if (($QID_LEMMA > 0) && ($AID ne "")) {
