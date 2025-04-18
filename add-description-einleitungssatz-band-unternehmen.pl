@@ -180,9 +180,17 @@ while(<IN>)
 # my $sitelink = 'https://de.wikipedia.org/wiki/'.$title;
     
 
+
     my ($QID, $sitelink, $beschreibung) = split (/\t/,$_);
 #    $sitelink =~ s/\"//og;
    $QID =~ s/http:\/\/www.wikidata.org\/entity\///og;
+
+
+
+
+	#test 
+# my $sitelink = 'https://de.wikipedia.org/wiki/Fu%C3%9Fball-Ozeanienmeisterschaft_der_Frauen_2022';
+
 
 
     if (! ($QID =~ /Q[0-9]+/ )) {
@@ -336,6 +344,10 @@ if ($clean_text =~ /(ist die|war die|ist eine|ist ein|war ein|war eine) ([0-9]+\
         # print "*** MATCH:1: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
 #	  $description = $2;
 	  $description = "$2$3";
+#$description =~ s/und fand *$//;
+$description =~ s/ und .*$//;
+
+
 
 if ($1 eq 'befindet sich') { $description = $1." ".$2; }
 if ($1 eq 'liegt') { $description = $1." ".$2; }
