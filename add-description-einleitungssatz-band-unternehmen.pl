@@ -124,9 +124,10 @@ my %mons = ("Januar"=>'01',"Februar"=>'02',"März"=>'03',"April"=>'04',"Mai"=>'0
 # my $INFILE = 'Download.csv';
 
 # my $INFILE = 'wikidata_2NZoiQ.tsv';
-my $INFILE = 'wikidata_6WHpqa.tsv';
+# my $INFILE = 'wikidata_6WHpqa.tsv';
 # my $INFILE = 'wikidata_USRTdW.tsv';
 # my $INFILE = 'wikidata_N2xJIM.tsv';
+
 
 
 # Band
@@ -149,6 +150,24 @@ my $INFILE = 'wikidata_WOCaEw.tsv';
 # musikalisches Werk/Komposition (Q105543609)
 # https://qlever.cs.uni-freiburg.de/wikidata/Hx4lde#tsv
 my $INFILE = 'wikidata_Hx4lde.tsv';
+
+# Fernsehserie
+# https://qlever.cs.uni-freiburg.de/wikidata/xL6zn0#tsv
+my $INFILE = 'wikidata_xL6zn0.tsv';
+
+
+# Bauwerk
+# https://qlever.cs.uni-freiburg.de/wikidata/cptxGD#tsv
+my $INFILE = 'wikidata_cptxGD.tsv';
+
+
+# Kirchengebäude
+# https://qlever.cs.uni-freiburg.de/wikidata/uq9XpO#tsv
+my $INFILE = 'wikidata_uq9XpO.tsv';
+
+# Sportsaison
+# https://qlever.cs.uni-freiburg.de/wikidata/vECvFr#tsv
+my $INFILE = 'wikidata_vECvFr.tsv';
 
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
@@ -307,9 +326,16 @@ my $clean_text = $hs->parse( $html );
 # Die [[bronzezeit]]liche '''Steinkiste von Horne''' befindet sich auf dem Friedhof der [[Horne Kirke (Hjørring Kommune)|Horne Kirke]] in der [[Hjørring Kommune]] im [[Vendsyssel]] in [[Region Nordjylland|Nordjütland]] in [[Dänemark]]. 
  
  my $description = "";
-  if ($clean_text =~ /(ist eine|ist ein|war ein|war eine|befindet sich|liegt|wurde) ([^\.\,]+)(\.|\,)/i) {
-#         print "*** MATCH:1: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
-	  $description = $2;
+##  if ($clean_text =~ /(ist eine|ist ein|war ein|war eine|befindet sich|liegt|wurde) ([^\.\,]+)(\.|\,)/i) {
+###  if ($clean_text =~ /(ist eine|ist ein|war ein|war eine) ([^\.\,]+)(\.|\,)/i) {
+
+# if ($clean_text =~ /(ist die|war die|ist eine|ist ein|war ein|war eine) ([^\.\,]+)(\.|\,)/i) {
+
+if ($clean_text =~ /(ist die|war die|ist eine|ist ein|war ein|war eine) ([0-9]+\.)?([^\.\,]+)(\.|\,)/i) {
+
+        # print "*** MATCH:1: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
+#	  $description = $2;
+	  $description = "$2$3";
 
 if ($1 eq 'befindet sich') { $description = $1." ".$2; }
 if ($1 eq 'liegt') { $description = $1." ".$2; }
