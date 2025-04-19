@@ -170,6 +170,36 @@ my $INFILE = 'wikidata_uq9XpO.tsv';
 my $INFILE = 'wikidata_vECvFr.tsv';
 
 
+# Tennisturnier-Auflage
+# https://qlever.cs.uni-freiburg.de/wikidata/zeScAG#tsv
+my $INFILE = 'wikidata_zeScAG.tsv';
+
+
+# liegt in der Verwaltungseinheit : Shetlandinseln
+# https://qlever.cs.uni-freiburg.de/wikidata/sS0V0r#tsv
+my $INFILE = 'wikidata_sS0V0r.tsv';
+
+# Staat: Osttimor
+# https://qlever.cs.uni-freiburg.de/wikidata/K6JRxO#tsv
+my $INFILE = 'wikidata_K6JRxO.tsv';
+
+# Taxon
+# https://qlever.cs.uni-freiburg.de/wikidata/Meq21X#tsv
+my $INFILE = 'wikidata_Meq21X.tsv';
+
+# Gericht
+# https://qlever.cs.uni-freiburg.de/wikidata/IvQ9UQ#tsv
+my $INFILE = 'wikidata_IvQ9UQ.tsv';
+
+# Sportverein
+# https://qlever.cs.uni-freiburg.de/wikidata/3cHvr1#tsv
+my $INFILE = 'wikidata_3cHvr1.tsv';
+
+# Fußballverein
+# https://qlever.cs.uni-freiburg.de/wikidata/hj9vXG
+my $INFILE = 'wikidata_hj9vXG.tsv';
+
+
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
 my $count =0 ;
@@ -339,13 +369,22 @@ my $clean_text = $hs->parse( $html );
 
 # if ($clean_text =~ /(ist die|war die|ist eine|ist ein|war ein|war eine) ([^\.\,]+)(\.|\,)/i) {
 
-if ($clean_text =~ /(ist die|war die|ist eine|ist ein|war ein|war eine) ([0-9]+\.)?([^\.\,]+)(\.|\,)/i) {
+# ohne teil ab dem beistrich
+# if ($clean_text =~ /(ist die|war die|ist eine|ist ein|war ein|war eine) ([0-9]+\.)?([^\.\,]+)(\.|\,)/i) {
+
+# mit teil ab dem beistrich
+# if ($clean_text =~ /(ist die|war die|ist eine|ist ein|war ein|war eine) ([0-9]+\.)?([^\.]+)(\.|\,)/i) {
+
+# ohne klammerteil
+ if ($clean_text =~ /(ist die|war die|ist eine|ist ein|war ein|war eine) ([0-9]+\.)?([^\.\,\(]+)(\.|\,)/i) {
 
         # print "*** MATCH:1: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
 #	  $description = $2;
 	  $description = "$2$3";
 #$description =~ s/und fand *$//;
 $description =~ s/ und .*$//;
+
+$description =~ s/^([0-9]+) gegr.ndeter //;
 
 
 
