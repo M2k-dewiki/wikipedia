@@ -22,22 +22,33 @@ while(<IN>)
     
     # print "KAT:$kat:\n";
 
+$count++;
     
     print "CREATE\n";
     print "LAST\tLde\t\"$kat\"\n"; # label de - bezeichnung
-
-#     print "LAST\tDde\t\"deutscher Fernsehfilm der Reihe Praxis mit Meerblick\"\n";
-	 
     print "LAST\tP31\tQ27020041\n"; # ist eine: Spielsaison
 
-    print "LAST\tP17\tQ183\n"; # Staat: Deutschland
-#     print "LAST\tP17\tQ16957\n"; # Staat: DDR
-    
-    print "LAST\tP641\tQ2736\n"; # Sportart: Fußball
-    
-    # print "LAST\tP3450\tQ109935010\n"; # Liga: Fußball-Bezirksliga Rostock
+my $beschreibung = $count.". Austragung der Schweizer Rugby-Union-Meisterschaft";
+ print "LAST\tDde\t\"".$beschreibung."\"\n"; # label de - 
+ 
 
+#    print "LAST\tP17\tQ183\n"; # Staat: Deutschland
+#     print "LAST\tP17\tQ16957\n"; # Staat: DDR
+     print "LAST\tP17\tQ39\n"; # Staat: Schweiz
     
+    # print "LAST\tP641\tQ2736\n"; # Sportart: Fußball
+     print "LAST\tP641\tQ5849\n"; # Sportart: Rugby Union
+    
+		
+    # print "LAST\tP3450\tQ109935010\n"; # Liga: Fußball-Bezirksliga Rostock
+# print "LAST\tP3450\tQ2952014\n"; #     Fußball-Bezirksliga Gera (Q2952014)
+# print "LAST\tP3450\tQ2952014\n"; #     Fußball-Bezirksliga Gera (Q2952014)
+ print "LAST\tP3450\tQ2952228\n"; #     Schweizer Rugby-Union-Meisterschaft (Q2952228)
+
+
+ print "LAST\tP664\tQ3741046\n"; #     # Veranstalter (P664): Fédération Suisse de Rugby (Q3741046)
+
+
 
  #print "LAST\tP3450\tQ27909673\n"; # Fußball-Bezirksliga Berlin (Q27909673)
     

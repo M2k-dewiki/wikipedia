@@ -22,7 +22,7 @@ while(<IN>)
     
     # print "KAT:$kat:\n";
 my ($ordnungsnummer,$titel,@restlist) = split(/\t/,$kat);
-# print "O:ordnungsnummer:T:$titel:\n";
+# print "O:$ordnungsnummer:T:$titel:\n";
 
 
 
@@ -49,9 +49,15 @@ my ($ordnungsnummer,$titel,@restlist) = split(/\t/,$kat);
  print "LAST\tAde\t\"".$titel."\"\n"; # label de - bezeichnung # alias
 
 # print "LAST\tLde\t\"Der Staatsanwalt hat das Wort: ".$titel."\"\n"; # label de - bezeichnung
- print "LAST\tLde\t\"Der Alte: ".$titel."\"\n"; # label de - bezeichnung
+# print "LAST\tLde\t\"Der Alte: ".$titel."\"\n"; # label de - bezeichnung
+ #print "LAST\tLde\t\"Rosamunde Pilcher: ".$titel."\"\n"; # label de - bezeichnung
+ 
+ 
 # print "LAST\tDde\t\"Episode der Fernsehserie Der Staatsanwalt hat das Wort\"\n"; # label de - bezeichnung
- print "LAST\tDde\t\"Episode der Fernsehserie Der Alte\"\n"; # label de - bezeichnung
+# print "LAST\tDde\t\"Episode der Fernsehserie Der Alte\"\n"; # label de - bezeichnung
+# print "LAST\tDde\t\"Film der Fernsehreihe Rosamunde Pilcher\"\n"; # label de - bezeichnung
+ print "LAST\tDde\t\"deutscher Fernsehfilm\"\n"; # label de - bezeichnung
+
 
 
     # print "LAST\tP31\tQ5\n"; # ist ein mensch
@@ -95,7 +101,9 @@ my ($ordnungsnummer,$titel,@restlist) = split(/\t/,$kat);
 #     print "LAST\tP179\tQ99195135\n"; # 	 Käthe und ich (Q99195135)
 
 #     print "LAST\tP179\tQ687483\n"; # 	 Der Alte (Q687483)
-print "LAST\tP179\tQ687483\tP1545\t\"".$ordnungsnummer."\"\n"; #Der Alte (Q687483)
+# print "LAST\tP179\tQ687483\tP1545\t\"".$ordnungsnummer."\"\n"; #Der Alte (Q687483)
+
+print "LAST\tP179\tQ133456736\tP1545\t\"".$ordnungsnummer."\"\n"; #Rosamunde Pilcher (Q79384447)
 
 
 
@@ -103,7 +111,7 @@ print "LAST\tP179\tQ687483\tP1545\t\"".$ordnungsnummer."\"\n"; #Der Alte (Q68748
 	 #	 Ordnungsnummer (P1545)
 
 
-     print "LAST\tP449\tQ48989\n"; # 	 Sender der Erstausstrahlung (P449): ZDF (Q48989)
+ #    print "LAST\tP449\tQ48989\n"; # 	 Sender der Erstausstrahlung (P449): ZDF (Q48989)
 
 	 
     # print "LAST\tP449\tQ115076\n"; # 	 Sender der Erstausstrahlung (P449): Deutscher Fernsehfunk
@@ -119,8 +127,15 @@ print "LAST\tP179\tQ687483\tP1545\t\"".$ordnungsnummer."\"\n"; #Der Alte (Q68748
 #     # print "LAST\tP495\tQ40\n"; # land AT
 
      print "LAST\tP364\tQ188\n"; # sprache DE
-     print "LAST\tP136\tQ959790\n"; # Genre (P136): Kriminalfilm (Q959790)
-#     print "LAST\tP462\tQ22006653\n"; # Farbe (P462): Farbe (Q22006653)
+
+#     print "LAST\tP136\tQ959790\n"; # Genre (P136): Kriminalfilm (Q959790)
+     print "LAST\tP136\tQ959790\n"; # Genre (P136): Liebesfilm (Q1054574)
+     print "LAST\tP136\tQ157443\n"; # Genre (P136): Filmkomödie
+     print "LAST\tP136\tQ130232\n"; # Genre (P136): Filmdrama
+
+
+
+     print "LAST\tP462\tQ22006653\n"; # Farbe (P462): Farbe (Q22006653)
 
 
 
