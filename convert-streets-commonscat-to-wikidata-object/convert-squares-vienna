@@ -30,9 +30,9 @@ sub URLEncode {
 
 
 
-# Category: Streets in Munich
+# https://commons.wikimedia.org/wiki/Category:Squares_in_Vienna
 
-# https://petscan.wmflabs.org/?ns%5B0%5D=1&edits%5Banons%5D=both&edits%5Bbots%5D=both&active_tab=tab_output&cb_labels_any_l=1&categories=Streets%20in%20Munich&cb_labels_yes_l=1&wikidata_item=without&edits%5Bflagged%5D=both&show_redirects=no&project=wikimedia&interface_language=en&search_max_results=500&depth=1&ns%5B14%5D=1&negcats=Wikipedia:L%C3%B6schkandidat%0AWikipedia:Schnelll%C3%B6schen&sortby=title&ns%5B4%5D=1&language=commons&cb_labels_no_l=1&since_rev0=&combination=union&search_query=&doit=&al_commands=P131%3AQ1741%0AP17%3AQ40%0AP31%3AQ79007
+# https://petscan.wmcloud.org/?ores_type=any&labels_any=&referrer_name=&links_to_no=&ns%5B4%5D=1&min_sitelink_count=&maxlinks=&show_disambiguation_pages=both&negcats=Wikipedia%3AL%C3%B6schkandidat%0D%0AWikipedia%3ASchnelll%C3%B6schen&depth=1&pagepile=&cb_labels_yes_l=1&outlinks_any=&categories=Squares+in+Vienna&cb_labels_any_l=1&combination=union&search_wiki=&edits%5Bbots%5D=both&search_filter=&outlinks_yes=&wikidata_source_sites=&ns%5B0%5D=1&page_image=any&edits%5Banons%5D=both&ores_prob_from=&project=wikimedia&max_sitelink_count=&show_redirects=no&language=commons&manual_list=&interface_language=en&larger=&langs_labels_no=&minlinks=&cb_labels_no_l=1&search_max_results=500&sortby=title&show_soft_redirects=both&wikidata_item=without&ns%5B14%5D=1&wikidata_label_language=&min_redlink_count=1&doit=
 
 
 
@@ -57,7 +57,6 @@ while(<IN>)
 
     my $lemma_ohne_zusatz = $lemma_mit_klammerzusatz;  # ohne präfix und klammerzusatz
     $lemma_ohne_zusatz =~ s/\,.+//og;
-    $lemma_ohne_zusatz =~ s/\(.+//og;
     $lemma_ohne_zusatz =~ s/^(\s)*//og; # trim
     $lemma_ohne_zusatz =~ s/(\s)*$//og; # trim
 
@@ -86,9 +85,9 @@ while(<IN>)
   my $result2 = $agent->content;
   # print "RESULT:$result2:\n";
   
-        if ($result2 =~ /Wikidata infobox/i) {
-        # print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n";        next;
-      } 
+#       if ($result2 =~ /Wikidata infobox/i) {
+#        # print STDERR "Lemma $check_url hat Wikidata Infobox - do nothing\n"; next;
+#     } 
 
 
 my $north = "";
@@ -113,30 +112,20 @@ $east = $8;
    print "LAST\tLen\t\"$lemma_ohne_zusatz\"\n"; # label de - bezeichnung
 
     my $alias = $lemma_ohne_zusatz;
-      print "LAST\tAde\t\"".$alias.", München\"\n"; # alias de - alias
-      print "LAST\tAen\t\"".$alias.", Munich\"\n"; # alias de - alias
-      print "LAST\tAde\t\"".$alias." (München)\"\n"; # alias de - alias
-      print "LAST\tAen\t\"".$alias." (Munich)\"\n"; # alias de - alias
+      print "LAST\tAde\t\"".$alias.", Wien\"\n"; # alias de - alias
+      print "LAST\tAen\t\"".$alias.", Vienna\"\n"; # alias de - alias
+      print "LAST\tAde\t\"".$alias." (Wien)\"\n"; # alias de - alias
+      print "LAST\tAen\t\"".$alias." (Vienna)\"\n"; # alias de - alias
   
-     my $beschreibung = "Straße in München";
-     my $beschreibung_en = "street in Munich";
-    
-	
-	   if ($lemma_ohne_zusatz =~ /platz/i) {
-       $beschreibung = "Platz in München";
-       $beschreibung_en = "square in Munich";
-       print "LAST\tP31\tQ174782\n"; # ist eine: Platz (Q174782)
-     } else {
-       print "LAST\tP31\tQ79007\n"; # ist eine: Innerortsstraße
-     }
-	 
-    print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
+     my $beschreibung = "Platz in Wien";
+     my $beschreibung_en = "Square in Vienna";
+     print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
      print "LAST\tDen\t\"$beschreibung_en\"\n"; # description en - beschreibung
- 	
+    
     print "LAST\tScommonswiki\t\"$kat_mit_prefix\"\n"; # sitelink
-#    print "LAST\tP31\tQ79007\n"; # ist eine: Innerortsstraße
-    print "LAST\tP17\tQ183\n"; # Staat: Deutschland (Q183)
-    print "LAST\tP131\tQ1726\n"; # liegt in der Verwaltungseinheit: München (Q1726)    
+    print "LAST\tP31\tQ174782\n"; # ist eine: Platz
+    print "LAST\tP17\tQ40\n"; # Staat: Österreich
+    print "LAST\tP131\tQ1741\n"; # liegt in der Verwaltungseinheit: Wien    
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
  
     
