@@ -32,6 +32,7 @@ sub URLEncode {
 
 # https://commons.wikimedia.org/wiki/Category:Plaques_in_D%C3%B6bling
 
+# https://commons.wikimedia.org/wiki/Category:Plaques_in_Innere_Stadt,_Vienna
 
 
 my $INFILE = 'list.txt';
@@ -120,8 +121,8 @@ $east = $8;
 #      print "LAST\tAde\t\"$alias\"\n"; # alias de - alias
 #    }
   
-     my $beschreibung = "Gedenktafel in Wien-Döbling, Österreich";
-     my $beschreibung_en = "plaque in Döbling, Vienna, Austria";
+     my $beschreibung = "Gedenktafel in Wien-Liesing, Österreich";
+     my $beschreibung_en = "plaque in Liesing, Vienna, Austria";
      
 #     if ($klammerzusatz ne "") { $beschreibung = $beschreibung." in ".$klammerzusatz; }
         print "LAST\tDde\t\"$beschreibung\"\n"; # description de - beschreibung
@@ -136,8 +137,33 @@ $east = $8;
 	 	 
     print "LAST\tP17\tQ40\n"; # Staat: Österreich
 #        print "LAST\tP131\tQ1741\n"; # liegt in der Verwaltungseinheit: Wien 
-        print "LAST\tP131\tQ267360\n"; # liegt in der Verwaltungseinheit (P131): Döbling (Q267360)
-    
+#        print "LAST\tP131\tQ267360\n"; # liegt in der Verwaltungseinheit (P131): Döbling (Q267360)
+#        print "LAST\tP131\tQ267329\n"; # liegt in der Verwaltungseinheit (P131): 	Innere Stadt (Q267329)
+#        print "LAST\tP131\tQ259120\n"; # liegt in der Verwaltungseinheit (P131): 	Leopoldstadt (Q259120)
+#        print "LAST\tP131\tQ519552\n"; # liegt in der Verwaltungseinheit (P131): 	Landstraße (Q519552)
+#        print "LAST\tP131\tQ268001\n"; # liegt in der Verwaltungseinheit (P131): 	Wieden (Q268001)
+#        print "LAST\tP131\tQ252731\n"; # liegt in der Verwaltungseinheit (P131): 	Margareten (Q252731)
+#        print "LAST\tP131\tQ654812\n"; # liegt in der Verwaltungseinheit (P131): 	Mariahilf (Q654812)
+#        print "LAST\tP131\tQ664835\n"; # liegt in der Verwaltungseinheit (P131): 	Neubau (Q664835)
+#        print "LAST\tP131\tQ256778\n"; # liegt in der Verwaltungseinheit (P131): 	Josefstadt (Q256778)
+#        print "LAST\tP131\tQ257780\n"; # liegt in der Verwaltungseinheit (P131): 	Alsergrund (Q257780)
+#        print "LAST\tP131\tQ697548\n"; # liegt in der Verwaltungseinheit (P131): 	Favoriten (Q697548)
+#        print "LAST\tP131\tQ279028\n"; # liegt in der Verwaltungseinheit (P131): 	Simmering (Q279028)
+#        print "LAST\tP131\tQ697557\n"; # liegt in der Verwaltungseinheit (P131): 	Meidling (Q697557)
+#        print "LAST\tP131\tQ636910\n"; # liegt in der Verwaltungseinheit (P131): 	Hietzing (Q636910)
+#        print "LAST\tP131\tQ690335\n"; # liegt in der Verwaltungseinheit (P131): 	Penzing (Q690335)
+#        print "LAST\tP131\tQ653289\n"; # liegt in der Verwaltungseinheit (P131): 	Rudolfsheim-Fünfhaus (Q653289)
+#        print "LAST\tP131\tQ265945\n"; # liegt in der Verwaltungseinheit (P131): 	Ottakring (Q265945)
+#        print "LAST\tP131\tQ262808\n"; # liegt in der Verwaltungseinheit (P131): 	Hernals (Q262808)
+#        print "LAST\tP131\tQ690417\n"; # liegt in der Verwaltungseinheit (P131): 	Währing (Q690417)
+#        print "LAST\tP131\tQ265655\n"; # liegt in der Verwaltungseinheit (P131): 	Brigittenau (Q265655)
+#        print "LAST\tP131\tQ264645\n"; # liegt in der Verwaltungseinheit (P131): 	Floridsdorf (Q264645)
+#        print "LAST\tP131\tQ258333\n"; # liegt in der Verwaltungseinheit (P131): 	Donaustadt (Q258333)
+        print "LAST\tP131\tQ278900\n"; # liegt in der Verwaltungseinheit (P131): 	Liesing (Q278900)
+
+
+
+
     
     print "LAST\tP373\t\"$kat\"\n";   # Commonscat-Property
    
