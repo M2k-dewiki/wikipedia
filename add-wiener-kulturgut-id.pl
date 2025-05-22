@@ -38,6 +38,11 @@ sub URLEncode {
 # my $INFILE = '/home/m2k/Downloads/Download.csv';
  my $INFILE = 'Download.csv';
 
+###### ***************
+#### ACHTUNG: Download.csv mit OpenOffice Tab-Delimited abspeichern!!!
+###### ***************
+
+
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
 my $count =0 ;
@@ -45,9 +50,12 @@ while(<IN>)
 {
     chop;
 my $line = $_;
+
+# print "LINE:$line:\n";
+
 $line =~ s/\"//og;
 
-    my ($number,$title,$pageid,$namespace,$length,$touched,$Wikidata) = split (/\,/,$line);
+    my ($number,$title,$pageid,$namespace,$length,$touched,$Wikidata) = split (/\t/,$line);
 
     if ($title eq "title") { next; }
     
@@ -61,15 +69,24 @@ $line =~ s/\"//og;
    
      # my $url = $sitelink;
 
+# my $sitelink = 'Gedenktafel für Clemens Krauss (Wien, Belvederegasse 7)';
+
+
      my $url = URLEncode($sitelink);
     
 #	my $url = 'Gedenktafel_an_die_T%C3%BCrkenbelagerung_1683_(Wien,_Sterngasse_3)';
 	
+	
 	#https://commons.wikimedia.org/wiki/Category:Gedenktafel_an_die_T%C3%BCrkenbelagerung_1683_(Wien,_Sterngasse_3)
+#https://commons.wikimedia.org/wiki/Category:Gedenktafel_f%C3%BCr_Clemens_Krauss_(Wien,_Belvederegasse_7)
+		
 	
 #   https://de.wikipedia.org/wiki/Sarah_Freitas
        my $check_url = 'https://commons.wikimedia.org/wiki/Category:'.$url.'?action=raw';
-#        print "check URL:$check_url:\n"; exit;
+       # print "check URL:$check_url:\n"; exit;
+
+# URL:https://commons.wikimedia.org/wiki/Category:Gedenktafel_f%C3%BCr_Clemens_Krauss_%28Wien%2C_Belvederegasse_7%29?action=raw:
+
 
     $agent->get( $check_url );
   my $result2 = $agent->content;
@@ -78,13 +95,17 @@ $line =~ s/\"//og;
 
  my $IAAF = "";
 
-
+if ($result2 =~ /Public Art Austria/i) {
+# print "MATCH:MATCH:QID:$QID:SL:$sitelink:\n";
+}
+	
+	
 
 ##################
 # * {{World Athletics|14524845}}
 # {{Public Art Austria|95960|AT-9}}
       if ($result2 =~ /(\s*)\{\{Public Art Austria(\s*)\|([0-9\.]+)(\s*)\|/i) {
-        #  print "*** (11111) IAAF: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
+       #   print "*** (11111) IAAF: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
  $IAAF = $3;
 }
 ##################
