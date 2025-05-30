@@ -3,30 +3,32 @@
 use strict;
 
 
-######################
-# # # # # https://qlever.cs.uni-freiburg.de/wikidata/3IHmlL
-######################
-# PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-# PREFIX schema: <http://schema.org/>
-# PREFIX wd: <http://www.wikidata.org/entity/>
-# PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-# SELECT ?item ?article WHERE 
-# {
-# { ?item wdt:P31 wd:Q5 . }
-#   ?article schema:isPartOf <https://de.wikipedia.org/> .       
-#   ?article schema:about ?item .
-#   optional {?item rdfs:label ?itemLabel . filter(lang(?itemLabel)="de") }
-#   MINUS {?item schema:description ?itemDescription . filter(lang(?itemDescription)="de") }
-#  # FILTER (STRLEN(?itemLabel) > 0)  
-#   MINUS { ?item wdt:P31/wdt:P279* wd:Q4167836 . }
-#   MINUS { ?item wdt:P31 wd:Q11266439 .}
-#   MINUS { ?item wdt:P31 wd:Q15184295 .}
-#   MINUS { ?item wdt:P31 wd:Q11753321 .}
-#   MINUS { ?item wdt:P31 wd:Q17633526 .}
-#   MINUS { ?item wdt:P31 wd:Q19887878 .}
-# } 
-######################
+###########################
+# for details see:
+# 
+# https://www.wikidata.org/w/index.php?title=User_talk:LIPARUS232&oldid=2354723170#German_descriptions_-_alias_instead_of_description,_upper_case_instead_lower_case,_wrong_gender
+# 
+#
+#
+# the (3851) edits of editgroup
+#https://editgroups.toolforge.org/b/OR/255071bb4ac/
+#have been reverted.
+#Female indian actresses without german description have been selected using QLEVER, since this usually does not end with a timeout like the Wikidata Query Service often does:
+#https://qlever.cs.uni-freiburg.de/wikidata/0Hx8JQ
+#For these items the description indische Schauspielerin has been added:
+#https://quickstatements.toolforge.org/#/batch/247136
+#The QuickStatements could be prepared using a spreadsheet application like Excel, LibreOffice or OpenOffice.
+#For example:
+#https://www.wikidata.org/w/index.php?title=Q5052949&diff=2354691538&oldid=2354405111
+#Similar has been done for male indian actors:
+#male indian actors without german description:
+#https://qlever.cs.uni-freiburg.de/wikidata/XKXbUs
+#add description indischer Schauspieler
+#https://quickstatements.toolforge.org/#/batch/247149
+#For example:
+#https://www.wikidata.org/w/index.php?title=Q901655&diff=2354720723&oldid=2354404069
 
+###########################
 
 
 # Crypt::SSLeay muss installiert sein fuer SSL-Support
