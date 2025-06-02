@@ -1,0 +1,263 @@
+#!/usr/bin/perl
+
+use strict;
+
+# Crypt::SSLeay muss installiert sein fuer SSL-Support
+# apt-get install libwww-mechanize-perl libio-socket-ssl-perl libnet-ssleay-perl
+use WWW::Mechanize;
+use Data::Dumper;
+use HTML::FormatText;
+################
+sub URLDecode {
+    my $theURL = $_[0];
+    $theURL =~ tr/+/ /;
+    $theURL =~ s/%([a-fA-F0-9]{2,2})/chr(hex($1))/eg;
+    $theURL =~ s/<!--(.|\n)*-->//g;
+    return $theURL;
+}
+
+
+sub URLEncode {
+    my $theURL = $_[0];
+    $theURL =~ s/([\W])/"%" . uc(sprintf("%2.2x",ord($1)))/eg;
+    return $theURL;
+}
+################
+
+################
+my $USER_AGENT='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36';
+
+# See the autocheck parameter, which turns all HTTP errors into fatal errors. When you turn autocheck off, you will need to do all error checking yourself.
+my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
+################
+
+
+
+# https://de.wikipedia.org/wiki/Liste_der_Gedenktafeln_und_Gedenksteine_in_Wien/Innere_Stadt?action=raw
+#
+#| Commonscat      = Gedenktafel für Heinrich Abel (Wien, Josefsplatz 9)
+#| Breitengrad     = 48.206047
+#| Längengrad      = 16.367715
+
+# https://de.wikipedia.org/wiki/Liste_der_Gedenktafeln_und_Gedenksteine_in_Wien/Innere_Stadt?action=raw
+# als ''list.txt' abspeichern
+
+
+
+# Liste der Gedenktafeln und Gedenksteine in Wien/Mariahilf (Q27847085)
+# Liste der Gedenktafeln und Gedenksteine in Wien/Donaustadt (Q109531844)
+# Liste der Gedenktafeln und Gedenksteine in Wien/Brigittenau (Q55380535)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Simmering (Q117788253)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Landstraße (Q44398488)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Margareten (Q55284755)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Neubau (Q112661073)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Ottakring (Q117377533)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Döbling (Q117536575)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Währing (Q117408992)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Josefstadt (Q118640104)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Hietzing (Q112666803)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Penzing (Q112256490)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Leopoldstadt (Q28153548)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Wieden (Q55195978)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Favoriten (Q120111144)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Alsergrund (Q72013645)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Hernals (Q117391711)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Liesing (Q112731335)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Rudolfsheim-Fünfhaus (Q112189143)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Floridsdorf (Q84356003)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Meidling (Q112596973)
+#Liste der Gedenktafeln und Gedenksteine in Wien/Innere Stadt (Q113527406)
+
+
+
+my %bezirksliste = ( 
+ 'Döbling' => 'Q117536575',
+ 'Innere Stadt' => 'Q113527406', 
+ 'Leopoldstadt' => 'Q28153548', 
+ 'Landstraße' => 'Q44398488',
+ 'Wieden' => 'Q55195978',
+ 'Margareten' => 'Q55284755',
+ 'Mariahilf' => 'Q27847085',
+ 'Neubau' => 'Q112661073',
+ 'Josefstadt' => 'Q118640104',
+ 'Alsergrund' => 'Q72013645',
+ 'Favoriten' => 'Q120111144',
+ 'Simmering' => 'Q117788253',
+ 'Meidling' => 'Q112596973',
+ 'Hietzing' => 'Q112666803',
+ 'Penzing' => 'Q112256490',
+ 'Rudolfsheim-Fünfhaus' => 'Q112189143',
+ 'Ottakring' => 'Q117377533',
+ 'Hernals' => 'Q117391711',
+ 'Währing' => 'Q117408992',
+ 'Brigittenau' => 'Q55380535',
+ 'Floridsdorf' => 'Q84356003',
+ 'Donaustadt' => 'Q109531844',
+ 'Liesing' => 'Q112731335',
+ );
+
+
+
+##########
+# Döbling hat noch 17 Objekte ohne Koordinaten --> ggf. extra
+##########
+
+##########
+# Ganz Wien: 1442 Einträge ohne Koordinaten, davon 466 in "Innere Stadt"
+#  ?item wdt:P131* wd:Q1741 .
+# davon 
+##########
+  
+
+# Gedenktafeln in "Innere Stadt" ohne Koordinaten
+# SELECT ?item ?itemLabel ?itemDescription ?value ?valueLabel
+# WHERE
+# {
+#  ?item wdt:P31 wd:Q721747 .
+#   ?item wdt:P131 wd:Q267329 .
+# FILTER NOT EXISTS { ?item   p:P625 [] } .
+#   SERVICE wikibase:label { bd:serviceParam wikibase:language "de,mul,en" } .
+# }
+##########
+
+
+
+##### ************
+# exclude  döbling ?!?
+##### ************
+
+# foreach my $bezirk ( @bezirksliste ) {
+
+foreach my $bezirk (sort keys %bezirksliste) {
+my $bezirk_WD_objekt =  $bezirksliste{$bezirk};
+#    print "bezirk:$bezirk\n";
+#    print "bezirksobekt:$bezirk_WD_objekt:\n";
+
+# exit;
+
+# print "=======\n";
+#	print "BEZIRK:$bezirk:\n";
+my $checkURL = 'https://de.wikipedia.org/wiki/Liste_der_Gedenktafeln_und_Gedenksteine_in_Wien/'.$bezirk.'?action=raw';
+
+ # print "checkURL:$checkURL:\n";
+  $agent->get( $checkURL );
+  my $result = $agent->content;
+#  print "RESULT:$result:\n";
+
+my $commonscat = "";
+my $breitengrad = "";
+my $laengengrad = "";
+
+my @list_of_lines = split(/\n/, $result);
+foreach my $line (@list_of_lines) {
+#    print "Line: $line\n";
+
+
+# my $INFILE = 'list.txt';
+# open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+
+
+# while(<IN>)
+# {
+#    chop;
+#    my $line = $_;
+    $line =~ s/^(\s)*//og; # trim
+    $line =~ s/(\s)*$//og; # trim
+ # print "LINE:$line:\n";
+
+$line =~ s|<.+?>||g; # strip html-tags
+
+
+if ( $line =~ /Tabellenzeile/i) {
+# print "INIT vars\n";
+  $commonscat = ""; $breitengrad = ""; $laengengrad = "";
+}
+
+if ( $line =~ /Commonscat(\s)*\=(\s)*(.+)(\s)*$/ ) {
+# print "LINE:$line:\n";
+#  print "CAT:$1:$2:$3:$4:\n";
+  $commonscat = $3;
+# print "CAT:$commonscat:\n";
+}
+if ( $line =~ /Breitengrad(\s)*\=(\s)*(.+)(\s)*$/ ) {
+# print "LINE:$line:\n";
+# print "BG:$1:$2:$3:$4:\n";
+  $breitengrad = $3;
+# print "BG:$breitengrad:\n";
+}
+if ( $line =~ /ngengrad(\s)*\=(\s)*(.+)(\s)*$/ ) {
+# print "LINE:$line:\n";
+#   print "LG:$1:$2:$3:$4:\n";
+  $laengengrad = $3;
+# print "LG:$laengengrad:\n";
+  # print "***********CAT:$commonscat:BG:$breitengrad:LG:$laengengrad:\n";
+   
+  if ( ($commonscat ne "") &&  ($laengengrad ne "")   &&  ($breitengrad ne "") ) {
+	
+	
+	my $lemma = "Category:".$commonscat;
+	
+	my $WD = get_WD_ID_for_URL($lemma);
+     # print "WD:$WD:lemma:$lemma:CAT:$commonscat:BG:$breitengrad:LG:$laengengrad:\n";
+	
+	 my $cord = '@'.$breitengrad.'/'.$laengengrad;
+	 
+	 if ($WD > 0 ) { 
+	  # print "Q$WD\tP625\t$cord\tS143\tQ48183\n";   # koordinaten 
+	  # print "Q$WD\tP625\t$cord\n";   # koordinaten 
+
+	  print "Q$WD\tP625\t$cord\tS143\tQ48183\tP248\t".$bezirk_WD_objekt."\n";   # koordinaten 
+
+
+
+
+
+	  if (defined ($bezirk_WD_objekt)) {
+		#	   print "Q$WD\tP2817\t".$bezirk_WD_objekt."\tS143\tQ48183\n";   # zugehörige liste  
+ # steht in der Denkmalliste (P2817)
+	  }
+	   
+	   
+	   
+	 } else {
+  # print "**** no WD item for cat:$commonscat: found\n";
+  }
+	 # print "==========\n";
+	   
+	#exit;
+	
+	$commonscat = ""; $breitengrad = ""; $laengengrad = "";
+	
+	
+ }
+}
+
+
+} 
+# close (IN);
+
+}
+
+
+exit;
+
+
+sub get_WD_ID_for_URL {
+  my $lemma = $_[0];
+  my $QID = 0;
+  
+  # https://commons.wikimedia.org//w/api.php?action=query&prop=pageprops&titles=Category:Gedenktafel%20f%C3%BCr%20Heinrich%20Abel%20(Wien,%20Josefsplatz%209)&format=json
+  
+#  my $checkURL = 'https://de.wikipedia.org/w/api.php?action=query&prop=pageprops&titles='.URLEncode($lemma).'&format=json';
+  my $checkURL = 'https://commons.wikimedia.org/w/api.php?action=query&prop=pageprops&titles='.URLEncode($lemma).'&format=json';
+  # print "checkURL:$checkURL:\n";
+  $agent->get( $checkURL );
+  my $result = $agent->content;
+  # print "RESULT:$result:\n";
+  if ($result =~ /\"Q([0-9]+)\"/) {
+    $QID = $1;
+    # print "QID:$QID:\n";
+  }
+  return $QID;
+}
