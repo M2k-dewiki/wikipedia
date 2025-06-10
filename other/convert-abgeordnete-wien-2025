@@ -1,0 +1,38 @@
+#!/usr/bin/perl
+
+use strict;
+
+
+my $INFILE = 'abgeordnete-wien-2025.txt';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+my @sprachliste = ("mul","en","bar","br","ca","co","da","de","de-at","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
+
+my $count =0 ;
+while(<IN>)
+{
+    chop;
+
+    my ($nachname,$vorname,$partei) = split(/\t/,$_);
+   #  print "NACHNAME:$nachname:VORNAME:$vorname:partei:\n";
+    
+    # $kat =~ s/^(\s)*//og; # trim
+    # $kat =~ s/(\s)*$//og; # trim
+
+
+print "|-
+| {{PersonZelle|".$vorname."|".$nachname."}}
+| bgcolor=\"#{{Wahldiagramm/Partei|".$partei."|dunkel|AT}}\" |  
+| $partei
+| 
+| 
+";
+# print "\n";
+
+
+
+
+
+}
+close(IN);

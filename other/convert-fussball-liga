@@ -11,7 +11,13 @@ my $INFILE = 'list.txt';
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
-my $count =0 ;
+
+
+ my $count =0 ;
+
+  my $count =11 ;
+
+
 while(<IN>)
 {
     chop;
@@ -23,49 +29,45 @@ while(<IN>)
     # print "KAT:$kat:\n";
 
 $count++;
-    
+ 
+if ($kat eq "Birinci Lig 2006/07") { $count++; }
+ 
     print "CREATE\n";
     print "LAST\tLde\t\"$kat\"\n"; # label de - bezeichnung
     print "LAST\tP31\tQ27020041\n"; # ist eine: Spielsaison
 
-my $beschreibung = $count.". Austragung der Schweizer Rugby-Union-Meisterschaft";
+# my $beschreibung = $count.". Austragung der Schweizer Rugby-Union-Meisterschaft";
+
+# my $beschreibung = $count.". Saison der höchsten zyperntürkischen Spielklasse im Männerfußball";
+ my $beschreibung = "Saison der höchsten zyperntürkischen Spielklasse im Männerfußball";
+
+
  print "LAST\tDde\t\"".$beschreibung."\"\n"; # label de - 
  
 
 #    print "LAST\tP17\tQ183\n"; # Staat: Deutschland
 #     print "LAST\tP17\tQ16957\n"; # Staat: DDR
-     print "LAST\tP17\tQ39\n"; # Staat: Schweiz
+    # print "LAST\tP17\tQ39\n"; # Staat: Schweiz
+     print "LAST\tP17\tQ229\n"; # Staat: Zypern
+	
+	
+     print "LAST\tP641\tQ2736\n"; # Sportart: Fußball
+    # print "LAST\tP641\tQ5849\n"; # Sportart: Rugby Union
     
-    # print "LAST\tP641\tQ2736\n"; # Sportart: Fußball
-     print "LAST\tP641\tQ5849\n"; # Sportart: Rugby Union
-    
+	 print "LAST\tP3450\tQ2180367\n"; # Liga: Kuzey Kıbrıs Süper Ligi / Birinci Lig
+
 		
     # print "LAST\tP3450\tQ109935010\n"; # Liga: Fußball-Bezirksliga Rostock
 # print "LAST\tP3450\tQ2952014\n"; #     Fußball-Bezirksliga Gera (Q2952014)
 # print "LAST\tP3450\tQ2952014\n"; #     Fußball-Bezirksliga Gera (Q2952014)
- print "LAST\tP3450\tQ2952228\n"; #     Schweizer Rugby-Union-Meisterschaft (Q2952228)
-
-
- print "LAST\tP664\tQ3741046\n"; #     # Veranstalter (P664): Fédération Suisse de Rugby (Q3741046)
-
-
-
+# print "LAST\tP3450\tQ2952228\n"; #     Schweizer Rugby-Union-Meisterschaft (Q2952228)
  #print "LAST\tP3450\tQ27909673\n"; # Fußball-Bezirksliga Berlin (Q27909673)
-    
 # print "LAST\tP3450\tQ324698\n"; # Liga: Mittelrheinliga
 
-  #  Fußball-Mittelrheinliga 2011/12
-    
-    
-# AktuellVorherige  23:08, 3. Jan. 2022‎ M2k~dewiki Diskussion Beiträge‎  2.100 Bytes +433‎  ‎Aussage erstellt: Spielsaison der Liga oder des Wettbewerbs (P3450): Mittelrheinliga (Q324698) rückgängig machen Markierung: Wikidata User Interface
-#AktuellVorherige  23:08, 3. Jan. 2022‎ M2k~dewiki Diskussion Beiträge‎  1.667 Bytes +423‎  ‎Aussage erstellt: Staat (P17): Deutschland (Q183) rückgängig machen Markierung: Wikidata User Interface (zurücksetzen)
-#AktuellVorherige  23:08, 3. Jan. 2022‎ M2k~dewiki Diskussion Beiträge‎  1.244 Bytes +427‎  ‎Aussage erstellt: Sportart (P641): Fußball (Q2736) rückgängig machen Markierung: Wikidata User Interface (zurücksetzen)
-#AktuellVorherige  23:08, 3. Jan. 2022‎ M2k~dewiki Diskussion Beiträge‎  817 Bytes +433‎  ‎Aussage erstellt: ist ein(e) (P31): Spielsaison (Q27020041) 
+# print "LAST\tP664\tQ3741046\n"; #     # Veranstalter (P664): Fédération Suisse de Rugby (Q3741046)
 
-# ytes +440‎  ‎Aussage erstellt: Spielsaison der Liga oder des Wettbewerbs (P3450): Fußball-Bezirksliga Rostock (Q109935010) rückgängig machen Markierung: Wikidata User Interface
-#AktuellVorherige  21:44, 1. Jan. 2022‎ M2k~dewiki Diskussion Beiträge‎  2.098 Bytes +427‎  ‎Aussage erstellt: Staat (P17): Deutsche Demokratische Republik (Q16957) rückgängig machen Markierung: Wikidata User Interface (zurücksetzen)
-#AktuellVorherige  21:43, 1. Jan. 2022‎ M2k~dewiki Diskussion Beiträge‎  1.234 Bytes +427‎  ‎Aussage erstellt: Sportart (P641): Fußball (Q2736) rückgängig machen Markierung: Wikidata User Interface (zurücksetzen)
-#AktuellVorherige  21:43, 1. Jan. 2022‎ M2k~dewiki Diskussion Beiträge‎  807 Bytes +433‎  ‎Aussage erstellt: ist ein(e) (P31): Spielsaison (Q27020041) rückgängig machen Markierung: 
+    
+
 
 }
 close(IN);

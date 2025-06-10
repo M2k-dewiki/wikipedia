@@ -3,7 +3,7 @@
 use strict;
 
 
-my $INFILE = 'landtag-wien-2020.csv';
+my $INFILE = 'landtag-wien-2025.csv';
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
@@ -76,8 +76,14 @@ while(<IN>)
     print "LAST\tP1412\tQ188\n"; # deutsch
 
     # +1967-01-17T00:00:00Z/11
-    print "LAST\tP39\tQ23711521\tP580\t+2020-11-24T00:00:00Z/11\n";  # mitglied des wiener gemeinderates seit 24.11.2020
+    print "LAST\tP39\tQ23711521\tP580\t+2025-06-10T00:00:00Z/11\n";  # mitglied des wiener gemeinderates seit 10.06.2025
     
+	my $ma = lc($name);
+	$ma =~ s/\ /\./og;
+	
+print "LAST\tP13350\t\"".$ma."\"\n"; # Meine Abgeordneten ID
+
+	
 
 }
 close(IN);
