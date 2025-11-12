@@ -147,14 +147,54 @@ next;
     }
     
     
-#   if ($result2 =~ /\|(\s*)GEBURTSORT(\s*)=(\s*)([0-9]{1,2})(\.)?(\s*)?([A-Z]+)?(\s*)?([0-9]{4})/i) {
-if ($result2 =~ /\|(\s*)GEBURTSORT(\s*)=(\s*)\[\[([A-Z-]+)\]\](\s*)?/i) {
-#print "LINE:$_:\n";
-    #     print "*** GEBURTSORT(1): 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
 
-my $gebort_lemma = $4;
+# if ($result2 =~ /\|(\s*)GEBURTSORT(\s*)=(\s*)\[\[([A-Z-\(\|\)]+)\]\](\s*)?/i) {
+ if ($result2 =~ /\|(\s*)GEBURTSORT(\s*)=(\s*)\[\[([^\]]+)\]\](\s*)?/i) {
+
+
+#print "LINE:$_:\n";
+#    print "QID:$QID:SL:$sitelink:\n";
+#     print "*** GEBURTSORT(1): 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
+
+# my $gebort_lemma = "Neunkirchen (Niederösterreich)|Neunkirchen";
+# my $gebort_lemma = "Neunkirchen (Niederösterreich)";
+ 
+#  = "| GEBURTSORT = [[Neunkirchen (Niederösterreich)|Neunkirchen]], [[Niederösterreich)]]";
+ 
+ my $gebort_lemma = $4;
+ $gebort_lemma =~ s/\|.*//;  # allfällige wikilink-texte entfernen.
+
  $QID_GEBORT = get_WD_ID_for_URL($gebort_lemma);
- # print "gebort_lemma:$gebort_lemma:QID_GEBORT:$QID_GEBORT:\n";
+#  print "gebort_lemma:$gebort_lemma:QID_GEBORT:$QID_GEBORT:\n";
+ 
+# ===========
+# https://de.wikipedia.org/wiki/Eberhard_St%C3%BCber
+#QID:Q1279441:SL:https://de.wikipedia.org/wiki/Eberhard_St├╝ber:
+#*** GEBURTSORT(1): 1::2.:3::4:Schwaighof (Wagrain):5:
+
+# ==> korrekt
+#:6::7::8::9::10::11::12::
+#gebort_lemma:Schwaighof (Wagrain):QID_GEBORT:0:
+# ==> korrekt (Lemma noch nicht vorhanden, damit kein wikidata-objekt zuordenbar)
+
+# ===========
+#QID:Q668507:SL:https://de.wikipedia.org/wiki/Robert_Zoller:
+#*** GEBURTSORT(1): 1: :2. :3: :4:Mⁿhlbach am Hochk÷nig:5:
+#:6::7::8::9::10::11::12::
+#gebort_lemma:Mⁿhlbach am Hochk÷nig:QID_GEBORT:255417:
+#Q668507 P19     Q255417 S143    Q48183
+#===========
+ 
+#  https://de.wikipedia.org/w/index.php?title=Michael_%C3%96ttl&redirect=no
+# https://www.wikidata.org/wiki/Q660183 
+ 
+####################
+# QID:Q2544756:SL:https://de.wikipedia.org/wiki/Walter_Hildebrand_(Architekt):
+#*** GEBURTSORT(1): 1::2.:3::4:Kr÷▀bach (Gemeinde Neustift)|Kr÷ssbach:5::6::7::8::9::10::11::12::
+#gebort_lemma:Kr÷▀bach (Gemeinde Neustift):QID_GEBORT:0:
+####################
+
+
  
 # Test:
 # QID:Q2545630:SL:https://de.wikipedia.org/wiki/Walter_Niesner:
@@ -181,6 +221,11 @@ if ($QID_GEBORT > 0) {
 # deutschsprachige Wikipedia (Q48183)
 
 # exit;
+
+
+#print "===========\n";
+
+next;
 
 
 #############
