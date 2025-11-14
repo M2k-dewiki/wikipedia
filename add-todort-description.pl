@@ -30,7 +30,7 @@ sub URLEncode {
 
 #########################
 
-my $file_urllist = 'wikipedia-urllist-add-gebort.txt';
+my $file_urllist = 'wikipedia-urllist-add-TODORT.txt';
 my %urllist ;
 if (-e $file_urllist) {
   open (IN, "< $file_urllist") || die ("Cannot open $file_urllist : $! \n");
@@ -137,8 +137,8 @@ my $sitelink = 'https://de.wikipedia.org/wiki/'.$title;
   my $result2 = $agent->content;
   # print "RESULT:$result2:\n";
   
-my $gebort = "";
- my $QID_GEBORT = 0;
+my $TODORT = "";
+ my $QID_TODORT = 0;
   
  
     if ($result2 =~ /\|(\s*)STERBEORT(\s*)=(vor|nach|um|unsicher|zwischen|und|oder)/i) {
@@ -153,19 +153,19 @@ next;
 
 
 #print "LINE:$_:\n";
-#    print "QID:$QID:SL:$sitelink:\n";
-#     print "*** STERBEORT(1): 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
+ #   print "QID:$QID:SL:$sitelink:\n";
+ #    print "*** STERBEORT(1): 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
 
-# my $gebort_lemma = "Neunkirchen (Niederösterreich)|Neunkirchen";
-# my $gebort_lemma = "Neunkirchen (Niederösterreich)";
+# my $TODORT_lemma = "Neunkirchen (Niederösterreich)|Neunkirchen";
+# my $TODORT_lemma = "Neunkirchen (Niederösterreich)";
  
 #  = "| STERBEORT = [[Neunkirchen (Niederösterreich)|Neunkirchen]], [[Niederösterreich)]]";
  
- my $gebort_lemma = $4;
- $gebort_lemma =~ s/\|.*//;  # allfällige wikilink-texte entfernen.
+ my $TODORT_lemma = $4;
+ $TODORT_lemma =~ s/\|.*//;  # allfällige wikilink-texte entfernen.
 
- $QID_GEBORT = get_WD_ID_for_URL($gebort_lemma);
-#  print "gebort_lemma:$gebort_lemma:QID_GEBORT:$QID_GEBORT:\n";
+ $QID_TODORT = get_WD_ID_for_URL($TODORT_lemma);
+ # print "TODORT_lemma:$TODORT_lemma:QID_TODORT:$QID_TODORT:\n";
  
  
 
@@ -173,7 +173,6 @@ next;
 # QID:Q2545630:SL:https://de.wikipedia.org/wiki/Walter_Niesner:
 
 # QID:Q1731913:SL:https://de.wikipedia.org/wiki/Karl_Killian:
-
 
  }
 
@@ -186,17 +185,16 @@ next;
     
 
 
-if ($QID_GEBORT > 0) {
+if ($QID_TODORT > 0) {
   
-    print "$QID\tP20\tQ$QID_GEBORT\tS143\tQ48183\n";    
+    print "$QID\tP20\tQ$QID_TODORT\tS143\tQ48183\n";    
     # S ... Fundstelle
 #    importiert aus Wikimedia-Projekt (P143)
 # deutschsprachige Wikipedia (Q48183)
 
 # exit;
 
-
-#print "===========\n";
+# print "===========\n";
 
 next;
 
