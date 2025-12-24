@@ -1,0 +1,241 @@
+#!/usr/bin/perl
+
+use strict;
+
+# Crypt::SSLeay muss installiert sein fuer SSL-Support
+# apt-get install libwww-mechanize-perl libio-socket-ssl-perl libnet-ssleay-perl
+use WWW::Mechanize;
+use Data::Dumper;
+use HTML::FormatText;
+
+#http://glennf.com/writing/hexadecimal.url.encoding.html
+# This pattern takes the hex characters and decodes them back into real characters. The function hex() turns a hex number into decimal; there is no dec() that does the reverse in perl. The "e" at the end of the regexp means "evaluate the replacement pattern as an expression."
+sub URLDecode {
+    my $theURL = $_[0];
+    $theURL =~ tr/+/ /;
+    $theURL =~ s/%([a-fA-F0-9]{2,2})/chr(hex($1))/eg;
+    $theURL =~ s/<!--(.|\n)*-->//g;
+    return $theURL;
+}
+
+sub URLEncode {
+    my $theURL = $_[0];
+    $theURL =~ s/([\W])/"%" . uc(sprintf("%2.2x",ord($1)))/eg;
+    return $theURL;
+}
+
+
+
+
+
+####################
+### TODO:
+
+### for each object check if there is already a existing sitelink
+### if there already is a sitelink, then do not change that object --> only add new sitelinks, dont modify existing sitelinks
+
+######
+####################
+
+
+my $USER_AGENT='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36';
+
+# See the autocheck parameter, which turns all HTTP errors into fatal errors. When you turn autocheck off, you will need to do all error checking yourself.
+my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
+
+##########################
+
+#### https://w.wiki/6TpE
+
+# https://w.wiki/8ETX
+
+# SELECT DISTINCT ?item ?label ?sitelink
+# WHERE
+# {
+#   { ?item wdt:P31 wd:Q16521. } UNION  { ?item wdt:P31 wd:Q23038290. } UNION  { ?item wdt:P31 wd:Q310890. }
+#   SERVICE wikibase:mwapi
+#   {
+#     bd:serviceParam wikibase:endpoint "www.wikidata.org";
+#                     wikibase:api "Generator";
+#                     mwapi:generator "search";
+#                     mwapi:gsrsearch "^Acipenser$"@en;
+#                     mwapi:gsrlimit "max".
+#     ?item wikibase:apiOutputItem mwapi:title.
+#   }
+#   ?item rdfs:label ?label. FILTER( LANG(?label)="en" 
+#                                  && REGEX( ?label, "^?Acipenser$") 
+#                                  ) 
+#  ?article schema:about ?item ;
+#     schema:isPartOf <https://nl.wikipedia.org/> ; 
+#     schema:name ?sitelink .
+#   
+# }
+
+# Sewellia marmorata
+# 
+# 
+
+
+
+my $INFILE = 'list.txt';
+
+open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
+
+my $count =0 ;
+while(<IN>)
+{
+	
+	
+# print "================\n";
+	
+	chop;
+    my $kat = $_;
+    $kat =~ s/^(\s)*//og; # trim
+    $kat =~ s/(\s)*$//og; # trim
+    $kat =~ s/_/ /og; # trim
+    
+     my $lemma_encode = URLEncode($kat);
+     # print "KAT:$kat:encode:$lemma_encode:\n";
+
+ 
+
+########################
+# { ?item wdt:P31 wd:Q16521. } UNION  { ?item wdt:P31 wd:Q23038290. } UNION  { ?item wdt:P31 wd:Q310890. }
+
+
+ my $lang_label = 'en';
+# my $lang_label = 'es';
+# my $lang_label = 'la';
+# my $lang_label = 'it';
+# my $lang_label = 'tr';
+#  my $lang_label = 'nl';
+#  my $lang_label = 'fr';
+#  my $lang_label = 'sv';
+#  my $lang_label = 'ceb';
+
+# my $lang_label = 'mul';
+
+
+   my $wd_url ='https://query.wikidata.org/sparql?query=SELECT%20DISTINCT%20%3Fitem%20%3Flabel%0AWHERE%0A%7B%0A%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ22808320.%20%7D%20UNION%20%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ4167410.%20%7D%0A%20UNION%20%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ22808320.%20%7D%0A%20SERVICE%20wikibase%3Amwapi%0A%20%20%7B%0A%20%20%20%20bd%3AserviceParam%20wikibase%3Aendpoint%20%22www.wikidata.org%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20wikibase%3Aapi%20%22Generator%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agenerator%20%22search%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agsrsearch%20%22%5E'.$lemma_encode.'%24%22%40'.$lang_label.'%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agsrlimit%20%22max%22.%0A%20%20%20%20%3Fitem%20wikibase%3AapiOutputItem%20mwapi%3Atitle.%0A%20%20%7D%0A%20%20%3Fitem%20rdfs%3Alabel%20%3Flabel.%20FILTER%28%20LANG%28%3Flabel%29%3D%22'.$lang_label.'%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%26%26%20REGEX%28%20%3Flabel%2C%20%22%5E%3F'.$lemma_encode.'%24%22%29%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%29%20%0A%20%20%0A%7D';
+
+#  print "WD_URL:$wd_url:\n";  exit;
+
+########################
+    
+
+#	     print "WD_URL:$wd_url:\n";
+            #   "Accept: application/json"
+	    # "Accept: text/csv"
+               # 'Accept' => 'application/json'
+	    $agent->add_header(
+               'Accept' => 'text/csv'
+		);
+	    $agent->get( $wd_url );
+          my $result3 = $agent->content;
+	  #   print "RESULT:$result3:\n"; 	#	exit;
+#	    print "LINE2:".@result3[1]."\n";
+my @lines = split /\n/, $result3;
+my $line_count = scalar @lines;
+# print "Anzahl der Zeilen: $line_count\n"; # Ausgabe: Anzahl der Zeilen: 3
+
+if ($line_count > 2) { 
+  # print "SKIP....\n"; 
+  # more than one match (+ 1 for header line)
+  next ; }
+
+
+	  if ($result3 =~ /wikidata.org\/entity\/Q([0-9]+),(.+)$/i) {
+my	      $qid = $1;
+my	      $LEMMA_MATCH = $2;
+
+
+
+	 $LEMMA_MATCH =~ s/^(\s)*//og; # trim
+ $LEMMA_MATCH =~ s/(\s)*$//og; # trim
+	#      print "MATCH:QID:$qid:CAT:$LEMMA_MATCH:\n";
+  if ( $LEMMA_MATCH  eq $kat) {
+   # print "**** MATCH $LEMMA_MATCH $kat **** \n"; 
+
+	      if ($qid > 0 ) {
+	        # Wenn Q-ID gefunden, dann quickstatement ausgeben
+	        # print "QUICKSTATEMENT for Q$qid\n";
+
+
+############ nlwiki
+#		  print "Q".$qid."\tSnlwiki\t\"".$kat."\"\n";
+
+############ enwiki
+		  print "Q".$qid."\tSenwiki\t\"".$kat."\"\n";
+
+############ plenwiki
+#		  print "Q".$qid."\tSplwiki\t\"".$kat."\"\n";
+
+############ trwiki
+#		  print "Q".$qid."\tStrwiki\t\"".$kat."\"\n";
+
+
+            # $count++;
+		    # print "COUNT:$count:\n";
+	        # if ($count == 5) { exit ; }
+	  
+		  } # if qid
+   # print "------------------\n";
+  } # if match
+  } # if result
+  
+#	exit;
+
+} # while
+
+
+exit;
+	
+	
+# my @lines = split (/\r\n/,$result3);
+# my @lines = split (/\n\r/,$result3);
+#  foreach my $line (@lines) {  print "LINE:$line:\n";
+
+#	  if ($line =~ /wikidata.org\/entity\/Q([0-9]+),(.*)$/i) {
+  
+#	       print "QID:$1:CAT:$2:\n";
+#my	      $qid = $1;
+#my	      $LEMMA_MATCH = $2;
+#	$$LEMMA_MATCH =~ s/\s//og;
+# if ( $LEMMA_MATCH  eq $kat) { print "**** MATCH $LEMMA_MATCH $kat **** \n"; }
+ 
+ 
+#	  } # lines
+exit;
+    
+	    my $qid = 0; my $wd_commonscat = "";
+#	  if ($result3 =~ /wikidata.org\/entity\/Q([0-9]+),$kat/i) {
+
+	  
+#	    if ($wd_tr ne "") {
+		# print "lemma $lemma hat bereits commonscat $wd_commonscat - do nothing\n";
+#	    } else {
+	      
+#	      if ($qid > 0 ) {
+	        # Wenn Q-ID gefunden, dann quickstatement ausgeben
+	        # print "QUICKSTATEMENT for Q$qid\n";
+
+ 	        # Q41269749	P373	"Ringstraße 13 Hofkapelle (Übersee, Chiemgau)"
+                # Q41269749	Scommonswiki	"Category:Ringstraße 13 Hofkapelle (Übersee, Chiemgau)"
+
+#		print "Q".$qid."\t".'P373'."\t".'"'.$lemma_decode.'"'."\n";
+#	        print "Q".$qid."\t".'Scommonswiki'."\t".'"Category:'.$lemma_decode.'"'."\n";
+# $count++;
+# 	  if ($count == 5) { exit ; }
+# print "------------------\n",
+
+#		  } # qid > 0
+
+  #  exit;
+ 
+
+
+# # outer loop
+ 
+
+exit 0;
+
