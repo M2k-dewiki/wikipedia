@@ -71,9 +71,27 @@ my $agent = WWW::Mechanize->new( agent => $USER_AGENT,  autocheck => 0 );
 #   
 # }
 
-# Sewellia marmorata
-# 
-# 
+
+
+##########################
+# SELECT DISTINCT ?item WHERE {
+#  { ?item wdt:P31 wd:Q22808320. } UNION  { ?item wdt:P31 wd:Q4167410. }
+#  SERVICE wikibase:mwapi
+#  {
+#    bd:serviceParam wikibase:endpoint "www.wikidata.org";
+#                    wikibase:api "Generator";
+#                    mwapi:generator "search";
+#                    mwapi:gsrsearch "^All's Fair in Love$";
+#                    mwapi:gsrlimit "max".
+#    ?item wikibase:apiOutputItem mwapi:title.
+#  }
+#  ?item rdfs:label ?label. FILTER( REGEX( ?label, "^?All's Fair in Love$") )   
+#}
+##########################
+
+
+
+my @sprachliste = ("mul","en","bar","br","ca","co","da","de","de-at","de-ch","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
 
 
 
@@ -86,7 +104,7 @@ while(<IN>)
 {
 	
 	
-# print "================\n";
+ # print "================\n";
 	
 	chop;
     my $kat = $_;
@@ -95,15 +113,21 @@ while(<IN>)
     $kat =~ s/_/ /og; # trim
     
      my $lemma_encode = URLEncode($kat);
-     # print "KAT:$kat:encode:$lemma_encode:\n";
+      # print "KAT:$kat:encode:$lemma_encode:\n";
 
  
 
 ########################
 # { ?item wdt:P31 wd:Q16521. } UNION  { ?item wdt:P31 wd:Q23038290. } UNION  { ?item wdt:P31 wd:Q310890. }
 
+#####
+# my %mapping_lemma_QID ;
+#####
 
- my $lang_label = 'en';
+#    foreach my $lang_label (@sprachliste) {
+
+		
+# my $lang_label = 'en';
 # my $lang_label = 'es';
 # my $lang_label = 'la';
 # my $lang_label = 'it';
@@ -116,9 +140,15 @@ while(<IN>)
 # my $lang_label = 'mul';
 
 
-   my $wd_url ='https://query.wikidata.org/sparql?query=SELECT%20DISTINCT%20%3Fitem%20%3Flabel%0AWHERE%0A%7B%0A%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ22808320.%20%7D%20UNION%20%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ4167410.%20%7D%0A%20UNION%20%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ22808320.%20%7D%0A%20SERVICE%20wikibase%3Amwapi%0A%20%20%7B%0A%20%20%20%20bd%3AserviceParam%20wikibase%3Aendpoint%20%22www.wikidata.org%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20wikibase%3Aapi%20%22Generator%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agenerator%20%22search%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agsrsearch%20%22%5E'.$lemma_encode.'%24%22%40'.$lang_label.'%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agsrlimit%20%22max%22.%0A%20%20%20%20%3Fitem%20wikibase%3AapiOutputItem%20mwapi%3Atitle.%0A%20%20%7D%0A%20%20%3Fitem%20rdfs%3Alabel%20%3Flabel.%20FILTER%28%20LANG%28%3Flabel%29%3D%22'.$lang_label.'%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%26%26%20REGEX%28%20%3Flabel%2C%20%22%5E%3F'.$lemma_encode.'%24%22%29%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%29%20%0A%20%20%0A%7D';
+  my $wd_url ='https://query.wikidata.org/sparql?query=SELECT%20DISTINCT%20%3Fitem%20WHERE%20%7B%0A%20%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ22808320.%20%7D%20UNION%20%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ4167410.%20%7D%0A%20%20SERVICE%20wikibase%3Amwapi%0A%20%20%7B%0A%20%20%20%20bd%3AserviceParam%20wikibase%3Aendpoint%20%22www.wikidata.org%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20wikibase%3Aapi%20%22Generator%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agenerator%20%22search%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agsrsearch%20%22%5E'.$lemma_encode.'%24%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agsrlimit%20%22max%22.%0A%20%20%20%20%3Fitem%20wikibase%3AapiOutputItem%20mwapi%3Atitle.%0A%20%20%7D%0A%20%20%3Fitem%20rdfs%3Alabel%20%3Flabel.%20FILTER%28%20REGEX%28%20%3Flabel%2C%20%22%5E%3F'.$lemma_encode.'%24%22%29%20%29%20%20%20%0A%7D';
+ 
+  
+#   print "WD_URL:$wd_url:\n";   exit;
 
-#  print "WD_URL:$wd_url:\n";  exit;
+
+#    my $wd_url ='https://query.wikidata.org/sparql?query=SELECT%20DISTINCT%20%3Fitem%20%3Flabel%0AWHERE%0A%7B%0A%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ22808320.%20%7D%20UNION%20%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ4167410.%20%7D%0A%20UNION%20%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ22808320.%20%7D%0A%20SERVICE%20wikibase%3Amwapi%0A%20%20%7B%0A%20%20%20%20bd%3AserviceParam%20wikibase%3Aendpoint%20%22www.wikidata.org%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20wikibase%3Aapi%20%22Generator%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agenerator%20%22search%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agsrsearch%20%22%5E'.$lemma_encode.'%24%22%40'.$lang_label.'%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agsrlimit%20%22max%22.%0A%20%20%20%20%3Fitem%20wikibase%3AapiOutputItem%20mwapi%3Atitle.%0A%20%20%7D%0A%20%20%3Fitem%20rdfs%3Alabel%20%3Flabel.%20FILTER%28%20LANG%28%3Flabel%29%3D%22'.$lang_label.'%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%26%26%20REGEX%28%20%3Flabel%2C%20%22%5E%3F'.$lemma_encode.'%24%22%29%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%29%20%0A%20%20%0A%7D';
+
+# print "WD_URL:$wd_url:\n";   exit;
 
 ########################
     
@@ -132,29 +162,26 @@ while(<IN>)
 		);
 	    $agent->get( $wd_url );
           my $result3 = $agent->content;
-	  #   print "RESULT:$result3:\n"; 	#	exit;
+   # print "RESULT:$result3:\n"; 	#	exit;
 #	    print "LINE2:".@result3[1]."\n";
 my @lines = split /\n/, $result3;
 my $line_count = scalar @lines;
-# print "Anzahl der Zeilen: $line_count\n"; # Ausgabe: Anzahl der Zeilen: 3
+ # print "Anzahl der Zeilen: $line_count\n"; # Ausgabe: Anzahl der Zeilen: 3
 
 if ($line_count > 2) { 
-  # print "SKIP....\n"; 
+   # print "SKIP....\n"; 
   # more than one match (+ 1 for header line)
   next ; }
 
 
-	  if ($result3 =~ /wikidata.org\/entity\/Q([0-9]+),(.+)$/i) {
-my	      $qid = $1;
-my	      $LEMMA_MATCH = $2;
+	  if ($result3 =~ /https?:\/\/(www\.)?wikidata.org\/entity\/Q([0-9]+)\r/i) {
+#	  if ($result3 =~ /wikidata.org\/entity\/Q([0-9]+),(.+)$/i) {
+		 # print "MATCH...\n";
+		  
+my	      $qid = $2;
 
 
-
-	 $LEMMA_MATCH =~ s/^(\s)*//og; # trim
- $LEMMA_MATCH =~ s/(\s)*$//og; # trim
-	#      print "MATCH:QID:$qid:CAT:$LEMMA_MATCH:\n";
-  if ( $LEMMA_MATCH  eq $kat) {
-   # print "**** MATCH $LEMMA_MATCH $kat **** \n"; 
+	      # print "MATCH:QID:$qid:CAT:\n";
 
 	      if ($qid > 0 ) {
 	        # Wenn Q-ID gefunden, dann quickstatement ausgeben
@@ -165,7 +192,11 @@ my	      $LEMMA_MATCH = $2;
 #		  print "Q".$qid."\tSnlwiki\t\"".$kat."\"\n";
 
 ############ enwiki
+
+
+#####
 		  print "Q".$qid."\tSenwiki\t\"".$kat."\"\n";
+#####
 
 ############ plenwiki
 #		  print "Q".$qid."\tSplwiki\t\"".$kat."\"\n";
@@ -181,12 +212,12 @@ my	      $LEMMA_MATCH = $2;
 		  } # if qid
    # print "------------------\n";
   } # if match
-  } # if result
   
 #	exit;
 
 } # while
 
+# } #foreach lang
 
 exit;
 	
