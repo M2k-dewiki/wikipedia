@@ -108,12 +108,19 @@ while(<IN>)
 	
 	chop;
     my $kat = $_;
+    $kat =~ s/\(disambiguation\)//; # en:Wagtail (disambiguation)
+    $kat =~ s/\(desambiguación\)//; # es:Banco Internacional (desambiguación)
     $kat =~ s/^(\s)*//og; # trim
     $kat =~ s/(\s)*$//og; # trim
     $kat =~ s/_/ /og; # trim
     
      my $lemma_encode = URLEncode($kat);
-      # print "KAT:$kat:encode:$lemma_encode:\n";
+    # $lemma_encode =~ s/\%20$//og; # trim
+	 
+	 
+	 
+	 
+       print "KAT:$kat:encode:$lemma_encode:\n";
 
  
 
