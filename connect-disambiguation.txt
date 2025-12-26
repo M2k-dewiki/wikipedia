@@ -120,7 +120,7 @@ while(<IN>)
 	 
 	 
 	 
-       print "KAT:$kat:encode:$lemma_encode:\n";
+    #   print "KAT:$kat:encode:$lemma_encode:\n";
 
  
 

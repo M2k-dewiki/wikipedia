@@ -200,6 +200,33 @@ my $INFILE = 'wikidata_3cHvr1.tsv';
 my $INFILE = 'wikidata_hj9vXG.tsv';
 
 
+# Staat: Österreich
+# https://qlever.cs.uni-freiburg.de/wikidata/nENsXG
+my $INFILE = 'wikidata_nENsXG.tsv';
+
+# Staat: Schweiz
+# https://qlever.cs.uni-freiburg.de/wikidata/9OZVrh#tsv
+my $INFILE = 'wikidata_9OZVrh.tsv';
+
+# Staat: Deutschland - minus Sportsaison
+#   MINUS { ?item wdt:P31 wd:Q27020041 . }
+### https://qlever.cs.uni-freiburg.de/wikidata/pl1QE8#tsv
+#https://qlever.cs.uni-freiburg.de/wikidata/JGGlDS#tsv
+my $INFILE = 'wikidata_JGGlDS.tsv';
+
+
+# https://qlever.dev/wikidata/IcCXsQ#csv
+# Ortsteil
+my $INFILE = 'wikidata_IcCXsQ.tsv';
+
+
+# Zeitung oder Zeitschrift
+# https://qlever.dev/wikidata/Lh2LmW
+my $INFILE = 'wikidata_Lh2LmW.tsv';
+
+
+
+
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
 my $count =0 ;
@@ -385,6 +412,11 @@ my $clean_text = $hs->parse( $html );
 $description =~ s/ und .*$//;
 
 $description =~ s/^([0-9]+) gegr.ndeter //;
+$description =~ s/^([0-9]+) gegr.ndete //;
+$description =~ s/^([0-9]+) gegr.ndetes //;
+$description =~ s/^([0-9]+) entstandene //;
+$description =~ s/^([0-9]+) entstandenes //;
+$description =~ s/^([0-9]+) entstandener //;
 
 
 
