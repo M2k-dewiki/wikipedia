@@ -11,6 +11,7 @@ my $INFILE = 'list.txt';
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
+my $ordnungsnummer = 64;
 my $count =0 ;
 while(<IN>)
 {
@@ -21,12 +22,15 @@ while(<IN>)
     $kat =~ s/_/ /og; # trim
     
     # print "KAT:$kat:\n";
-my ($ordnungsnummer,$titel,@restlist) = split(/\t/,$kat);
-# print "O:$ordnungsnummer:T:$titel:\n";
+# my ($ordnungsnummer,$titel,$datum,@restlist) = split(/\t/,$kat);
+my ($titel,$datum,@restlist) = split(/\t/,$kat);
+# print "O:$ordnungsnummer:T:$titel:datum:$datum:\n";
 
 
+$ordnungsnummer++;
 
-    my $lemma_mit_klammerzusatz = $kat;  # ohne präfix "category:"
+
+    my $lemma_mit_klammerzusatz = $titel;  # ohne präfix "category:"
     $lemma_mit_klammerzusatz =~ s/Category://iog;
     #fixme
 
@@ -42,11 +46,15 @@ my ($ordnungsnummer,$titel,@restlist) = split(/\t/,$kat);
     
 
     print "CREATE\n";
-#    print "LAST\tLde\t\"$lemma_ohne_klammerzusatz\"\n"; # label de - bezeichnung
+# print "LAST\tLde\t\"Das Kriminalmuseum: ".$titel."\"\n"; # label de - bezeichnung
 
+ print "LAST\tLde\t\"".$titel."\"\n"; # label de - bezeichnung
 
+# print "LAST\tAde\t\"".$titel."\"\n"; # label de - bezeichnung # alias
 
- print "LAST\tAde\t\"".$titel."\"\n"; # label de - bezeichnung # alias
+my $alias = $titel ; $alias =~ s/Ein Fall für zwei: //og;
+ print "LAST\tAde\t\"".$alias."\"\n"; # label de - bezeichnung # alias
+
 
 # print "LAST\tLde\t\"Der Staatsanwalt hat das Wort: ".$titel."\"\n"; # label de - bezeichnung
 # print "LAST\tLde\t\"Der Alte: ".$titel."\"\n"; # label de - bezeichnung
@@ -56,7 +64,22 @@ my ($ordnungsnummer,$titel,@restlist) = split(/\t/,$kat);
 # print "LAST\tDde\t\"Episode der Fernsehserie Der Staatsanwalt hat das Wort\"\n"; # label de - bezeichnung
 # print "LAST\tDde\t\"Episode der Fernsehserie Der Alte\"\n"; # label de - bezeichnung
 # print "LAST\tDde\t\"Film der Fernsehreihe Rosamunde Pilcher\"\n"; # label de - bezeichnung
- print "LAST\tDde\t\"deutscher Fernsehfilm\"\n"; # label de - bezeichnung
+# print "LAST\tDde\t\"deutscher Fernsehfilm\"\n"; # label de - bezeichnung
+# print "LAST\tDde\t\"Episode der Fernsehserie Das Kriminalmuseum\"\n"; # label de - bezeichnung
+
+
+print "LAST\tDde\t\"Episode von Ein Fall für zwei\"\n"; # label de - bezeichnung
+
+
+# my ($tag,$monat,$jahr ) = split(
+# print "LAST\tP577\t\"".$datum."\"\n"; #  Veröffentlichungsdatum (P577)
+
+# +2025-03-07T00:00:00Z/11
+
+# print "LAST\tP39\tQ17535155\tP580\t+2025-03-07T00:00:00Z/11\tP2937\tQ130381789\n";  # Abgeordneter zum Nationalrat seit 24.10.2024
+    
+
+
 
 
 
@@ -93,7 +116,13 @@ my ($ordnungsnummer,$titel,@restlist) = split(/\t/,$kat);
 #     print "LAST\tLde\t\"$kat\"\n";
 #     print "LAST\tDde\t\"deutscher Fernsehfilm der Reihe Praxis mit Meerblick\"\n";
 #     
-     print "LAST\tP31\tQ506240\n"; # ist ein fernsehfilm
+
+     print "LAST\tP31\tQ21191270\n"; # ist eine : Episode einer Fernsehserie (Q21191270)
+
+
+#     print "LAST\tP31\tQ506240\n"; # ist ein fernsehfilm
+
+
 #     print "LAST\tP179\tQ65562706\n"; # Der Barcelona-Krimi (Q65562706)
 #     print "LAST\tP179\tQ80569758\n"; # 	 Der Kroatien-Krimi (Q80569758)
 #     print "LAST\tP179\tQ62081310\n"; # serie "das traumhotel" 
@@ -103,7 +132,14 @@ my ($ordnungsnummer,$titel,@restlist) = split(/\t/,$kat);
 #     print "LAST\tP179\tQ687483\n"; # 	 Der Alte (Q687483)
 # print "LAST\tP179\tQ687483\tP1545\t\"".$ordnungsnummer."\"\n"; #Der Alte (Q687483)
 
-print "LAST\tP179\tQ133456736\tP1545\t\"".$ordnungsnummer."\"\n"; #Rosamunde Pilcher (Q79384447)
+# print "LAST\tP179\tQ133456736\tP1545\t\"".$ordnungsnummer."\"\n"; #Rosamunde Pilcher (Q79384447)
+
+
+# print "LAST\tP179\tQ884255\tP1545\t\"".$ordnungsnummer."\"\n"; #Das Kriminalmuseum (Q884255)
+
+ print "LAST\tP179\tQ523330\tP1545\t\"".$ordnungsnummer."\"\n"; #Ein Fall für zwei (Q523330)
+
+
 
 
 
@@ -117,7 +153,8 @@ print "LAST\tP179\tQ133456736\tP1545\t\"".$ordnungsnummer."\"\n"; #Rosamunde Pil
     # print "LAST\tP449\tQ115076\n"; # 	 Sender der Erstausstrahlung (P449): Deutscher Fernsehfunk
    # print "LAST\tP495\tQ16957\n"; # land DDR
    
- print "LAST\tP1476\tde:\"".$titel."\"\n"; # Titel (P1476)
+# print "LAST\tP1476\tde:\"".$titel."\"\n"; # Titel (P1476)
+ print "LAST\tP1476\tde:\"".$alias."\"\n"; # Titel (P1476)
 
 #     print "LAST\tP449\tQ49727\n"; # 	 Sender der Erstausstrahlung (P449): Das Erste (Q49727)
 #    print "LAST\tP161\tQ2669267\n"; # Darsteller (P161): Christoph Schechinger (Q2669267)
@@ -126,13 +163,17 @@ print "LAST\tP179\tQ133456736\tP1545\t\"".$ordnungsnummer."\"\n"; #Rosamunde Pil
     print "LAST\tP495\tQ183\n"; # land DE
 #     # print "LAST\tP495\tQ40\n"; # land AT
 
+     print "LAST\tP449\tQ48989\n"; # # Sender der Erstausstrahlung (P449)  ; ZDF (Q48989)
+
+
+
+
      print "LAST\tP364\tQ188\n"; # sprache DE
 
 #     print "LAST\tP136\tQ959790\n"; # Genre (P136): Kriminalfilm (Q959790)
-     print "LAST\tP136\tQ959790\n"; # Genre (P136): Liebesfilm (Q1054574)
-     print "LAST\tP136\tQ157443\n"; # Genre (P136): Filmkomödie
-     print "LAST\tP136\tQ130232\n"; # Genre (P136): Filmdrama
-
+#     print "LAST\tP136\tQ959790\n"; # Genre (P136): Liebesfilm (Q1054574)
+#     print "LAST\tP136\tQ157443\n"; # Genre (P136): Filmkomödie
+#     print "LAST\tP136\tQ130232\n"; # Genre (P136): Filmdrama
 
 
      print "LAST\tP462\tQ22006653\n"; # Farbe (P462): Farbe (Q22006653)

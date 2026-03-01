@@ -83,7 +83,7 @@ while(<IN>)
     print "LAST\tP27\tQ40\n"; # österreicher
     print "LAST\tP1412\tQ188\n"; # deutsch
 
-    print "LAST\tP39\tQ117428775\tP580\t+2023-04-13T00:00:00Z/11\n";  # Mitglied des Kärntner Landtages (Q117428775) ab 2023-04-13
+    print "LAST\tP39\tQ117428775\tP580\t+2025-10-23T00:00:00Z/11\n";  # Mitglied des Kärntner Landtages (Q117428775) ab 2023-04-13
    
 
 }
