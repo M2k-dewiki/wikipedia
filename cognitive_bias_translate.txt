@@ -1,0 +1,94 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use LWP::UserAgent;
+use JSON;
+use URI::Escape; # Wird für uri_escape_utf8 benötigt
+
+# Falls du unter Windows arbeitest, versucht dies die Umlaute in der Konsole zu fixen
+binmode(STDOUT, ":translation(cp850)") if $^O eq 'MSWin32';
+
+# --- KONFIGURATION ---
+my $INFILE  = 'Cognitive_bias_codex_en.svg';
+my $OUTFILE = 'Cognitive_bias_codex_de.svg';
+
+# --- HAUPTPROGRAMM ---
+open(my $IN,  "<:encoding(UTF-8)", $INFILE)  || die "Fehler: $INFILE nicht gefunden! ($!)";
+open(my $OUT, ">:encoding(UTF-8)", $OUTFILE) || die "Fehler: Konnte $OUTFILE nicht erstellen! ($!)";
+
+print "Analysiere Datei und frage Wikidata ab...\n";
+
+my $count_ok = 0;
+my $count_en = 0;
+
+while (my $line = <$IN>) {
+    if ($. == 1) { $line =~ s/^\x{FEFF}//; }
+
+    if ($line =~ /name\s*:\s*"([^"]*)"\s*,\s*article\s*:\s*"([^"]*)"/) {
+        my $old_name   = $1;
+        my $en_article = $2;
+
+        my ($de_label, $de_article) = get_wiki_data($en_article);
+
+        my $final_name    = $de_label   // "ENGLISCH: $old_name";
+        my $final_article = $de_article // "ENGLISCH: $en_article";
+
+        $line =~ s/name\s*:\s*"\Q$old_name\E"/name: "$final_name"/;
+        $line =~ s/article\s*:\s*"\Q$en_article\E"/article: "$final_article"/;
+
+        if ($de_label) {
+            $count_ok++;
+            printf "OK: %-30s -> %s\n", $en_article, $de_label;
+        } else {
+            $count_en++;
+            print "EN: $en_article (Keine dt. Daten)\n";
+        }
+    }
+    print $OUT $line;
+}
+
+close($IN);
+close($OUT);
+
+print "\n" . ("=" x 40) . "\n";
+print "FERTIG!\n";
+print "Uebersetzt: $count_ok / Geblieben: $count_en\n";
+print "Datei gespeichert: $OUTFILE\n";
+print ("=" x 40) . "\n";
+
+# --- FUNKTIONEN ---
+
+sub get_wiki_data {
+    my ($en_title) = @_;
+    
+    my $search_title = $en_title;
+    $search_title =~ s/_/ /g;
+
+    my $ua = LWP::UserAgent->new(
+        agent   => "Mozilla/5.0 (Perl Wiki Translator)",
+        timeout => 10
+    );
+    
+    # WICHTIG: uri_escape_utf8 statt uri_escape verwenden!
+    my $safe_title = uri_escape_utf8($search_title);
+    
+    my $url = "https://www.wikidata.org/w/api.php?" .
+              "action=wbgetentities&format=json&sites=enwiki&languages=de&props=labels|sitelinks/urls&titles=" . $safe_title;
+
+    my $response = $ua->get($url);
+    return (undef, undef) unless $response->is_success;
+
+    my $data = eval { decode_json($response->decoded_content) };
+    return (undef, undef) if $@;
+
+    my $entities = $data->{entities};
+
+    foreach my $id (keys %$entities) {
+        if ($id eq '-1') { return (undef, undef); }
+        my $ent = $entities->{$id};
+        my $label    = $ent->{labels}->{de}->{value} if exists $ent->{labels}->{de};
+        my $sitelink = $ent->{sitelinks}->{dewiki}->{title} if exists $ent->{sitelinks}->{dewiki};
+        return ($label, $sitelink);
+    }
+    return (undef, undef);
+}
