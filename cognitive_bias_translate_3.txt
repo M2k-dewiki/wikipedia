@@ -1,0 +1,82 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use LWP::UserAgent;
+use JSON;
+use URI::Escape;
+
+# --- KONFIGURATION ---
+my $RAW_URL = 'https://commons.wikimedia.org/wiki/File:Cognitive_bias_codex_en.svg?action=raw';
+my $OUTFILE = 'Cognitive_bias_codex_de.svg';
+
+my $ua = LWP::UserAgent->new(agent => "PerlWikiTranslator/1.1", timeout => 20);
+
+# --- 1. DATEN LADEN ---
+print "Lade Rohdaten von Wikimedia Commons...\n";
+my $response = $ua->get($RAW_URL);
+die "Download fehlgeschlagen: " . $response->status_line unless $response->is_success;
+
+my $svg_content = $response->decoded_content;
+my @lines = split(/\n/, $svg_content);
+
+# --- 2. ÜBERSETZUNG ---
+open(my $OUT, ">:encoding(UTF-8)", $OUTFILE) || die "Datei-Fehler: $!";
+
+print "Übersetze Begriffe via Wikidata (dies dauert ca. 2 Min)...\n";
+
+my $found_start = 0;
+foreach my $line (@lines) {
+    # XML-Schutz: Sicherstellen, dass die Datei sauber mit <?xml oder <svg beginnt
+    if (!$found_start && $line =~ /(<\?xml|<svg)/) {
+        $found_start = 1;
+    }
+    next unless $found_start;
+
+    # Suche nach dem Muster
+    if ($line =~ /name\s*:\s*"([^"]*)"\s*,\s*article\s*:\s*"([^"]*)"/) {
+        my ($old_name, $en_article) = ($1, $2);
+        
+        # Wikidata Abfrage
+        my ($de_label, $de_article) = get_wiki_data($en_article);
+        
+        # Fallback-Logik
+        my $final_name    = $de_label   // "ENGLISCH: $old_name";
+        my $final_article = $de_article // "ENGLISCH: $en_article";
+        
+        # Ersetzung
+        $line =~ s/name\s*:\s*"\Q$old_name\E"/name: "$final_name"/;
+        $line =~ s/article\s*:\s*"\Q$en_article\E"/article: "$final_article"/;
+        
+        print " -> " . ($de_label // "KEIN DEUTSCH: $en_article") . "\n";
+    }
+    
+    # Schreibe Zeile in die Datei
+    print $OUT $line . "\n";
+}
+
+close($OUT);
+print "\nFERTIG! Datei gespeichert als: $OUTFILE\n";
+
+# --- FUNKTION: WIKIDATA ABFRAGE ---
+sub get_wiki_data {
+    my ($en_title) = @_;
+    my $search = $en_title; $search =~ s/_/ /g;
+    
+    my $api_url = "https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&sites=enwiki&languages=de&props=labels|sitelinks/urls&titles=" . uri_escape_utf8($search);
+    
+    my $res = $ua->get($api_url);
+    return (undef, undef) unless $res->is_success;
+    
+    my $data = eval { decode_json($res->decoded_content) };
+    return (undef, undef) if $@;
+    
+    my $entities = $data->{entities};
+    foreach my $id (keys %$entities) {
+        next if $id eq '-1';
+        my $ent = $entities->{$id};
+        my $label = $ent->{labels}->{de}->{value} if exists $ent->{labels}->{de};
+        my $link  = $ent->{sitelinks}->{dewiki}->{title} if exists $ent->{sitelinks}->{dewiki};
+        return ($label, $link);
+    }
+    return (undef, undef);
+}
