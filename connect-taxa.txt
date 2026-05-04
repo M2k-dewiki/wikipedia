@@ -101,11 +101,16 @@ while(<IN>)
 
 
  my $lang_label = 'en';
+# my $lang_label = 'mul';
+
 # my $lang_label = 'es';
 # my $lang_label = 'la';
 # my $lang_label = 'it';
 # my $lang_label = 'tr';
-# my $lang_label = 'nl';
+#  my $lang_label = 'nl';
+#  my $lang_label = 'fr';
+#  my $lang_label = 'sv';
+#  my $lang_label = 'ceb';
 
    my $wd_url ='https://query.wikidata.org/sparql?query=SELECT%20DISTINCT%20%3Fitem%20%3Flabel%0AWHERE%0A%7B%0A%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ16521.%20%7D%20UNION%20%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ23038290.%20%7D%0A%20UNION%20%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ310890.%20%7D%0A%20SERVICE%20wikibase%3Amwapi%0A%20%20%7B%0A%20%20%20%20bd%3AserviceParam%20wikibase%3Aendpoint%20%22www.wikidata.org%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20wikibase%3Aapi%20%22Generator%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agenerator%20%22search%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agsrsearch%20%22%5E'.$lemma_encode.'%24%22%40'.$lang_label.'%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Agsrlimit%20%22max%22.%0A%20%20%20%20%3Fitem%20wikibase%3AapiOutputItem%20mwapi%3Atitle.%0A%20%20%7D%0A%20%20%3Fitem%20rdfs%3Alabel%20%3Flabel.%20FILTER%28%20LANG%28%3Flabel%29%3D%22'.$lang_label.'%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%26%26%20REGEX%28%20%3Flabel%2C%20%22%5E%3F'.$lemma_encode.'%24%22%29%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%29%20%0A%20%20%0A%7D';
 
@@ -140,12 +145,14 @@ my	      $LEMMA_MATCH = $2;
 	        # Wenn Q-ID gefunden, dann quickstatement ausgeben
 	        # print "QUICKSTATEMENT for Q$qid\n";
 
+############ eswiki
+		  print "Q".$qid."\tSeswiki\t\"".$kat."\"\n";
 
 ############ nlwiki
 #		  print "Q".$qid."\tSnlwiki\t\"".$kat."\"\n";
 
 ############ trwiki
-		  print "Q".$qid."\tStrwiki\t\"".$kat."\"\n";
+#		  print "Q".$qid."\tStrwiki\t\"".$kat."\"\n";
 
 
             # $count++;
