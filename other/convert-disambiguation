@@ -11,7 +11,10 @@ my $INFILE = 'list.txt';
 
 open ( IN, "< $INFILE") || die("cannot open $INFILE: $! \n");
 
-my @sprachliste = ("mul","en","bar","br","ca","co","da","de","de-at","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
+# my @sprachliste = ("mul","en","bar","br","ca","co","da","de","de-at","es","fr","id","it","nds","nl","nb","pl","pt","pt-br","ro","sl","sv","ty","ast");
+
+my @sprachliste = ("mul","en","de");
+
 
 my $count =0 ;
 while(<IN>)
@@ -24,13 +27,16 @@ while(<IN>)
     $lemma =~ s/^(\s)*//og; # trim
     $lemma =~ s/(\s)*$//og; # trim
 
-
+    print "CREATE\n";
+	
+	$WD = "LAST";
+	
     print "$WD\tP31\tQ4167410\n"; # ist eine: wikimedia-begriffsklärungsseite
 
     my $beschreibung ="Wikimedia-Begriffsklärungsseite";
     my $beschreibung_es ="página de desambiguación de Wikimedia";
     
-        print "$WD\tDde\t\"".$beschreibung."\"\n";
+    print "$WD\tDde\t\"".$beschreibung."\"\n";
     print "$WD\tDen\t\"Wikimedia disambiguation page\"\n";
     print "$WD\tDes\t\"".$beschreibung_es."\"\n";
     print "$WD\tDast\t\"páxina de dixebra de Wikimedia\"\n";
