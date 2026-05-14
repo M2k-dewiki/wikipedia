@@ -24,7 +24,9 @@ while(<IN>)
 
 
 print "CREATE\n";
-print "LAST\tP31\tQ11424\n";
+print "LAST\tP31\tQ11424\n"; # Film
+
+# print "LAST\tP31\tQ13406463\n"; # Liste
 
 print "LAST\tSenwiki\t\"".$kat."\"\n"; # sitelink
 print "LAST\tLen\t\"".$kat."\"\n"; # bezeichnung
