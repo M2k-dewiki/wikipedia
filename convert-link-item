@@ -27,8 +27,20 @@ print "CREATE\n";
 print "LAST\tSdewiki\t\"".$kat."\"\n"; # sitelink
 print "LAST\tLde\t\"".$kat."\"\n"; # bezeichnung
    
+# print "LAST\tP31\tQ46135307\n";  # ist eine : nation bei einer sportveranstaltung 
+# print "LAST\tP1344\tQ97622525\n";  # Teilnehmer an (P1344): Olympische Jugend-Sommerspiele 2026 (Q97622525)
 
-    
+# print "LAST\tP31\tQ7725634\n";  # ist eine : literarisches werk
+
+# print "LAST\tP31\tQ27020041\n";  # ist eine : spielsaison
+
+
+# print "LAST\tP31\tQ5\n"; # ist ein mensch
+# print "LAST\tP21\tQ6581072\n"; # geschlecht weiblich
+
+
+   
+   
 
 }
 close(IN);
