@@ -183,9 +183,6 @@ my $INFILE = 'wikidata_sS0V0r.tsv';
 # https://qlever.cs.uni-freiburg.de/wikidata/K6JRxO#tsv
 my $INFILE = 'wikidata_K6JRxO.tsv';
 
-# Taxon
-# https://qlever.cs.uni-freiburg.de/wikidata/Meq21X#tsv
-my $INFILE = 'wikidata_Meq21X.tsv';
 
 # Gericht
 # https://qlever.cs.uni-freiburg.de/wikidata/IvQ9UQ#tsv
@@ -224,6 +221,74 @@ my $INFILE = 'wikidata_IcCXsQ.tsv';
 # https://qlever.dev/wikidata/Lh2LmW
 my $INFILE = 'wikidata_Lh2LmW.tsv';
 
+# Tennis-Qualifikationswettbewerb (Q21170330)
+# https://qlever.dev/wikidata/6mzaA1#tsv
+my $INFILE = 'wikidata_6mzaA1.tsv';
+
+# Q13406463 Wikimedia-Liste	834
+# https://qlever.dev/wikidata/02Fd57#csv
+my $INFILE = 'wikidata_02Fd57.tsv';
+
+# Q4167410	Wikimedia-Begriffsklärungsseite	364
+# https://qlever.dev/wikidata/uwaNoN#tsv
+my $INFILE = 'wikidata_uwaNoN.tsv';
+
+# Q27020041	Sportsaison	11,286
+# https://qlever.dev/wikidata/vECvFr#tsv
+my $INFILE = 'wikidata_vECvFr.tsv';
+
+
+# Tennisturnierauflage (Q47345468)
+# https://qlever.dev/wikidata/zeScAG
+my $INFILE = 'wikidata_zeScAG.tsv';
+
+
+#	 Q4830453	Gewerbebetrieb	4,294
+# https://qlever.dev/wikidata/eXd7ar
+my $INFILE = 'wikidata_eXd7ar.tsv';
+
+
+#  Q18536594	olympischer Wettbewerb	3,313
+# https://qlever.dev/wikidata/iJscjf#tsv
+my $INFILE = 'wikidata_iJscjf.tsv';
+
+#	 Q3231690	Automodell	1,908
+# https://qlever.dev/wikidata/8c6ofQ#tsv
+my $INFILE = 'wikidata_8c6ofQ.tsv';
+
+#  Q50846468 Sporttour	1,312
+# https://qlever.dev/wikidata/Dt0eoj#tsv
+my $INFILE = 'wikidata_Dt0eoj.tsv';
+
+#	 Q19832486	Lokomotivbaureihe	1,299
+# https://qlever.dev/wikidata/g9Xkb9#tsv
+my $INFILE = 'wikidata_g9Xkb9.tsv';
+
+
+#  Q728937	Eisenbahnstrecke	1,287
+# https://qlever.dev/wikidata/xCSdM8
+my $INFILE = 'wikidata_xCSdM8.tsv';
+
+# Q318  Galaxie	1,204
+# https://qlever.dev/wikidata/qIRZBh#tsv
+my $INFILE = 'wikidata_qIRZBh.tsv';
+
+#  Q786820	Automobilhersteller	895
+# https://qlever.dev/wikidata/s4Nhfn
+my $INFILE = 'wikidata_s4Nhfn.tsv';
+
+# Q7278	politische Partei	791
+# https://qlever.dev/wikidata/WMAVJ0#tsv
+my $INFILE = 'wikidata_WMAVJ0.tsv';
+
+# Civil Parish in Schottland (Q5124673)
+# https://qlever.dev/wikidata/sm6VjJ#tsv
+my $INFILE = 'wikidata_sm6VjJ.tsv';
+
+# Taxon
+# https://qlever.cs.uni-freiburg.de/wikidata/Meq21X#tsv
+my $INFILE = 'wikidata_Meq21X.tsv';
+
 
 
 
@@ -242,7 +307,26 @@ while(<IN>)
 #    $sitelink =~ s/\"//og;
    $QID =~ s/http:\/\/www.wikidata.org\/entity\///og;
 
-
+  $QID =~ s/^<//og;
+    $QID =~ s/>$//og;
+ # my $description = "Wikimedia-Liste";
+ # my $description = "Wikimedia-Begriffsklärungsseite";
+ # my $description = "Sportsaison";
+ # my $description = "Tennisturnierauflage";
+ # my $description = "Gewerbebetrieb";
+ # my $description = "olympischer Wettbewerb";
+ # my $description = "Automodell";
+ # my $description = "Sporttour";
+ # my $description = "Lokomotivbaureihe";
+ # my $description = "Eisenbahnstrecke";
+ # my $description = "Galaxie";
+ # my $description = "Automobilhersteller";
+ # my $description = "politische Partei";
+ 
+ # my $description = "Taxon";
+ #print "$QID\tDde\t\"".$description."\"\n"; next; 
+  
+ 
 
 
 	#test 
@@ -366,6 +450,13 @@ my $hs = HTML::Strip->new(emit_spaces => 0);
 my $clean_text = $hs->parse( $html );
 # $hs->eof;  
 
+
+# Entfernt {{Taxobox ... }}, auch über Zeilenumbrüche hinweg
+$clean_text =~ s/\{\{.*?\}\}//s;
+$clean_text =~ s/\(.*?\)//s;
+
+
+
 #print "========================\n";
 #print "CLEAN_TEXT:$clean_text:\n";
 #print "========================\n";
@@ -403,7 +494,7 @@ my $clean_text = $hs->parse( $html );
 # if ($clean_text =~ /(ist die|war die|ist eine|ist ein|war ein|war eine) ([0-9]+\.)?([^\.]+)(\.|\,)/i) {
 
 # ohne klammerteil
- if ($clean_text =~ /(ist die|war die|ist eine|ist ein|war ein|war eine) ([0-9]+\.)?([^\.\,\(]+)(\.|\,)/i) {
+ if ($clean_text =~ /(ist die|war die|ist eine|ist ein|war ein|war eine|sind ein|sind eine) ([0-9]+\.)?([^\.\,\(]+)(\.|\,)/i) {
 
         # print "*** MATCH:1: 1:$1:2.$2:3:$3:4:$4:5:$5:6:$6:7:$7:8:$8:9:$9:10:$10:11:$11:12:$12:\n";
 #	  $description = $2;
@@ -448,7 +539,11 @@ if ($description ne "") {
    print "$QID\tDde\t\"".$description."\"\n";
 # print "-------------\n";
 
-}    
+} else {
+	# print "==================\nsitelink:$sitelink:\nkein match: $clean_text:\n==================\n";
+}
+
+
 # exit;
 
   
