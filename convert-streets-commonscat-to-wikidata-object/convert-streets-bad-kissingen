@@ -141,7 +141,7 @@ WHERE
     bd:serviceParam wikibase:endpoint "www.wikidata.org";
                     wikibase:api "Generator";
                     mwapi:generator "search";
-                    mwapi:gsrsearch "inlabel:'.$lemma_ohne_zusatz.' hannover"@de;
+                    mwapi:gsrsearch "inlabel:'.$lemma_ohne_zusatz.' bad kissingen"@de;
                     mwapi:gsrlimit "max".
     ?item wikibase:apiOutputItem mwapi:title.
   }
